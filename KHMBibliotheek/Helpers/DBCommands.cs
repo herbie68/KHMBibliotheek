@@ -221,12 +221,6 @@ public class DBCommands
                 else
                 { byHeart = true; }
 
-                // Set total
-                //var total = int.Parse ( dataTable.Rows [ i ].ItemArray [ 42 ].ToString ( ) ) +
-                //        int.Parse ( dataTable.Rows [ i ].ItemArray [ 43 ].ToString ( ) ) +
-                //        int.Parse ( dataTable.Rows [ i ].ItemArray [ 44 ].ToString ( ) ) +
-                //        int.Parse ( dataTable.Rows [ i ].ItemArray [ 45 ].ToString ( ) );
-
                 // Set the datestrings
                 string dateCreated = "";
                 if ( dataTable.Rows [ i ].ItemArray [ 19 ].ToString ( ) != "" )
@@ -310,7 +304,7 @@ public class DBCommands
                         Duration = _duration,
                         DurationMinutes = _minutes,
                         DurationSeconds = _seconds,
-                        SearchField = $"{dataTable.Rows [ i ].ItemArray [ 2 ]} {dataTable.Rows [ i ].ItemArray [ 4 ]} {dataTable.Rows [ i ].ItemArray [ 5 ]} {dataTable.Rows [ i ].ItemArray [ 6 ]} {dataTable.Rows [ i ].ItemArray [ 7 ]} {dataTable.Rows [ i ].ItemArray [ 8 ]}"
+                        SearchField = $"{dataTable.Rows [ i ].ItemArray [ 2 ]} {dataTable.Rows [ i ].ItemArray [ 4 ]}"
                     } );
                     ;
                 }

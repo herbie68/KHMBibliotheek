@@ -5,8 +5,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:viewmodel="clr-namespace:KHMBibliotheek.ViewModels"
     Title="Scores"
-    d:DesignHeight="850"
-    d:DesignWidth="1600"
     DataContext="viewmodel:ScoreViewModel">
 
     <Grid>
@@ -45,10 +43,7 @@
         <!--#endregion-->
 
         <!--#region Action Buttons and hidden fields-->
-        <Grid
-            Grid.Row="1"
-            Margin="25,0,25,0"
-            Loaded="PageLoaded">
+        <Grid Grid.Row="1" Margin="25,0,25,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
@@ -146,15 +141,16 @@
         </Grid>
         <!--#endregion-->
 
-        <Grid Grid.Row="3" Margin="0,0,0,7">
+        <Grid Grid.Row="3" Margin="0,0,0,17">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*" />
                 <ColumnDefinition Width="5*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <!--#region Datagrid Scores-->
+            <!--#region Datagrid Section-->
             <StackPanel Orientation="Vertical">
+                <!--#region Datagrid Search Section-->
                 <Border
                     Margin="5"
                     Padding="3"
@@ -200,19 +196,21 @@
                         </Button>
                     </StackPanel>
                 </Border>
+                <!--#endregion-->
 
                 <!--#region DataGrid ScoresDataGrid-->
                 <DataGrid
                     x:Name="ScoresDataGrid"
                     Grid.Column="0"
-                    Margin="0,7,0,7"
+                    Margin="5,7,5,7"
                     Padding="5,0,5,0"
                     AlternationCount="1"
                     AutoGenerateColumns="false"
+                    DataContext="viewmodel:ScoreViewModel"
                     IsReadOnly="true"
                     ItemsSource="{Binding Scores, Mode=TwoWay}"
                     SelectedIndex="0"
-                    SelectedItem="0"
+                    SelectedItem="{Binding SelectedScore}"
                     SelectionChanged="SelectedScoreChanged"
                     SelectionMode="Single"
                     Style="{DynamicResource CustomDataGrid}">
@@ -230,7 +228,7 @@
                         <!--#region  Score Number-->
                         <DataGridTextColumn
                             x:Name="Score"
-                            Width="1*"
+                            Width=".5*"
                             Binding="{Binding Score}"
                             Header="Partituur" />
                         <!--#endregion-->
@@ -246,9 +244,10 @@
                         <!--#region DateCreated (Hidden)-->
                         <DataGridTextColumn
                             x:Name="DateCreated"
-                            Width="Auto"
-                            Binding="{Binding DateCreated}"
-                            Visibility="Collapsed" />
+                            Width="50"
+                            Binding="{Binding DateCreatedString}"
+                            Header="Date"
+                            Visibility="Visible" />
                         <!--#endregion-->
 
                         <!--#region DateModified (Hidden)-->
@@ -406,508 +405,498 @@
                     <!--#endregion-->
                 </DataGrid>
                 <!--#endregion-->
-
             </StackPanel>
             <!--#endregion-->
 
             <!--#region  Score and File information section-->
-            <Grid Grid.Column="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="120" />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
+            <Border
+                Grid.Column="1"
+                Margin="10,0,10,1"
+                Padding="3"
+                Background="White"
+                BorderBrush="Gainsboro"
+                BorderThickness="0,1,1,1"
+                CornerRadius="7"
+                DataContext="{Binding SelectedScore, Mode=TwoWay}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="110" />
+                        <RowDefinition Height="110" />
+                        <RowDefinition Height="160" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
 
-                <!--#region Score Information Section-->
-                <GroupBox
-                    Grid.Row="0"
-                    Header="Partituur gegevens"
-                    Style="{DynamicResource TabItem.Page.GroupBox.Header.Style}">
-                    <Grid Margin="5,1,5,1">
-                        <!--#region Score number and Title-->
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width=".1*" MinWidth="80" />
-                            <ColumnDefinition Width="*" MinWidth="450" />
-                        </Grid.ColumnDefinitions>
+                    <!--#region General Score Information Section-->
+                    <GroupBox
+                        Grid.Row="0"
+                        DataContext="{Binding SelectedScore}"
+                        Header="Partituur gegevens"
+                        Style="{DynamicResource TabItem.Page.GroupBox.Header.Style}">
+                        <Grid Margin="5,1,5,1">
+                            <!--#region Score number and Title-->
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width=".1*" MinWidth="80" />
+                                <ColumnDefinition Width="*" MinWidth="450" />
+                            </Grid.ColumnDefinitions>
 
-                        <!--#region Score Number-->
-                        <StackPanel Grid.Column="0" Style="{DynamicResource TabItem.Page.StackPanel.Style}">
-                            <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Partituur" />
-                            <TextBox
-                                x:Name="tbScoreNumber"
-                                MinWidth="70"
-                                MaxWidth="80"
-                                IsEnabled="False"
-                                Style="{DynamicResource TabItem.Page.TextBox.Style}"
-                                Text="{Binding SelectedItem.Score}" />
-                        </StackPanel>
-                        <!--#endregion-->
+                            <!--#region Score Number-->
+                            <StackPanel Grid.Column="0" Style="{DynamicResource TabItem.Page.StackPanel.Style}">
+                                <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Partituur" />
+                                <TextBox
+                                    x:Name="tbScoreNumber"
+                                    MinWidth="70"
+                                    MaxWidth="80"
+                                    IsEnabled="False"
+                                    Style="{DynamicResource TabItem.Page.TextBox.Style}"
+                                    Text="{Binding Score, UpdateSourceTrigger=PropertyChanged}" />
+                            </StackPanel>
+                            <!--#endregion-->
 
-                        <!--#region Score Title-->
-                        <StackPanel Grid.Column="1" Style="{DynamicResource TabItem.Page.StackPanel.Style}">
-                            <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Titel" />
-                            <TextBox
-                                x:Name="tbTitle"
-                                MinWidth="450"
-                                IsEnabled="False"
-                                Style="{DynamicResource TabItem.Page.TextBox.Style}"
-                                Text="{Binding SelectedItem.ScoreName, ElementName=ScoresDataGrid}" />
-                        </StackPanel>
-                        <!--#endregion-->
-                        <!--#endregion-->
-                    </Grid>
-                </GroupBox>
-                <!--#endregion-->
+                            <!--#region Score Title-->
+                            <StackPanel Grid.Column="1" Style="{DynamicResource TabItem.Page.StackPanel.Style}">
+                                <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Titel" />
+                                <TextBox
+                                    x:Name="tbTitle"
+                                    MinWidth="450"
+                                    IsEnabled="False"
+                                    Style="{DynamicResource TabItem.Page.TextBox.Style}"
+                                    Text="{Binding ScoreTitle, UpdateSourceTrigger=PropertyChanged}" />
+                            </StackPanel>
+                            <!--#endregion-->
+                            <!--#endregion-->
+                        </Grid>
+                    </GroupBox>
+                    <!--#endregion-->
 
-                <!--#region Digitalization Section-->
-                <GroupBox
-                    Grid.Row="1"
-                    Header="Digitalisering"
-                    Style="{DynamicResource TabItem.Page.GroupBox.Header.Style}">
-                    <Grid Margin="5,1,5,1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
+                    <!--#region Digitalization Section-->
+                    <GroupBox
+                        Grid.Row="1"
+                        Header="Digitalisering"
+                        Style="{DynamicResource TabItem.Page.GroupBox.Header.Style}">
+                        <Grid Margin="5,1,5,1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
 
-                        <!--#region Digitalized-->
-                        <StackPanel Grid.Column="0" Style="{DynamicResource TabItem.Page.StackPanel.Style}">
-                            <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Gedigitaliseerd" />
-                            <DatePicker
-                                x:Name="dpDigitized"
-                                Margin="0,0,50,7"
-                                IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
-                                SelectedDateChanged="DatePickerChanged" />
-                        </StackPanel>
-                        <!--#endregion-->
+                            <!--#region Digitalized-->
+                            <StackPanel Grid.Column="0" Style="{DynamicResource TabItem.Page.StackPanel.Style}">
+                                <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Gedigitaliseerd" />
+                                <DatePicker
+                                    x:Name="dpDigitized"
+                                    Margin="0,0,50,7"
+                                    IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
+                                    SelectedDateChanged="DatePickerChanged" />
+                            </StackPanel>
+                            <!--#endregion-->
 
-                        <!--#region Modified-->
-                        <StackPanel Grid.Column="1" Style="{DynamicResource TabItem.Page.StackPanel.Style}">
-                            <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Laatste aanpassing" />
-                            <DatePicker
-                                x:Name="dpModified"
-                                Margin="0,0,50,7"
-                                IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
-                                SelectedDateChanged="DatePickerChanged" />
-                        </StackPanel>
-                        <!--#endregion-->
+                            <!--#region Modified-->
+                            <StackPanel Grid.Column="1" Style="{DynamicResource TabItem.Page.StackPanel.Style}">
+                                <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Laatste aanpassing" />
+                                <DatePicker
+                                    x:Name="dpModified"
+                                    Margin="0,0,50,7"
+                                    IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
+                                    SelectedDateChanged="DatePickerChanged" />
+                            </StackPanel>
+                            <!--#endregion-->
 
-                        <!--#region Checked-->
-                        <StackPanel Grid.Column="2" Style="{DynamicResource TabItem.Page.StackPanel.Style}">
-                            <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Gecontroleerd" />
+                            <!--#region Checked-->
+                            <StackPanel Grid.Column="2" Style="{DynamicResource TabItem.Page.StackPanel.Style}">
+                                <TextBlock Style="{DynamicResource TabItem.Page.Label.Style}" Text="Gecontroleerd" />
+                                <CheckBox
+                                    x:Name="chkChecked"
+                                    Checked="CheckBoxChanged"
+                                    IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
+                                    Unchecked="CheckBoxChanged" />
+                            </StackPanel>
+                            <!--#endregion-->
+                        </Grid>
+                    </GroupBox>
+                    <!--#endregion-->
+
+                    <!--#region File Section-->
+                    <GroupBox
+                        Grid.Row="2"
+                        Header="Bestanden"
+                        Style="{DynamicResource TabItem.Page.GroupBox.Header.Style}">
+                        <Grid Margin="5,1,5,1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="76" />
+                                <ColumnDefinition Width="50" />
+                                <ColumnDefinition Width="45" />
+                                <ColumnDefinition Width="76" />
+                                <ColumnDefinition Width="50" />
+                                <ColumnDefinition Width="45" />
+                                <ColumnDefinition Width="76" />
+                                <ColumnDefinition Width="30" />
+                                <ColumnDefinition Width="35" />
+                                <ColumnDefinition Width="30" />
+                                <ColumnDefinition Width="45" />
+                                <ColumnDefinition Width="76" />
+                                <ColumnDefinition Width="50" />
+                                <ColumnDefinition Width="35" />
+                            </Grid.ColumnDefinitions>
+
+                            <!--#region MuseScore Files Section-->
+                            <!--#region File type Logo-->
+                            <Image
+                                Grid.RowSpan="4"
+                                Grid.Column="0"
+                                Source="..\Resources\Images\filetypemscx.png"
+                                Style="{DynamicResource TabItem.Page.Image.Style}" />
+                            <!--#endregion-->
+
+                            <!--#region MuseScore ORP-->
+                            <TextBlock
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Style="{DynamicResource TabItem.Page.Label.Style}"
+                                Text="ORP (Totaal)" />
                             <CheckBox
-                                x:Name="chkChecked"
+                                x:Name="chkMSCORP"
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                IsEnabled="False" />
+                            <!--#endregion-->
+
+                            <!--#region MuseScore ORK-->
+                            <TextBlock
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Style="{DynamicResource TabItem.Page.Label.Style}"
+                                Text="ORK (Koor)" />
+                            <CheckBox
+                                x:Name="chkMSCORK"
+                                Grid.Row="1"
+                                Grid.Column="2"
+                                IsEnabled="False" />
+                            <!--#endregion-->
+
+                            <!--#region MuseScore TOP-->
+                            <TextBlock
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                Style="{DynamicResource TabItem.Page.Label.Style}"
+                                Text="TOP (Totaal)" />
+                            <CheckBox
+                                x:Name="chkMSCTOP"
+                                Grid.Row="2"
+                                Grid.Column="2"
+                                IsEnabled="False" />
+                            <!--#endregion-->
+
+                            <!--#region MuseScore TOK-->
+                            <TextBlock
+                                Grid.Row="3"
+                                Grid.Column="1"
+                                Style="{DynamicResource TabItem.Page.Label.Style}"
+                                Text="TOK (Koor)" />
+                            <CheckBox
+                                x:Name="chkMSCTOK"
+                                Grid.Row="3"
+                                Grid.Column="2"
+                                IsEnabled="False" />
+                            <!--#endregion-->
+                            <!--#endregion-->
+
+                            <!--#region PDF Files Section-->
+                            <!--#region Filetype Logo-->
+                            <Image
+                                Grid.Row="0"
+                                Grid.RowSpan="4"
+                                Grid.Column="3"
+                                Source="..\Resources\Images\filetypepdf.png"
+                                Style="{DynamicResource TabItem.Page.Image.Style}" />
+                            <!--#endregion-->
+
+                            <!--#region PDF ORP-->
+                            <TextBlock
+                                Grid.Row="0"
+                                Grid.Column="4"
+                                Style="{DynamicResource TabItem.Page.Label.Style}"
+                                Text="ORP (Totaal)" />
+                            <CheckBox
+                                x:Name="chkPDFORP"
+                                Grid.Row="0"
+                                Grid.Column="5"
+                                IsEnabled="False" />
+                            <!--#endregion-->
+
+                            <!--#region PDF ORK-->
+                            <TextBlock
+                                Grid.Row="1"
+                                Grid.Column="4"
+                                Style="{DynamicResource TabItem.Page.Label.Style}"
+                                Text="ORK (Koor)" />
+                            <CheckBox
+                                x:Name="chkPDFORK"
+                                Grid.Row="1"
+                                Grid.Column="5"
+                                IsEnabled="False" />
+                            <!--#endregion-->
+
+                            <!--#region PDF TOP-->
+                            <TextBlock
+                                Grid.Row="2"
+                                Grid.Column="4"
+                                Style="{DynamicResource TabItem.Page.Label.Style}"
+                                Text="TOP (Totaal)" />
+                            <CheckBox
+                                x:Name="chkPDFTOP"
+                                Grid.Row="2"
+                                Grid.Column="5"
+                                IsEnabled="False" />
+                            <!--#endregion-->
+
+                            <!--#region PDF TOK-->
+                            <TextBlock
+                                Grid.Row="3"
+                                Grid.Column="4"
+                                Style="{DynamicResource TabItem.Page.Label.Style}"
+                                Text="TOK (Koor)" />
+                            <CheckBox
+                                x:Name="chkPDFTOK"
+                                Grid.Row="3"
+                                Grid.Column="5"
+                                IsEnabled="False" />
+                            <!--#endregion-->
+                            <!--#endregion-->
+
+                            <!--#region MP3 Audio Files Section-->
+                            <!--#region Filetype Logo-->
+                            <Image
+                                Grid.Row="0"
+                                Grid.RowSpan="4"
+                                Grid.Column="6"
+                                Source="..\Resources\Images\filetypemp3.png"
+                                Style="{DynamicResource TabItem.Page.Image.Style}" />
+                            <!--#endregion-->
+
+                            <!--#region MP3 B1-->
+                            <TextBlock
+                                Grid.Row="0"
+                                Grid.Column="7"
+                                Style="{DynamicResource TabItem.Page.Label.Style}"
+                                Text="B1" />
+                            <CheckBox
+                                x:Name="chkMP3B1"
+                                Grid.Row="0"
+                                Grid.Column="8"
+                                IsEnabled="False" />
+                            <!--#endregion-->
+
+                            <!--#region MP3 B2-->
+                            <TextBlock
+                                Grid.Row="1"
+                                Grid.Column="7"
+                                Style="{DynamicResource TabItem.Page.Label.Style}"
+                                Text="B2" />
+                            <CheckBox
+                                x:Name="chkMP3B2"
+                                Grid.Row="1"
+                                Grid.Column="8"
+                                IsEnabled="False" />
+                            <!--#endregion-->
+
+                            <!--#region MP3 T1-->
+                            <TextBlock
+                                Grid.Row="2"
+                                Grid.Column="7"
+                                Style="{DynamicResource TabItem.Page.Label.Style}"
+                                Text="T1" />
+                            <CheckBox
+                                x:Name="chkMP3T1"
+                                Grid.Row="2"
+                                Grid.Column="8"
+                                IsEnabled="False" />
+                            <!--#endregion-->
+
+                            <!--#region MP3 T2-->
+                            <TextBlock
+                                Grid.Row="3"
+                                Grid.Column="7"
+                                Style="{DynamicResource TabItem.Page.Label.Style}"
+                                Text="T2" />
+                            <CheckBox
+                                x:Name="chkMP3T2"
+                                Grid.Row="3"
+                                Grid.Column="8"
+                                IsEnabled="False" />
+                            <!--#endregion-->
+
+                            <!--#region MP3 Solo-->
+                            <TextBlock
+                                Grid.Row="0"
+                                Grid.Column="9"
+                                Style="{DynamicResource TabItem.Page.Label.Style}"
+                                Text="SOL" />
+                            <CheckBox
+                                x:Name="chkMP3SOL"
+                                Grid.Row="0"
+                                Grid.Column="10"
+                                IsEnabled="False" />
+                            <!--#endregion-->
+
+                            <!--#region MP3 TOT-->
+                            <TextBlock
+                                Grid.Row="1"
+                                Grid.Column="9"
+                                Style="{DynamicResource TabItem.Page.Label.Style}"
+                                Text="TOT" />
+                            <CheckBox
+                                x:Name="chkMP3TOT"
+                                Grid.Row="1"
+                                Grid.Column="10"
+                                IsEnabled="False" />
+                            <!--#endregion-->
+
+                            <!--#region MP3 PIA-->
+                            <TextBlock
+                                Grid.Row="2"
+                                Grid.Column="9"
+                                Style="{DynamicResource TabItem.Page.Label.Style}"
+                                Text="PIA" />
+                            <CheckBox
+                                x:Name="chkMP3PIA"
+                                Grid.Row="2"
+                                Grid.Column="10"
+                                IsEnabled="False" />
+                            <!--#endregion-->
+                            <!--#endregion-->
+
+                            <!--#region MuseScore Online Section-->
+                            <!--#region File type MuseScoreOnline Logo-->
+                            <Image
+                                Grid.Row="0"
+                                Grid.RowSpan="4"
+                                Grid.Column="11"
+                                Source="..\Resources\Images\filetypemscxonline.png"
+                                Style="{DynamicResource TabItem.Page.Image.Style}" />
+                            <!--#endregion-->
+
+                            <!--#region MuseScore Online-->
+                            <TextBlock
+                                Grid.Row="0"
+                                Grid.Column="12"
+                                Style="{DynamicResource TabItem.Page.Label.Style}"
+                                Text="Online" />
+                            <CheckBox
+                                x:Name="chkMSCOnline"
+                                Grid.Row="0"
+                                Grid.Column="13"
                                 Checked="CheckBoxChanged"
                                 IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
                                 Unchecked="CheckBoxChanged" />
-                        </StackPanel>
-                        <!--#endregion-->
-                    </Grid>
-                </GroupBox>
-                <!--#endregion-->
+                            <!--#endregion-->
+                            <!--#endregion-->
 
-                <!--#region MuseScore Files Section-->
-                <GroupBox
-                    Grid.Row="2"
-                    Header="MuseScore bestanden"
-                    Style="{DynamicResource TabItem.Page.GroupBox.Header.Style}">
-                    <Grid Margin="5,1,5,1">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
+                        </Grid>
+                    </GroupBox>
+                    <!--#endregion-->
 
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="76" />
-                            <ColumnDefinition Width="50" />
-                            <ColumnDefinition Width="20" />
-                            <ColumnDefinition Width="80" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="76" />
-                            <ColumnDefinition Width="50" />
-                            <ColumnDefinition Width="20" />
-                        </Grid.ColumnDefinitions>
+                    <!--#region Upload Files Section-->
+                    <GroupBox
+                        Grid.Row="3"
+                        Header="Bestanden uploaden"
+                        Style="{DynamicResource TabItem.Page.GroupBox.Header.Style}">
+                        <Grid Margin="5,1,5,1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="100" />
+                                <RowDefinition Height="25" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
 
-                        <!--#region MuseScore files-->
-                        <!--#region Filetype Logo-->
-                        <Image
-                            Grid.RowSpan="4"
-                            Grid.Column="0"
-                            Source="..\Resources\Images\filetypemscx.png"
-                            Style="{DynamicResource TabItem.Page.Image.Style}" />
-                        <!--#endregion-->
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
 
-                        <!--#region MuseScore ORP-->
-                        <TextBlock
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            Style="{DynamicResource TabItem.Page.Label.Style}"
-                            Text="ORP (Totaal)" />
-                        <CheckBox
-                            x:Name="chkMSCORP"
-                            Grid.Row="0"
-                            Grid.Column="2"
-                            IsEnabled="False" />
-                        <!--#endregion-->
-
-                        <!--#region MuseScore ORK-->
-                        <TextBlock
-                            Grid.Row="1"
-                            Grid.Column="1"
-                            Style="{DynamicResource TabItem.Page.Label.Style}"
-                            Text="ORK (Koor)" />
-                        <CheckBox
-                            x:Name="chkMSCORK"
-                            Grid.Row="1"
-                            Grid.Column="2"
-                            IsEnabled="False" />
-                        <!--#endregion-->
-
-                        <!--#region MuseScore TOP-->
-                        <TextBlock
-                            Grid.Row="2"
-                            Grid.Column="1"
-                            Style="{DynamicResource TabItem.Page.Label.Style}"
-                            Text="TOP (Totaal)" />
-                        <CheckBox
-                            x:Name="chkMSCTOP"
-                            Grid.Row="2"
-                            Grid.Column="2"
-                            IsEnabled="False" />
-                        <!--#endregion-->
-
-                        <!--#region MuseScore TOK-->
-                        <TextBlock
-                            Grid.Row="3"
-                            Grid.Column="1"
-                            Style="{DynamicResource TabItem.Page.Label.Style}"
-                            Text="TOK (Koor)" />
-                        <CheckBox
-                            x:Name="chkMSCTOK"
-                            Grid.Row="3"
-                            Grid.Column="2"
-                            IsEnabled="False" />
-                        <!--#endregion-->
-
-                        <!--#region DragDrop section-->
-                        <Border
-                            Grid.Row="0"
-                            Grid.RowSpan="4"
-                            Grid.Column="3"
-                            Width="80"
-                            Height="80"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            AllowDrop="True"
-                            Background="LightGray"
-                            BorderThickness="0"
-                            CornerRadius="5"
-                            Cursor="Hand">
+                            <!--#region DragDrop section-->
                             <Border
-                                Width="74"
-                                Height="74"
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Width="100"
+                                Height="100"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 AllowDrop="True"
                                 Background="LightGray"
-                                BorderThickness="1.5"
+                                BorderThickness="0"
                                 CornerRadius="5"
-                                Cursor="Hand"
-                                ToolTip="Sleep hier de MuseScore bestanden naartoe">
-                                <Border.BorderBrush>
-                                    <DrawingBrush
-                                        TileMode="Tile"
-                                        Viewport="0,0,9,9"
-                                        ViewportUnits="Absolute">
-                                        <DrawingBrush.Drawing>
-                                            <DrawingGroup>
-                                                <GeometryDrawing Brush="White">
-                                                    <GeometryDrawing.Geometry>
-                                                        <GeometryGroup>
-                                                            <RectangleGeometry Rect="0,0,30,30" />
-                                                            <RectangleGeometry Rect="30,30,30,30" />
-                                                        </GeometryGroup>
-                                                    </GeometryDrawing.Geometry>
-                                                </GeometryDrawing>
-                                            </DrawingGroup>
-                                        </DrawingBrush.Drawing>
-                                    </DrawingBrush>
-                                </Border.BorderBrush>
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="20"/>
-                                        <RowDefinition Height="*"/>
-                                        <RowDefinition/>
-                                    </Grid.RowDefinitions>
-                                    
-                                    <StackPanel HorizontalAlignment="Center" Grid.Row="0">
+                                Cursor="Hand">
+                                <Border
+                                    Width="97"
+                                    Height="97"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    AllowDrop="True"
+                                    Background="LightGray"
+                                    BorderThickness="1.5"
+                                    CornerRadius="5"
+                                    Cursor="Hand"
+                                    ToolTip="Sleep hier de bestanden naartoe">
+                                    <Border.BorderBrush>
+                                        <DrawingBrush
+                                            TileMode="Tile"
+                                            Viewport="0,0,9,9"
+                                            ViewportUnits="Absolute">
+                                            <DrawingBrush.Drawing>
+                                                <DrawingGroup>
+                                                    <GeometryDrawing Brush="White">
+                                                        <GeometryDrawing.Geometry>
+                                                            <GeometryGroup>
+                                                                <RectangleGeometry Rect="0,0,30,30" />
+                                                                <RectangleGeometry Rect="30,30,30,30" />
+                                                            </GeometryGroup>
+                                                        </GeometryDrawing.Geometry>
+                                                    </GeometryDrawing>
+                                                </DrawingGroup>
+                                            </DrawingBrush.Drawing>
+                                        </DrawingBrush>
+                                    </Border.BorderBrush>
+
+                                    <StackPanel
+                                        Grid.Row="0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center">
+                                        <Path
+                                            Margin="0,2,0,0"
+                                            HorizontalAlignment="Center"
+                                            Data="{StaticResource uploadcloud}"
+                                            Fill="White" />
                                         <Label
+                                            Padding="0,10,0,0"
+                                            HorizontalAlignment="Center"
                                             Content="Sleep bestanden"
-                                            FontSize="8"
-                                            Foreground="LightSlateGray" Padding="0,0,0,0" HorizontalAlignment="Center" />
-                                        <Label
-                                            Content="hierheen"
-                                            FontSize="8"
-                                            Foreground="LightSlateGray" Padding="0,0,0,0" HorizontalAlignment="Center" />
+                                            FontSize="7"
+                                            Foreground="LightSlateGray" />
                                     </StackPanel>
-                                    <Button Grid.Row="2" Height="20" Content="Selecteer bestanden" FontSize="7" Foreground="LightSlateGray" Padding="0,0,0,0" BorderBrush="DarkSlateGray" Margin="3"/>
-                                </Grid>
+                                </Border>
                             </Border>
-                        </Border>
+                            <Button Grid.Row="1" Style="{DynamicResource UploadButtonStyle}" Click="BtnSelectFiles" />
+                            <!--#endregion-->
 
-                        <!--#endregion-->
-
-                        <!--#region MuseScore Online-->
-                        <!--#region Filetype Logo-->
-                        <Image
-                            Grid.Row="0"
-                            Grid.RowSpan="4"
-                            Grid.Column="5"
-                            Source="..\Resources\Images\filetypemscxonline.png"
-                            Style="{DynamicResource TabItem.Page.Image.Style}" />
-                        <!--#endregion-->
-
-                        <!--#region MuseScore Online-->
-                        <TextBlock
-                            Grid.Row="0"
-                            Grid.Column="6"
-                            Style="{DynamicResource TabItem.Page.Label.Style}"
-                            Text="Online" />
-                        <CheckBox
-                            x:Name="chkMSCOnline"
-                            Grid.Row="0"
-                            Grid.Column="7"
-                            Checked="CheckBoxChanged"
-                            IsEnabled="{Binding ElementName=tbEnableEditFields, Path=Text}"
-                            Unchecked="CheckBoxChanged" />
-                        <!--#endregion-->
-                        <!--#endregion-->
-                        <!--#endregion-->
-                    </Grid>
-                </GroupBox>
-                <!--#endregion-->
-
-                <!--#region PDF Files Section-->
-                <GroupBox
-                    Grid.Row="3"
-                    Header="PDF (Partituur) bestanden"
-                    Style="{DynamicResource TabItem.Page.GroupBox.Header.Style}">
-                    <Grid Margin="5,1,5,1">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="76" />
-                            <ColumnDefinition Width="50" />
-                            <ColumnDefinition Width="20" />
-                            <ColumnDefinition Width="80" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-
-                        <!--#region PDF files-->
-                        <!--#region Filetype Logo-->
-                        <Image
-                            Grid.Row="0"
-                            Grid.RowSpan="4"
-                            Grid.Column="0"
-                            Source="..\Resources\Images\filetypepdf.png"
-                            Style="{DynamicResource TabItem.Page.Image.Style}" />
-                        <!--#endregion-->
-
-                        <!--#region PDF ORP-->
-                        <TextBlock
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            Style="{DynamicResource TabItem.Page.Label.Style}"
-                            Text="ORP (Totaal)" />
-                        <CheckBox
-                            x:Name="chkPDFORP"
-                            Grid.Row="0"
-                            Grid.Column="2"
-                            IsEnabled="False" />
-                        <!--#endregion-->
-
-                        <!--#region PDF ORK-->
-                        <TextBlock
-                            Grid.Row="1"
-                            Grid.Column="1"
-                            Style="{DynamicResource TabItem.Page.Label.Style}"
-                            Text="ORK (Koor)" />
-                        <CheckBox
-                            x:Name="chkPDFORK"
-                            Grid.Row="1"
-                            Grid.Column="2"
-                            IsEnabled="False" />
-                        <!--#endregion-->
-
-                        <!--#region PDF TOP-->
-                        <TextBlock
-                            Grid.Row="2"
-                            Grid.Column="1"
-                            Style="{DynamicResource TabItem.Page.Label.Style}"
-                            Text="TOP (Totaal)" />
-                        <CheckBox
-                            x:Name="chkPDFTOP"
-                            Grid.Row="2"
-                            Grid.Column="2"
-                            IsEnabled="False" />
-                        <!--#endregion-->
-
-                        <!--#region PDF TOK-->
-                        <TextBlock
-                            Grid.Row="3"
-                            Grid.Column="1"
-                            Style="{DynamicResource TabItem.Page.Label.Style}"
-                            Text="TOK (Koor)" />
-                        <CheckBox
-                            x:Name="chkPDFTOK"
-                            Grid.Row="3"
-                            Grid.Column="2"
-                            IsEnabled="False" />
-                        <!--#endregion-->
-                        <!--#endregion-->
-                    </Grid>
-                </GroupBox>
-                <!--#endregion-->
-
-                <!--#region MP3 Files Section-->
-                <GroupBox
-                    Grid.Row="4"
-                    Header="MP3 (Audio) bestanden"
-                    Style="{DynamicResource TabItem.Page.GroupBox.Header.Style}">
-                    <Grid Margin="5,1,5,1">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="76" />
-                            <ColumnDefinition Width="50" />
-                            <ColumnDefinition Width="20" />
-                            <ColumnDefinition Width="40" />
-                            <ColumnDefinition Width="50" />
-                            <ColumnDefinition Width="20" />
-                            <ColumnDefinition Width="80" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-
-                        <!--#region MP3 files-->
-                        <!--#region Filetype Logo-->
-                        <Image
-                            Grid.Row="0"
-                            Grid.RowSpan="4"
-                            Grid.Column="0"
-                            Source="..\Resources\Images\filetypemp3.png"
-                            Style="{DynamicResource TabItem.Page.Image.Style}" />
-                        <!--#endregion-->
-
-                        <!--#region MP3 B1-->
-                        <TextBlock
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            Style="{DynamicResource TabItem.Page.Label.Style}"
-                            Text="B1" />
-                        <CheckBox
-                            x:Name="chkMP3B1"
-                            Grid.Row="0"
-                            Grid.Column="2"
-                            IsEnabled="False" />
-                        <!--#endregion-->
-
-                        <!--#region MP3 B2-->
-                        <TextBlock
-                            Grid.Row="1"
-                            Grid.Column="1"
-                            Style="{DynamicResource TabItem.Page.Label.Style}"
-                            Text="B2" />
-                        <CheckBox
-                            x:Name="chkMP3B2"
-                            Grid.Row="1"
-                            Grid.Column="2"
-                            IsEnabled="False" />
-                        <!--#endregion-->
-
-                        <!--#region MP3 T1-->
-                        <TextBlock
-                            Grid.Row="2"
-                            Grid.Column="1"
-                            Style="{DynamicResource TabItem.Page.Label.Style}"
-                            Text="T1" />
-                        <CheckBox
-                            x:Name="chkMP3T1"
-                            Grid.Row="2"
-                            Grid.Column="2"
-                            IsEnabled="False" />
-                        <!--#endregion-->
-
-                        <!--#region MP3 T2-->
-                        <TextBlock
-                            Grid.Row="3"
-                            Grid.Column="1"
-                            Style="{DynamicResource TabItem.Page.Label.Style}"
-                            Text="T2" />
-                        <CheckBox
-                            x:Name="chkMP3T2"
-                            Grid.Row="3"
-                            Grid.Column="2"
-                            IsEnabled="False" />
-                        <!--#endregion-->
-
-                        <!--#region MP3 Solo-->
-                        <TextBlock
-                            Grid.Row="0"
-                            Grid.Column="4"
-                            Style="{DynamicResource TabItem.Page.Label.Style}"
-                            Text="SOL" />
-                        <CheckBox
-                            x:Name="chkMP3SOL"
-                            Grid.Row="0"
-                            Grid.Column="5"
-                            IsEnabled="False" />
-                        <!--#endregion-->
-
-                        <!--#region MP3 TOT-->
-                        <TextBlock
-                            Grid.Row="1"
-                            Grid.Column="4"
-                            Style="{DynamicResource TabItem.Page.Label.Style}"
-                            Text="TOT" />
-                        <CheckBox
-                            x:Name="chkMP3TOT"
-                            Grid.Row="1"
-                            Grid.Column="5"
-                            IsEnabled="False" />
-                        <!--#endregion-->
-
-                        <!--#region MP3 PIA-->
-                        <TextBlock
-                            Grid.Row="2"
-                            Grid.Column="4"
-                            Style="{DynamicResource TabItem.Page.Label.Style}"
-                            Text="PIA" />
-                        <CheckBox
-                            x:Name="chkMP3PIA"
-                            Grid.Row="2"
-                            Grid.Column="5"
-                            IsEnabled="False" />
-                        <!--#endregion-->
-                        <!--#endregion-->
-                    </Grid>
-                </GroupBox>
-                <!--#endregion-->
-            </Grid>
+                            <!--#region Listview for uploading files-->
+                            <ListView
+                                x:Name="UploadedFilesListView"
+                                Grid.RowSpan="3"
+                                Grid.Column="1"
+                                Margin="20,0,10,0" />
+                            <!--#endregion-->
+                        </Grid>
+                    </GroupBox>
+                    <!--#endregion-->
+                </Grid>
+            </Border>
             <!--#endregion-->
 
             <!--#endregion-->

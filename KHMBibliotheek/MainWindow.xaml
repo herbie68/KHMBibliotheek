@@ -10,7 +10,6 @@
     Title="MainWindow"
     Width="1400"
     Height="650"
-    d:DataContext="{d:DesignInstance Type=viewmodels:UserViewModel}"
     AllowsTransparency="True"
     Background="Transparent"
     DataContext="viewmodels:UserViewModel"
