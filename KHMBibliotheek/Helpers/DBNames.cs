@@ -146,6 +146,23 @@ public class DBNames
     public static readonly string AvailableScoresFieldNameNumber = "Partituur";
     #endregion
 
+    #region Table/View Files... (table name differs, field names are similar
+    public static readonly string FilesMSCTable = "FilesMuseScore";
+    public static readonly string FilesPDFTable = "FilesPDF";
+    public static readonly string FilesMP3Table = "FilesMP3";
+    public static readonly string FilesMP3VoiceTable = "FilesMP3Voice";
+    public static readonly string FilesFieldNameId = "Id";
+    public static readonly string FilesFieldNameScoreId = "ScoreId";
+    public static readonly string FilesFieldNameFileName = "FileName";
+    public static readonly string FilesFieldNameFileSize = "FileSize";
+    public static readonly string FilesFieldNameFile = "File";
+    #endregion
+
+    #region Table/View FileIndex
+    public static readonly string FilesIndexTable="FilesIndex";
+    public static readonly string FilesIndexFieldNameId = "Id";
+    public static readonly string FilesIndexFieldNameScoreId = "ScporeId";
+
     #region Table/View Users
     public static readonly string UsersTable = "Users";
     public static readonly string UsersFieldNameId = "Id";

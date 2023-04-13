@@ -258,7 +258,8 @@ public partial class MaintainScores : Page
         {
             //Get Selected Files
             files = openFileDialog.FileNames;
-            CheckFiles ( files );
+
+            FilesHandler.CheckFiles ( files );
 
             CalculateTotalFilesize ( files );
             //if ( !worker.IsBusy )

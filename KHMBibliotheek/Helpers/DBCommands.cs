@@ -1,6 +1,8 @@
 ﻿#pragma warning disable CS8602
 #pragma warning disable CS8604
 
+using System.IO;
+
 namespace KHMBibliotheek.Helpers;
 
 public class DBCommands
@@ -98,6 +100,101 @@ public class DBCommands
     }
     #endregion
     #endregion
+
+    #region Get 1 Field from the database table
+    public static string GetScoreField ( string _table, string _retrieveField, string _whereFieldName, string _whereFieldValue )
+    {
+        // No matter what type the retrieved field is, it will always be returned as a string
+
+        string? _result = "";
+        int _retrieveItem;
+        _ = new
+        DataTable ( );
+
+        DataTable dataTable = GetData ( _table, "nosort", _whereFieldName, _whereFieldValue );
+
+        switch ( _retrieveField.ToLower ( ) )
+        {
+            case "scoreid":
+                _retrieveItem = 0;
+                break;
+            case "score":
+                _retrieveItem = 1;
+                break;
+            case "scorenumber":
+                _retrieveItem = 2;
+                break;
+            case "scoresubnumber":
+                _retrieveItem = 3;
+                break;
+            case "scoretitle":
+                _retrieveItem = 4;
+                break;
+            case "scoresubtitle":
+                _retrieveItem = 5;
+                break;
+            case "composer":
+                _retrieveItem = 6;
+                break;
+            case "textwriter":
+                _retrieveItem = 7;
+                break;
+            case "arranger":
+                _retrieveItem = 8;
+                break;
+            default:
+                _retrieveItem = 4; //Title
+                break;
+        }
+
+        if ( dataTable.Rows.Count > 0 )
+        {
+            for ( int i = 0 ; i < dataTable.Rows.Count ; i++ )
+            {
+                _result = dataTable.Rows [ i ].ItemArray [ _retrieveItem ].ToString ( );
+            }
+        }
+        return _result;
+    }
+    #endregion
+
+    #region Get Title from the database table
+    public static string GetScoreTitle ( string _table, string _whereFieldName, string _whereFieldValue )
+    {
+        string? _result = "";
+
+        DataTable dataTable = new ( );
+
+        dataTable = GetData ( _table, "nosort", _whereFieldName, _whereFieldValue );
+
+        if ( dataTable.Rows.Count > 0 )
+        {
+            for ( int i = 0 ; i < dataTable.Rows.Count ; i++ )
+            {
+                _result = dataTable.Rows [ i ].ItemArray [ 4 ].ToString ( );
+            }
+        }
+        return _result;
+    }
+    #endregion
+
+    #region Get FileIndex Id for ScoreId
+    public static int GetFileIndexIfFromScoreId ( int _scoreId )
+    {
+        int id;
+        string sqlQuery = DBNames.SqlSelect + DBNames.FilesIndexFieldNameId + DBNames.SqlFrom + DBNames.Database + "." + DBNames.FilesIndexTable + DBNames.SqlWhere + DBNames.FilesIndexFieldNameScoreId + " = " + _scoreId;
+
+        using MySqlConnection connection = new(DBConnect.ConnectionString);
+        connection.Open ( );
+
+        using MySqlCommand cmd = new(sqlQuery, connection);
+
+        id = ( int ) cmd.ExecuteScalar ( );
+
+        return id;
+    }
+    #endregion
+
 
     #region Get Available Scores
     public static ObservableCollection<ScoreModel> GetAvailableScores ( )
@@ -522,6 +619,67 @@ public class DBCommands
             Debug.WriteLine ( "Fout (UpdateScoresTable): " + ex.Message );
             throw;
         }
+    }
+    #endregion
+
+    #region Store file in database table
+    public static void StoreFile ( string _table, string _path, string _fileName )
+    {
+        int fileSize;
+        string sqlQuery;
+        byte[] rawData;
+        FileStream fs;
+
+        try
+        {
+            fs = new FileStream ( @_path, FileMode.Open, FileAccess.Read );
+            fileSize = Convert.ToInt32 ( fs.Length );
+
+            rawData = new byte [ fileSize ];
+            fs.Read ( rawData, 0, Convert.ToInt32 ( fs.Length ) );
+            fs.Close ( );
+
+            using MySqlConnection connection = new(DBConnect.ConnectionString);
+            connection.Open ( );
+
+            sqlQuery = DBNames.SqlInsert + _table + DBNames.SqlValues + "( NULL, @FileName, @FileSize, @File)";
+
+            using MySqlCommand cmd = new(sqlQuery, connection);
+
+            cmd.Connection = connection;
+            cmd.CommandText = sqlQuery;
+            cmd.Parameters.AddWithValue ( "@FileName", _fileName );
+            cmd.Parameters.AddWithValue ( "@FileSize", fileSize );
+            cmd.Parameters.AddWithValue ( "@File", rawData );
+
+            cmd.ExecuteNonQuery ( );
+
+            connection.Close ( );
+        }
+        catch ( MySql.Data.MySqlClient.MySqlException ex )
+        {
+            MessageBox.Show ( "Error " + ex.Number + " is opgetreden: " + ex.Message,
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error );
+        }
+    }
+    #endregion
+
+    #region Get latest FileId
+    public static int GetAddedFileId ( string _tableName )
+    {
+        int fileId;
+        var sqlQuery = DBNames.SqlSelectAll +
+            DBNames.SqlFrom + DBNames.Database + "." + _tableName +
+            DBNames.SqlOrder + DBNames.FilesFieldNameId + DBNames.SqlDesc + DBNames.SqlLimit + "1";
+
+        using MySqlConnection connection = new(DBConnect.ConnectionString);
+        connection.Open ( );
+
+        using MySqlCommand cmd = new(sqlQuery, connection);
+
+        fileId = ( int ) cmd.ExecuteScalar ( );
+
+        return fileId;
     }
     #endregion
 
