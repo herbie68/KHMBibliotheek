@@ -158,23 +158,26 @@ public class DBCommands
     }
     #endregion
 
-    #region Get Title from the database table
-    public static string GetScoreTitle ( string _table, string _whereFieldName, string _whereFieldValue )
+    #region Get fileId from database table
+    public static int GetFileId ( string _table, string _getFieldName, string _whereFieldName, int _whereFieldValue )
     {
-        string? _result = "";
+        int id;
+        string sqlQuery = DBNames.SqlSelect + _getFieldName + DBNames.SqlFrom + DBNames.Database + "." + _table + DBNames.SqlWhere + _whereFieldName + " = " + _whereFieldValue;
 
-        DataTable dataTable = new ( );
+        using MySqlConnection connection = new(DBConnect.ConnectionString);
+        connection.Open ( );
 
-        dataTable = GetData ( _table, "nosort", _whereFieldName, _whereFieldValue );
+        using MySqlCommand cmd = new(sqlQuery, connection);
 
-        if ( dataTable.Rows.Count > 0 )
+        try
         {
-            for ( int i = 0 ; i < dataTable.Rows.Count ; i++ )
-            {
-                _result = dataTable.Rows [ i ].ItemArray [ 4 ].ToString ( );
-            }
+            id = ( int ) cmd.ExecuteScalar ( );
         }
-        return _result;
+        catch ( Exception )
+        {
+            id = -1;
+        }
+        return id;
     }
     #endregion
 
@@ -189,12 +192,50 @@ public class DBCommands
 
         using MySqlCommand cmd = new(sqlQuery, connection);
 
+        try
+        {
+            id = ( int ) cmd.ExecuteScalar ( );
+        }
+        catch ( Exception )
+        {
+            id = -1;
+        }
+        return id;
+    }
+    #endregion
+
+    #region Get specific FileId from FileIndex Id for FileIndexId
+    public static int GetFileIdFromFilesIndex ( int _fileIndexId, string _fieldName )
+    {
+        int id;
+        string sqlQuery = DBNames.SqlSelect + _fieldName + DBNames.SqlFrom + DBNames.Database + "." + DBNames.FilesIndexTable + DBNames.SqlWhere + DBNames.FilesIndexFieldNameId + " = " + _fileIndexId;
+
+        using MySqlConnection connection = new(DBConnect.ConnectionString);
+        connection.Open ( );
+
+        using MySqlCommand cmd = new(sqlQuery, connection);
+
         id = ( int ) cmd.ExecuteScalar ( );
 
         return id;
     }
     #endregion
 
+    #region Add new Score to FilesIndex
+    public static void AddNewFileIndex ( int _scoreId )
+    {
+        var sqlQuery = DBNames.SqlInsert + DBNames.Database + "." + DBNames.FilesIndexTable +
+            " ( " + DBNames.FilesFieldNameScoreId + " ) " + DBNames.SqlValues +
+            " ( " + _scoreId + " ) ";
+
+        using MySqlConnection connection = new(DBConnect.ConnectionString);
+        connection.Open ( );
+
+        using MySqlCommand cmd = new(sqlQuery, connection);
+
+        int rowsAffected = cmd.ExecuteNonQuery();
+    }
+    #endregion
 
     #region Get Available Scores
     public static ObservableCollection<ScoreModel> GetAvailableScores ( )
@@ -661,6 +702,87 @@ public class DBCommands
             MessageBox.Show ( "Error " + ex.Number + " is opgetreden: " + ex.Message,
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error );
         }
+    }
+    #endregion
+
+    #region Update file in database table
+    public static void UpdateFile ( string _table, string _path, string _fileName, int _fileId )
+    {
+        int fileSize;
+        string sqlQuery;
+        byte[] rawData;
+        FileStream fs;
+
+        try
+        {
+            fs = new FileStream ( @_path, FileMode.Open, FileAccess.Read );
+            fileSize = Convert.ToInt32 ( fs.Length );
+
+            rawData = new byte [ fileSize ];
+            fs.Read ( rawData, 0, Convert.ToInt32 ( fs.Length ) );
+            fs.Close ( );
+
+            using MySqlConnection connection = new(DBConnect.ConnectionString);
+            connection.Open ( );
+
+            sqlQuery = DBNames.SqlUpdate + _table + DBNames.SqlSet + DBNames.FilesFieldNameFileName + " = @FileName, " + DBNames.FilesFieldNameFileSize + " = @FileSize, " + DBNames.FilesFieldNameFile + " = @File" + DBNames.SqlWhere + DBNames.FilesFieldNameId + " = " + _fileId + ";";
+
+            using MySqlCommand cmd = new(sqlQuery, connection);
+
+            cmd.Connection = connection;
+            cmd.CommandText = sqlQuery;
+            cmd.Parameters.AddWithValue ( "@FileName", _fileName );
+            cmd.Parameters.AddWithValue ( "@FileSize", fileSize );
+            cmd.Parameters.AddWithValue ( "@File", rawData );
+
+            cmd.ExecuteNonQuery ( );
+
+            connection.Close ( );
+        }
+        catch ( MySql.Data.MySqlClient.MySqlException ex )
+        {
+            MessageBox.Show ( "Error " + ex.Number + " is opgetreden: " + ex.Message,
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error );
+        }
+    }
+    #endregion
+
+    #region update FilesIndex tables, set the correct FileId for a specific Score
+    public static void UpdateFilesIndex ( string _fieldName, int _fileId, string _whereIdField, int _whereId )
+    {
+        using MySqlConnection connection = new(DBConnect.ConnectionString);
+        connection.Open ( );
+
+        var sqlQuery = DBNames.SqlUpdate + DBNames.FilesIndexTable + DBNames.SqlSet + _fieldName + " = @FileId, " + DBNames.SqlWhere + _whereIdField + " = " + _whereId + ";";
+
+        using MySqlCommand cmd = new(sqlQuery, connection);
+
+        cmd.Connection = connection;
+        cmd.CommandText = sqlQuery;
+        cmd.Parameters.AddWithValue ( "@FileId", _fileId );
+
+        cmd.ExecuteNonQuery ( );
+
+        connection.Close ( );
+    }
+    #endregion
+
+    #region update Library table, set the field for the available file for a specific Score
+    public static void UpdateLibraryForFile ( string _fieldName, int _fieldValue, string _whereIdField, int _whereId )
+    {
+        using MySqlConnection connection = new(DBConnect.ConnectionString);
+        connection.Open ( );
+
+        var sqlQuery = DBNames.SqlUpdate + DBNames.ScoresTable + DBNames.SqlSet + _fieldName + " = " + _fieldValue + DBNames.SqlWhere + _whereIdField + " = " + _whereId + ";";
+
+        using MySqlCommand cmd = new(sqlQuery, connection);
+
+        cmd.Connection = connection;
+        cmd.CommandText = sqlQuery;
+
+        cmd.ExecuteNonQuery ( );
+
+        connection.Close ( );
     }
     #endregion
 

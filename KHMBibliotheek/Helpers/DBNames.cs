@@ -161,7 +161,29 @@ public class DBNames
     #region Table/View FileIndex
     public static readonly string FilesIndexTable="FilesIndex";
     public static readonly string FilesIndexFieldNameId = "Id";
-    public static readonly string FilesIndexFieldNameScoreId = "ScporeId";
+    public static readonly string FilesIndexFieldNameScoreId = "ScoreId";
+    public static readonly string FilesIndexFieldNameMuseScoreORPId = "MuseScoreORPId";
+    public static readonly string FilesIndexFieldNameMuseScoreORKId = "MuseScoreORKId";
+    public static readonly string FilesIndexFieldNameMuseScoreTOPId = "MuseScoreTOPId";
+    public static readonly string FilesIndexFieldNameMuseScoreTOKId = "MuseScoreTOKId";
+    public static readonly string FilesIndexFieldNamePDFORPId = "PDFORPId";
+    public static readonly string FilesIndexFieldNamePDFORKId = "PDFORKId";
+    public static readonly string FilesIndexFieldNamePDFTOPId = "PDFTOPId";
+    public static readonly string FilesIndexFieldNamePDFTOKId = "PDFTOKId";
+    public static readonly string FilesIndexFieldNameMP3B1Id = "MP3B1Id";
+    public static readonly string FilesIndexFieldNameMP3B2Id = "MP3B2Id";
+    public static readonly string FilesIndexFieldNameMP3T1Id = "MP3T1Id";
+    public static readonly string FilesIndexFieldNameMP3T2Id = "MP3T2Id";
+    public static readonly string FilesIndexFieldNameMP3SOLId = "MP3SOLId";
+    public static readonly string FilesIndexFieldNameMP3TOTId = "MP3TOTId";
+    public static readonly string FilesIndexFieldNameMP3PIAId = "MP3PIAId";
+    public static readonly string FilesIndexFieldNameMP3VoiceB1Id = "MP3B1VoiceId";
+    public static readonly string FilesIndexFieldNameMP3VoiceB2Id = "MP3B2VoiceId";
+    public static readonly string FilesIndexFieldNameMP3VoiceT1Id = "MP3T1VoiceId";
+    public static readonly string FilesIndexFieldNameMP3VoiceT2Id = "MP3T2VoiceId";
+    public static readonly string FilesIndexFieldNameMP3VoiceSOLId = "MP3SOLVoiceId";
+    public static readonly string FilesIndexFieldNameMP3VoiceTOTId = "MP3TOTVoiceId";
+    #endregion
 
     #region Table/View Users
     public static readonly string UsersTable = "Users";
