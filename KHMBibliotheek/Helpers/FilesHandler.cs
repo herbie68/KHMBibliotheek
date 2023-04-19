@@ -43,7 +43,7 @@ public class FilesHandler
             // Check If ScoreNumber is a valid Number And if it is a valid file type And the uploaded Score Exists in the Library
             if ( scoreId > 0 && ( fileType.ToLower ( ) == "mscz" || fileType.ToLower ( ) == "pdf" || fileType.ToLower ( ) == "mp3" ) && Exists )
             {
-                scorePart = fileInfo [ 1 ].Trim ( );
+                scorePart = fileInfo [ 0 ].Trim ( ).Substring(3);
 
                 if ( fileInfo [ 1 ].Trim ( ).ToLower ( ).Contains ( hasVoiceString.Trim ( ).ToLower ( ) ) )
                 {
@@ -127,7 +127,7 @@ public class FilesHandler
             if ( _fieldId == -1 )
             {
                 // New file to upload, not currently in database
-                DBCommands.StoreFile ( _tableName, _filePath, _fileName );
+                DBCommands.StoreFile ( _tableName, _scoreId, _filePath, _fileName );
                 _fileId = DBCommands.GetAddedFileId ( _tableName );
             }
             else

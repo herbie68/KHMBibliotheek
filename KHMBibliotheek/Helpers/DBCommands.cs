@@ -664,7 +664,7 @@ public class DBCommands
     #endregion
 
     #region Store file in database table
-    public static void StoreFile ( string _table, string _path, string _fileName )
+    public static void StoreFile ( string _table, int _scoreId, string _path, string _fileName )
     {
         int fileSize;
         string sqlQuery;
@@ -683,12 +683,16 @@ public class DBCommands
             using MySqlConnection connection = new(DBConnect.ConnectionString);
             connection.Open ( );
 
-            sqlQuery = DBNames.SqlInsert + _table + DBNames.SqlValues + "( NULL, @FileName, @FileSize, @File)";
+            //sqlQuery = DBNames.SqlInsert + _table + "( " + 
+            //    DBNames.FilesFieldNameScoreId+ " )" + DBNames.SqlValues + "( NULL, @ScoreId, @FileName, @FileSize, @File)";
+
+            sqlQuery = $"{DBNames.SqlInsert} {_table} ( {DBNames.FilesFieldNameScoreId}, {DBNames.FilesFieldNameFileName}, {DBNames.FilesFieldNameFileSize}, {DBNames.FilesFieldNameFile} ) {DBNames.SqlValues} ( @ScoreId, @FileName, @FileSize, @File );";
 
             using MySqlCommand cmd = new(sqlQuery, connection);
 
             cmd.Connection = connection;
             cmd.CommandText = sqlQuery;
+            cmd.Parameters.AddWithValue("@ScoreId", _scoreId);
             cmd.Parameters.AddWithValue ( "@FileName", _fileName );
             cmd.Parameters.AddWithValue ( "@FileSize", fileSize );
             cmd.Parameters.AddWithValue ( "@File", rawData );
@@ -753,7 +757,7 @@ public class DBCommands
         using MySqlConnection connection = new(DBConnect.ConnectionString);
         connection.Open ( );
 
-        var sqlQuery = DBNames.SqlUpdate + DBNames.FilesIndexTable + DBNames.SqlSet + _fieldName + " = @FileId, " + DBNames.SqlWhere + _whereIdField + " = " + _whereId + ";";
+        var sqlQuery = $"{DBNames.SqlUpdate} {DBNames.FilesIndexTable} {DBNames.SqlSet} {_fieldName}=@FileId {DBNames.SqlWhere} {_whereIdField} = {_whereId};";
 
         using MySqlCommand cmd = new(sqlQuery, connection);
 
