@@ -138,7 +138,7 @@ public class FilesHandler
             }
 
             // Store the file Id in the FileIndex table
-            DBCommands.UpdateFilesIndex ( _fieldName, _fileId, DBNames.FilesIndexFieldNameId, _fieldId );
+            DBCommands.UpdateFilesIndex ( _fieldName, _fileId, DBNames.FilesIndexFieldNameId, _filesIndexId );
 
             // Set the correct Checkbox in the Library table, not needed for Voice files
             if ( !_hasVoice )
