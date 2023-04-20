@@ -13,6 +13,7 @@ public class FilesHandler
         int scoreId;
         string scoreNumber, scoreTitleSuffix, scoreTitle, _fileName, _newFileName, scorePart, filePathName, fileType;
         List<string> ErrorList = new();
+        ObservableCollection<FileUploadOkModel> FilesUploadOk = new();
 
         foreach ( var file in files )
         {
@@ -65,6 +66,7 @@ public class FilesHandler
                 _newFileName = $"{scoreNumber}{scorePart} - {scoreTitle}.{fileType}";
 
                 UploadFile ( filePathName, _newFileName, fileType, scoreId, scoreNumber, scorePart, hasVoice );
+                FilesUploadOk.Add ( new FileUploadOkModel { FileName = _fileName } );
             }
             else
             {
