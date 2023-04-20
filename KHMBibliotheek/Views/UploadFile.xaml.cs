@@ -1,10 +1,55 @@
 ﻿using System.IO;
 
-namespace KHMBibliotheek.Helpers;
-
-public class FilesHandler
+namespace KHMBibliotheek.Views;
+/// <summary>
+/// Interaction logic for UploadFile.xaml
+/// </summary>
+public partial class UploadFile : Window
 {
-    public static void CheckFiles ( string [ ] files )
+    ObservableCollection<FileUploadErrorModel> UploadErrorFiles = new();
+    public UploadFile ( string [ ] files )
+    {
+        InitializeComponent ( );
+
+        if ( files.Length == 1 )
+        {
+            lblHeader.Content = "Bestand Uploaden";
+        }
+
+        foreach ( var file in files )
+        {
+            tbCurrentFile.Text = $"Controleren: {file}";
+            var ExtentionOk = CheckExtention ( file );
+
+            if ( ExtentionOk != "" )
+            {
+                UploadErrorFiles.Add ( new FileUploadErrorModel { FileName = file, Reason = $"Ongeldig bestandstype ({ExtentionOk})" } );
+                //UploadedFilesErrorDataGrid.Items.Add ( file );
+            }
+            tbCurrentFile.Text = $"Uploaden: {file}";
+        }
+
+        //CheckFiles ( files );
+    }
+
+    public string CheckExtention ( string _file )
+    {
+        var _result = "";
+
+        if ( _file != null )
+        {
+            var _fileName = Path.GetFileName ( _file );
+            string[] _fileNameSplitup = _fileName.ToLower().Split('.');
+
+            if ( _fileNameSplitup [ 1 ] != "pdf" && _fileNameSplitup [ 1 ] != "mscz" && _fileNameSplitup [ 1 ] != "mp3" )
+            {
+                _result = _fileNameSplitup [ 1 ];
+            }
+        }
+        return _result;
+    }
+
+    public void CheckFiles ( string [ ] files )
     {
         var hasVoiceString = "(Ingezongen)";
         bool Exists, hasVoice;
@@ -17,7 +62,7 @@ public class FilesHandler
 
         foreach ( var file in files )
         {
-            _fileName = Path.GetFileName ( file );
+            _fileName = System.IO.Path.GetFileName ( file );
             filePathName = file;
             string[] fileNameSplitup = _fileName.Split('.');
             string[] fileInfo = fileNameSplitup[0].Split('-');
@@ -65,7 +110,7 @@ public class FilesHandler
 
                 _newFileName = $"{scoreNumber}{scorePart} - {scoreTitle}.{fileType}";
 
-                UploadFile ( filePathName, _newFileName, fileType, scoreId, scoreNumber, scorePart, hasVoice );
+                Upload ( filePathName, _newFileName, fileType, scoreId, scoreNumber, scorePart, hasVoice );
                 FilesUploadOk.Add ( new FileUploadOkModel { FileName = _fileName } );
             }
             else
@@ -75,7 +120,7 @@ public class FilesHandler
             }
         }
     }
-    public static void UploadFile ( string _filePath, string _fileName, string _fileType, int _scoreId, string _scoreNumber, string _scorePart, bool _hasVoice )
+    public static void Upload ( string _filePath, string _fileName, string _fileType, int _scoreId, string _scoreNumber, string _scorePart, bool _hasVoice )
     {
         string _tableName = "", _fieldName, _fieldNamePrefix = "";
         int _fieldId, _filesIndexId, _fileId;
@@ -258,4 +303,19 @@ public class FilesHandler
         }
     }
     #endregion
+
+    #region Drag Widow
+    private void Window_MouseDown ( object sender, MouseButtonEventArgs e )
+    {
+        if ( e.LeftButton == MouseButtonState.Pressed )
+        {
+            DragMove ( );
+        }
+    }
+    #endregion
+
+    private void Close_Click ( object sender, RoutedEventArgs e )
+    {
+
+    }
 }

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
 using Microsoft.Win32;
 
 namespace KHMBibliotheek.Views;
@@ -8,6 +9,10 @@ namespace KHMBibliotheek.Views;
 public partial class MaintainScores : Page
 {
     public ScoreViewModel? scores;
+    public FileUploadOkViewModel? fileUploadOk;
+    public FileUploadErrorViewModel? fileUploadError;
+    ObservableCollection<FileUploadErrorModel> UploadErrorFiles = new();
+    ObservableCollection<FileUploadOkModel> UploadFiles = new();
 
     public ScoreModel? SelectedScore;
     private string[]? files;
@@ -19,7 +24,11 @@ public partial class MaintainScores : Page
     {
         InitializeComponent ( );
         scores = new ScoreViewModel ( );
+        fileUploadOk = new FileUploadOkViewModel ( );
+        fileUploadError = new FileUploadErrorViewModel ( );
         ScoresDataGrid.ItemsSource = scores.Scores;
+        UploadedFilesDataGrid.ItemsSource = fileUploadOk.FilesUploadOk;
+        //ErrorFilesDataGrid.ItemsSource = fileUploadError.FilesUploadError;
         //DataContext = scores;
     }
 
@@ -252,18 +261,17 @@ public partial class MaintainScores : Page
     private void BtnSelectFiles ( object sender, RoutedEventArgs e )
     {
         OpenFileDialog openFileDialog = new OpenFileDialog() { Multiselect = true };
-        openFileDialog.Filter = "Muziek bestanden (MSCZ, MSCX,PDF,MP3)|*.MSC?;*.PDF;*.MP3";
+        openFileDialog.Filter = "Muziek bestanden (MSCZ, MSCX,PDF,MP3)|*.MSC?;*.PDF;*.MP3;*.*";
         bool? response = openFileDialog.ShowDialog();
         if ( response == true )
         {
             //Get Selected Files
             files = openFileDialog.FileNames;
+            ProcessFiles ( files );
 
-            FilesHandler.CheckFiles ( files );
+            //FilesHandler.CheckFiles ( files );
 
-            CalculateTotalFilesize ( files );
-            //if ( !worker.IsBusy )
-            //{ worker.RunWorkerAsync ( ); }
+            //CalculateTotalFilesize ( files );
         }
     }
     #endregion
@@ -280,4 +288,64 @@ public partial class MaintainScores : Page
         //progressBar.Maximum = totalSize;
     }
     #endregion
+
+
+    private void Files_Drop ( object sender, DragEventArgs e )
+    {
+        string [] files;
+
+        if ( e.Data.GetDataPresent ( DataFormats.FileDrop ) )
+        {
+            files = ( string [ ] ) e.Data.GetData ( DataFormats.FileDrop );
+            ProcessFiles ( files );
+            //UploadFile uploadFile = new(files);
+            //uploadFile.Show ( );
+        }
+
+    }
+
+    private void ProcessFiles ( string [ ] files )
+    {
+        if ( files.Length == 1 )
+        {
+            UploadBox.Header = "Bestand Uploaden";
+        }
+
+        foreach ( var file in files )
+        {
+            tbCurrentFile.Text = $"Controleren: {file}";
+            var ExtentionOk = CheckExtention ( file );
+            var _fileName = Path.GetFileName ( file );
+
+            if ( ExtentionOk != "" )
+            {
+                UploadErrorFiles.Add ( new FileUploadErrorModel { FileName = _fileName, Reason = $"Ongeldig bestandstype ({ExtentionOk})" } );
+
+                ErrorFilesDataGrid.ItemsSource = UploadErrorFiles;
+            }
+            else
+            {
+                tbCurrentFile.Text = $"Uploaden: {file}";
+
+                // Continue with uploading file
+            }
+        }
+    }
+
+    public string CheckExtention ( string _file )
+    {
+        var _result = "";
+
+        if ( _file != null )
+        {
+            var _fileName = Path.GetFileName ( _file );
+            string[] _fileNameSplitup = _fileName.ToLower().Split('.');
+
+            if ( _fileNameSplitup [ 1 ] != "pdf" && _fileNameSplitup [ 1 ] != "mscz" && _fileNameSplitup [ 1 ] != "mp3" )
+            {
+                _result = _fileNameSplitup [ 1 ];
+            }
+        }
+        return _result;
+    }
 }

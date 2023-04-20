@@ -7,5 +7,5 @@ public partial class FileUploadErrorViewModel : ObservableObject
     [ObservableProperty]
     public string ? reason;
 
-    public ObservableCollection<FileUploadErrorModel> filesUploadError { get; set; }
+    public ObservableCollection<FileUploadErrorModel>? UploadErrorFiles { get; set; }
 }
