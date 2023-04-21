@@ -158,6 +158,52 @@ public class DBCommands
     }
     #endregion
 
+    #region Get Id Based on Where field
+    public static int GetId ( string _table, string _getFieldName, string _whereFieldName, string _whereFieldValue )
+    {
+        int _result;
+        string sqlQuery = $"{DBNames.SqlSelect}{_getFieldName}{DBNames.SqlFrom}{DBNames.Database}.{_table}{DBNames.SqlWhere}{_whereFieldName}  = '{_whereFieldValue}';";
+
+        using MySqlConnection connection = new(DBConnect.ConnectionString);
+        connection.Open ( );
+
+        using MySqlCommand cmd = new(sqlQuery, connection);
+
+        try
+        {
+            _result = ( int ) cmd.ExecuteScalar ( );
+        }
+        catch ( Exception )
+        {
+            _result = -1;
+        }
+        return _result;
+    }
+    #endregion
+
+    #region Get String Based on Where field
+    public static string GetField ( string _table, string _getFieldName, string _whereFieldName, string _whereFieldValue )
+    {
+        string _result;
+        string sqlQuery = $"{DBNames.SqlSelect}{_getFieldName}{DBNames.SqlFrom}{DBNames.Database}.{_table}{DBNames.SqlWhere}{_whereFieldName}  = '{_whereFieldValue}';";
+
+        using MySqlConnection connection = new(DBConnect.ConnectionString);
+        connection.Open ( );
+
+        using MySqlCommand cmd = new(sqlQuery, connection);
+
+        try
+        {
+            _result = ( string ) cmd.ExecuteScalar ( );
+        }
+        catch ( Exception )
+        {
+            _result = "";
+        }
+        return _result;
+    }
+    #endregion
+
     #region Get fileId from database table
     public static int GetFileId ( string _table, string _getFieldName, string _whereFieldName, int _whereFieldValue )
     {
@@ -185,7 +231,7 @@ public class DBCommands
     public static int GetFileIndexIfFromScoreId ( int _scoreId )
     {
         int id;
-        string sqlQuery = DBNames.SqlSelect + DBNames.FilesIndexFieldNameId + DBNames.SqlFrom + DBNames.Database + "." + DBNames.FilesIndexTable + DBNames.SqlWhere + DBNames.FilesIndexFieldNameScoreId + " = " + _scoreId;
+        string sqlQuery = $"{DBNames.SqlSelect}{DBNames.FilesIndexFieldNameId}{DBNames.SqlFrom}{DBNames.Database}.{DBNames.FilesIndexTable}{DBNames.SqlWhere}{DBNames.FilesIndexFieldNameScoreId} = {_scoreId};";
 
         using MySqlConnection connection = new(DBConnect.ConnectionString);
         connection.Open ( );
@@ -692,7 +738,7 @@ public class DBCommands
 
             cmd.Connection = connection;
             cmd.CommandText = sqlQuery;
-            cmd.Parameters.AddWithValue("@ScoreId", _scoreId);
+            cmd.Parameters.AddWithValue ( "@ScoreId", _scoreId );
             cmd.Parameters.AddWithValue ( "@FileName", _fileName );
             cmd.Parameters.AddWithValue ( "@FileSize", fileSize );
             cmd.Parameters.AddWithValue ( "@File", rawData );
