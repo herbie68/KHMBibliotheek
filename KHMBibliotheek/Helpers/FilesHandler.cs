@@ -112,7 +112,7 @@ public class FilesHandler
 
         if ( _tableName != "" )
         {
-            // Check if ScoreId exists in the FIlesIndex, if not a new record can be created
+            // Check if ScoreId exists in the FilesIndex, if not a new record can be created
             _filesIndexId = DBCommands.GetFileIndexIfFromScoreId ( _scoreId );
 
             if ( _filesIndexId == -1 )
