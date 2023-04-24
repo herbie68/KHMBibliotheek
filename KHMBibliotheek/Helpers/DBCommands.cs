@@ -330,7 +330,7 @@ public class DBCommands
             for ( int i = 0 ; i < dataTable.Rows.Count ; i++ )
             {
                 // Set the bools
-                bool check, byHeart, pdfORP, pdfORK, pdfTOP, pdfTOK, mscORP, mscORK, mscTOP, mscTOK, mscOnline, mp3B1, mp3B2, mp3T1, mp3T2, mp3SOL, mp3TOT, mp3PIA;
+                bool check, byHeart, pdfORP, pdfORK, pdfTOP, pdfTOK, pdfPIA, mscORP, mscORK, mscTOP, mscTOK, mscOnline, mp3B1, mp3B2, mp3T1, mp3T2, mp3SOL, mp3TOT, mp3PIA, mp3UITV;
 
                 if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 18 ].ToString ( ) ) == 0 )
                 { check = false; }
@@ -353,54 +353,62 @@ public class DBCommands
                 else
                 { pdfTOK = true; }
                 if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 27 ].ToString ( ) ) == 0 )
+                { pdfPIA = false; }
+                else
+                { pdfPIA = true; }
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 28 ].ToString ( ) ) == 0 )
                 { mscORP = false; }
                 else
                 { mscORP = true; }
-                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 28 ].ToString ( ) ) == 0 )
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 29 ].ToString ( ) ) == 0 )
                 { mscORK = false; }
                 else
                 { mscORK = true; }
-                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 29 ].ToString ( ) ) == 0 )
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 30 ].ToString ( ) ) == 0 )
                 { mscTOP = false; }
                 else
                 { mscTOP = true; }
-                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 30 ].ToString ( ) ) == 0 )
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 31 ].ToString ( ) ) == 0 )
                 { mscTOK = false; }
                 else
                 { mscTOK = true; }
-                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 31 ].ToString ( ) ) == 0 )
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 32 ].ToString ( ) ) == 0 )
                 { mp3TOT = false; }
                 else
                 { mp3TOT = true; }
-                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 32 ].ToString ( ) ) == 0 )
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 33 ].ToString ( ) ) == 0 )
                 { mp3T1 = false; }
                 else
                 { mp3T1 = true; }
-                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 33 ].ToString ( ) ) == 0 )
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 34 ].ToString ( ) ) == 0 )
                 { mp3T2 = false; }
                 else
                 { mp3T2 = true; }
-                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 34 ].ToString ( ) ) == 0 )
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 35 ].ToString ( ) ) == 0 )
                 { mp3B1 = false; }
                 else
                 { mp3B1 = true; }
-                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 35 ].ToString ( ) ) == 0 )
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 36 ].ToString ( ) ) == 0 )
                 { mp3B2 = false; }
                 else
                 { mp3B2 = true; }
-                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 36 ].ToString ( ) ) == 0 )
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 37 ].ToString ( ) ) == 0 )
                 { mp3SOL = false; }
                 else
                 { mp3SOL = true; }
-                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 37 ].ToString ( ) ) == 0 )
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 38 ].ToString ( ) ) == 0 )
                 { mp3PIA = false; }
                 else
                 { mp3PIA = true; }
-                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 38 ].ToString ( ) ) == 0 )
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 39 ].ToString ( ) ) == 0 )
+                { mp3UITV = false; }
+                else
+                { mp3UITV = true; }
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 40 ].ToString ( ) ) == 0 )
                 { mscOnline = false; }
                 else
                 { mscOnline = true; }
-                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 39 ].ToString ( ) ) == 0 )
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 41 ].ToString ( ) ) == 0 )
                 { byHeart = false; }
                 else
                 { byHeart = true; }
@@ -423,12 +431,12 @@ public class DBCommands
                 //var _duration="";
                 int _minutes=0, _seconds = 0, _duration = 0;
 
-                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 54 ].ToString ( ) ) != 0 )
+                if ( int.Parse ( dataTable.Rows [ i ].ItemArray [ 56 ].ToString ( ) ) != 0 )
                 {
-                    _minutes = int.Parse ( dataTable.Rows [ i ].ItemArray [ 54 ].ToString ( ) ) / 60;
-                    _seconds = int.Parse ( dataTable.Rows [ i ].ItemArray [ 54 ].ToString ( ) ) % 60;
+                    _minutes = int.Parse ( dataTable.Rows [ i ].ItemArray [ 56 ].ToString ( ) ) / 60;
+                    _seconds = int.Parse ( dataTable.Rows [ i ].ItemArray [ 56 ].ToString ( ) ) % 60;
                     //_duration = $"{_minutes}:{_seconds.ToString ( "00" )}";
-                    _duration = int.Parse ( dataTable.Rows [ i ].ItemArray [ 54 ].ToString ( ) );
+                    _duration = int.Parse ( dataTable.Rows [ i ].ItemArray [ 56 ].ToString ( ) );
                 }
 
                 // When Title is empty don't add that row to the list
@@ -459,31 +467,35 @@ public class DBCommands
                         PDFTOP = pdfTOP,
                         PDFTOKInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 26 ].ToString ( ) ),
                         PDFTOK = pdfTOK,
-                        MuseScoreORPInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 27 ].ToString ( ) ),
+                        PDFPIAInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 27 ].ToString ( ) ),
+                        PDFPIA = pdfPIA,
+                        MuseScoreORPInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 28 ].ToString ( ) ),
                         MuseScoreORP = mscORP,
-                        MuseScoreORKInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 28 ].ToString ( ) ),
+                        MuseScoreORKInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 29 ].ToString ( ) ),
                         MuseScoreORK = mscORK,
-                        MuseScoreTOPInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 29 ].ToString ( ) ),
+                        MuseScoreTOPInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 30 ].ToString ( ) ),
                         MuseScoreTOP = mscTOP,
-                        MuseScoreTOKInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 30 ].ToString ( ) ),
+                        MuseScoreTOKInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 31 ].ToString ( ) ),
                         MuseScoreTOK = mscTOK,
-                        MP3TOTInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 31 ].ToString ( ) ),
+                        MP3TOTInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 32 ].ToString ( ) ),
                         MP3TOT = mp3TOT,
-                        MP3T1Int = int.Parse ( dataTable.Rows [ i ].ItemArray [ 32 ].ToString ( ) ),
+                        MP3T1Int = int.Parse ( dataTable.Rows [ i ].ItemArray [ 33 ].ToString ( ) ),
                         MP3T1 = mp3T1,
-                        MP3T2Int = int.Parse ( dataTable.Rows [ i ].ItemArray [ 33 ].ToString ( ) ),
+                        MP3T2Int = int.Parse ( dataTable.Rows [ i ].ItemArray [ 34 ].ToString ( ) ),
                         MP3T2 = mp3T2,
-                        MP3B1Int = int.Parse ( dataTable.Rows [ i ].ItemArray [ 34 ].ToString ( ) ),
+                        MP3B1Int = int.Parse ( dataTable.Rows [ i ].ItemArray [ 35 ].ToString ( ) ),
                         MP3B1 = mp3B1,
-                        MP3B2Int = int.Parse ( dataTable.Rows [ i ].ItemArray [ 35 ].ToString ( ) ),
+                        MP3B2Int = int.Parse ( dataTable.Rows [ i ].ItemArray [ 36 ].ToString ( ) ),
                         MP3B2 = mp3B2,
-                        MP3SOLInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 36 ].ToString ( ) ),
+                        MP3SOLInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 37 ].ToString ( ) ),
                         MP3SOL = mp3SOL,
-                        MP3PIAInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 37 ].ToString ( ) ),
+                        MP3PIAInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 38 ].ToString ( ) ),
                         MP3PIA = mp3PIA,
-                        MuseScoreOnlineInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 38 ].ToString ( ) ),
+                        MP3UITVInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 39 ].ToString ( ) ),
+                        MP3UITV = mp3UITV,
+                        MuseScoreOnlineInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 40 ].ToString ( ) ),
                         MuseScoreOnline = mscOnline,
-                        ByHeartInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 39 ].ToString ( ) ),
+                        ByHeartInt = int.Parse ( dataTable.Rows [ i ].ItemArray [ 41 ].ToString ( ) ),
                         ByHeart = byHeart,
                         Duration = _duration,
                         DurationMinutes = _minutes,

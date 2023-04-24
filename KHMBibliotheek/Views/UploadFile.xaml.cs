@@ -238,6 +238,10 @@ public partial class UploadFile : Window
                 _fieldName = DBNames.FilesIndexFieldNamePDFTOKId;
                 _libraryFieldName = DBNames.ScoresFieldNamePDFTOK;
                 break;
+            case "pdfpia":
+                _fieldName = DBNames.FilesIndexFieldNamePDFPIAId;
+                _libraryFieldName = DBNames.ScoresFieldNamePDFPIA;
+                break;
             case "mp3b1":
                 _fieldName = DBNames.FilesIndexFieldNameMP3B1Id;
                 _libraryFieldName = DBNames.ScoresFieldNameMP3B1;
@@ -265,6 +269,10 @@ public partial class UploadFile : Window
             case "mp3pia":
                 _fieldName = DBNames.FilesIndexFieldNameMP3PIAId;
                 _libraryFieldName = DBNames.ScoresFieldNameMP3PIA;
+                break;
+            case "mp3uitv":
+                _fieldName = DBNames.FilesIndexFieldNameMP3UITVId;
+                _libraryFieldName = DBNames.ScoresFieldNameMP3UITV;
                 break;
             case "mp3b1voice":
                 _fieldName = DBNames.FilesIndexFieldNameMP3VoiceB1Id;

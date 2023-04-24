@@ -1,8 +1,5 @@
 ﻿using System.IO;
-using System.Linq;
 using Microsoft.Win32;
-
-using static System.Net.WebRequestMethods;
 
 using File = System.IO.File;
 
@@ -147,7 +144,7 @@ public partial class MaintainScores : Page
                         var _newFilePathName = filePathName.Replace ( _oldScoreNumber, scoreNumber );
                         File.Move ( filePathName, _newFilePathName );
                         _fileName = _fileName.Replace ( _oldScoreNumber, scoreNumber );
-                        filePathName = filePathName.Replace(_oldScoreNumber, scoreNumber);
+                        filePathName = filePathName.Replace ( _oldScoreNumber, scoreNumber );
                     }
                 }
 
@@ -299,6 +296,10 @@ public partial class MaintainScores : Page
                 _fieldName = DBNames.FilesIndexFieldNamePDFTOKId;
                 _libraryFieldName = DBNames.ScoresFieldNamePDFTOK;
                 break;
+            case "pdfpia":
+                _fieldName = DBNames.FilesIndexFieldNamePDFPIAId;
+                _libraryFieldName = DBNames.ScoresFieldNamePDFPIA;
+                break;
             case "mp3b1":
                 _fieldName = DBNames.FilesIndexFieldNameMP3B1Id;
                 _libraryFieldName = DBNames.ScoresFieldNameMP3B1;
@@ -326,6 +327,10 @@ public partial class MaintainScores : Page
             case "mp3pia":
                 _fieldName = DBNames.FilesIndexFieldNameMP3PIAId;
                 _libraryFieldName = DBNames.ScoresFieldNameMP3PIA;
+                break;
+            case "mp3uitv":
+                _fieldName = DBNames.FilesIndexFieldNameMP3UITVId;
+                _libraryFieldName = DBNames.ScoresFieldNameMP3UITV;
                 break;
             case "mp3b1voice":
                 _fieldName = DBNames.FilesIndexFieldNameMP3VoiceB1Id;
