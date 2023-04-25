@@ -4,23 +4,23 @@
 /// </summary>
 public partial class LoginPage : Window
 {
-    public LoginPage ( )
+    public LoginPage()
     {
-        InitializeComponent ( );
+        InitializeComponent();
     }
 
     #region Button Close | Restore | Minimize 
     #region Button Close
-    private void BtnClose_Click ( object sender, RoutedEventArgs e )
+    private void BtnClose_Click(object sender, RoutedEventArgs e)
     {
-        Close ( );
+        Close();
     }
     #endregion
 
     #region Button Restore
-    private void BtnRestore_Click ( object sender, RoutedEventArgs e )
+    private void BtnRestore_Click(object sender, RoutedEventArgs e)
     {
-        if ( WindowState == WindowState.Normal )
+        if (WindowState == WindowState.Normal)
             WindowState = WindowState.Maximized;
         else
             WindowState = WindowState.Normal;
@@ -28,7 +28,7 @@ public partial class LoginPage : Window
     #endregion
 
     #region Button Minimize
-    private void BtnMinimize_Click ( object sender, RoutedEventArgs e )
+    private void BtnMinimize_Click(object sender, RoutedEventArgs e)
     {
         WindowState = WindowState.Minimized;
     }
@@ -36,27 +36,27 @@ public partial class LoginPage : Window
     #endregion
 
     #region Drag Widow
-    private void Window_MouseDown ( object sender, MouseButtonEventArgs e )
+    private void Window_MouseDown(object sender, MouseButtonEventArgs e)
     {
-        if ( e.LeftButton == MouseButtonState.Pressed )
+        if (e.LeftButton == MouseButtonState.Pressed)
         {
-            DragMove ( );
+            DragMove();
         }
     }
     #endregion
 
-    private void BtnLogin_Click ( object sender, RoutedEventArgs e )
+    private void BtnLogin_Click(object sender, RoutedEventArgs e)
     {
         tbInvalidLogin.Visibility = Visibility.Collapsed;
         int UserId = DBCommands.CheckUserPassword(tbUserName.Text, tbPassword.Password);
-        if ( UserId != 0 )
+        if (UserId != 0)
         {
             LibraryUsers.SelectedUserId = UserId;
-            ObservableCollection<UserModel> Users = DBCommands.GetUsers ( );
+            ObservableCollection<UserModel> Users = DBCommands.GetUsers();
 
-            foreach ( UserModel user in Users )
+            foreach (UserModel user in Users)
             {
-                if ( user.UserId == UserId )
+                if (user.UserId == UserId)
                 {
                     LibraryUsers.SelectedUserName = user.UserName;
                     LibraryUsers.SelectedUserFullName = user.UserFullName;
@@ -67,16 +67,16 @@ public partial class LoginPage : Window
             }
 
             // Write Login to Logfile
-            DBCommands.WriteLog ( UserId, DBNames.LogUserLoggedIn, $"{LibraryUsers.SelectedUserFullName} is ingelogt" );
+            DBCommands.WriteLog(UserId, DBNames.LogUserLoggedIn, $"{LibraryUsers.SelectedUserFullName} is ingelogt");
 
             int ForcePasswordReset = 1;
-            if ( ForcePasswordReset != 0 )
+            if (ForcePasswordReset != 0)
             { }
 
 
-            MainWindow mainWindow = new ();
-            mainWindow.Show ( );
-            this.Close ( );
+            MainWindow mainWindow = new();
+            mainWindow.Show();
+            this.Close();
         }
         else
         {
@@ -84,11 +84,11 @@ public partial class LoginPage : Window
         }
     }
 
-    private void PressedEnterOnPassword ( object sender, KeyEventArgs e )
+    private void PressedEnterOnPassword(object sender, KeyEventArgs e)
     {
-        if ( e.Key == Key.Enter )
+        if (e.Key == Key.Enter)
         {
-            btnLogin.RaiseEvent ( new RoutedEventArgs ( ButtonBase.ClickEvent ) );
+            btnLogin.RaiseEvent(new RoutedEventArgs(ButtonBase.ClickEvent));
         }
     }
 }

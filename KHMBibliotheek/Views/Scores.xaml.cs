@@ -1,17 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Linq;
 
 namespace KHMBibliotheek.Views;
 /// <summary>
@@ -255,4 +242,25 @@ public partial class Scores : Page
         DataContext = selectedRow;
     }
     #endregion
+
+    private void chkMusicFiles_Changed(object sender, RoutedEventArgs e)
+    {
+        // Check the change of the Checkboxes, to enable/disable the save button
+
+    }
+
+    private void btnDownloadClick(object sender, RoutedEventArgs e)
+    {
+        // Download the file of the selected row/column
+    }
+
+    private void btnViewClick(object sender, RoutedEventArgs e)
+    {
+        // View the PDF file in the selected row/column
+    }
+
+    private void btnPlayClick(object sender, RoutedEventArgs e)
+    {
+        // Play the MP3 file in the selected row/column
+    }
 }

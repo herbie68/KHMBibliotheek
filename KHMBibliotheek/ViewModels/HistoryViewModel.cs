@@ -31,10 +31,10 @@
 
         public ObservableCollection<HistoryModel> HistoryLog { get; set; }
 
-        public HistoryViewModel ( )
+        public HistoryViewModel()
         {
-            HistoryLog = new ObservableCollection<HistoryModel> ( );
-            HistoryLog = DBCommands.GetHistoryLog ( );
+            HistoryLog = new ObservableCollection<HistoryModel>();
+            HistoryLog = DBCommands.GetHistoryLog();
         }
     }
 

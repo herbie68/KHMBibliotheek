@@ -3,7 +3,7 @@
 public partial class BaseScoreViewModel : ObservableObject
 {
     [ObservableProperty]
-    public int id = 0 ;
+    public int id = 0;
 
     [ObservableProperty]
     public string scoreNumber = "";
@@ -18,247 +18,235 @@ public partial class BaseScoreViewModel : ObservableObject
     public string scoreTitle = "";
 
     [ObservableProperty]
-    public string scoreSubTitle = "" ;
+    public string scoreSubTitle = "";
 
     [ObservableProperty]
-    public string composer = "" ;
+    public string composer = "";
 
     [ObservableProperty]
-    public string textWriter = "" ;
+    public string textWriter = "";
 
     [ObservableProperty]
-    public string arranger = "" ;
+    public string arranger = "";
 
     [ObservableProperty]
-    public int repertoireId  = 0;
+    public int repertoireId = 0;
 
     [ObservableProperty]
-    public string repertoireName = "" ;
+    public string repertoireName = "";
 
     [ObservableProperty]
-    public int archiveId  = 0;
+    public int archiveId = 0;
 
     [ObservableProperty]
-    public string archiveName = "" ;
+    public string archiveName = "";
 
     [ObservableProperty]
-    public int genreId  = 0;
+    public int genreId = 0;
 
     [ObservableProperty]
-    public string genreName = "" ;
+    public string genreName = "";
 
     [ObservableProperty]
-    public int accompanimentId = 0 ;
+    public int accompanimentId = 0;
 
     [ObservableProperty]
-    public string accompanimentName = "" ;
+    public string accompanimentName = "";
 
     [ObservableProperty]
-    public int languageId = 0 ;
+    public int languageId = 0;
 
     [ObservableProperty]
-    public string languageName = "" ;
+    public string languageName = "";
 
     [ObservableProperty]
-    public DateOnly dateCreated = DateOnly.FromDateTime(DateTime.Now) ;
+    public DateOnly dateCreated = DateOnly.FromDateTime(DateTime.Now);
 
     [ObservableProperty]
-    public string dateCreatedString = "" ;
+    public string dateCreatedString = "";
 
     [ObservableProperty]
-    public DateOnly dateModified =DateOnly.FromDateTime(DateTime.Now) ;
+    public DateOnly dateModified = DateOnly.FromDateTime(DateTime.Now);
 
     [ObservableProperty]
-    public string dateModifiedString = "" ;
+    public string dateModifiedString = "";
 
     [ObservableProperty]
     public bool check = false;
 
     [ObservableProperty]
-    public int checkInt = 0 ;
+    public int checkInt = 0;
 
     [ObservableProperty]
-    public bool museScoreORP = false ;
+    public bool museScoreORP = false;
 
     [ObservableProperty]
-    public int museScoreORPInt = 0 ;
+    public int museScoreORPInt = 0;
 
     [ObservableProperty]
     public bool museScoreORK = false;
 
     [ObservableProperty]
-    public int museScoreORKInt = 0 ;
+    public int museScoreORKInt = 0;
 
     [ObservableProperty]
     public bool museScoreTOP = false;
 
     [ObservableProperty]
-    public int museScoreTOPInt = 0 ;
+    public int museScoreTOPInt = 0;
 
     [ObservableProperty]
-    public bool museScoreTOK = false ;
+    public bool museScoreTOK = false;
 
     [ObservableProperty]
-    public int museScoreTOKInt = 0 ;
+    public int museScoreTOKInt = 0;
 
     [ObservableProperty]
-    public bool pDFORP = false ;
+    public bool pDFORP = false;
 
     [ObservableProperty]
-    public int pDFORPInt = 0 ;
+    public int pDFORPInt = 0;
 
     [ObservableProperty]
-    public bool pDFORK = false ;
+    public bool pDFORK = false;
 
     [ObservableProperty]
-    public int pDFORKInt = 0 ;
+    public int pDFORKInt = 0;
 
     [ObservableProperty]
-    public bool pDFTOP = false ;
+    public bool pDFTOP = false;
 
     [ObservableProperty]
-    public int pDFTOPInt = 0 ;
+    public int pDFTOPInt = 0;
 
     [ObservableProperty]
-    public bool pDFTOK = false ;
+    public bool pDFTOK = false;
 
     [ObservableProperty]
-    public int pDFTOKInt = 0 ;
+    public int pDFTOKInt = 0;
 
     [ObservableProperty]
-    public bool pDFPIA = false ;
+    public bool mP3B1 = false;
 
     [ObservableProperty]
-    public int pDFPIAInt = 0 ;
+    public int mP3B1Int = 0;
 
     [ObservableProperty]
-    public bool mP3B1 = false ;
+    public bool mP3B2 = false;
 
     [ObservableProperty]
-    public int mP3B1Int = 0 ;
+    public int mP3B2Int = 0;
 
     [ObservableProperty]
-    public bool mP3B2 = false ;
+    public bool mP3T1 = false;
 
     [ObservableProperty]
-    public int mP3B2Int = 0 ;
+    public int mP3T1Int = 0;
 
     [ObservableProperty]
-    public bool mP3T1 = false ;
+    public bool mP3T2 = false;
 
     [ObservableProperty]
-    public int mP3T1Int = 0 ;
+    public int mP3T2Int = 0;
 
     [ObservableProperty]
-    public bool mP3T2 = false ;
+    public bool mP3SOL = false;
 
     [ObservableProperty]
-    public int mP3T2Int = 0 ;
+    public int mP3SOLInt = 0;
 
     [ObservableProperty]
-    public bool mP3SOL = false ;
+    public bool mP3TOT = false;
 
     [ObservableProperty]
-    public int mP3SOLInt = 0 ;
+    public int mP3TOTInt = 0;
 
     [ObservableProperty]
-    public bool mP3TOT = false ;
+    public bool mP3PIA = false;
 
     [ObservableProperty]
-    public int mP3TOTInt = 0 ;
+    public int mP3PIAInt = 0;
 
     [ObservableProperty]
-    public bool mP3PIA = false ;
+    public bool museScoreOnline = false;
 
     [ObservableProperty]
-    public int mP3PIAInt = 0 ;
+    public int museScoreOnlineInt = 0;
 
     [ObservableProperty]
-    public bool mP3UITV = false ;
+    public bool byHeart = false;
 
     [ObservableProperty]
-    public int mP3UITVInt = 0 ;
+    public int byHeartInt = 0;
 
     [ObservableProperty]
-    public bool museScoreOnline = false ;
+    public string lyrics = "";
 
     [ObservableProperty]
-    public int museScoreOnlineInt = 0 ;
+    public string musicPiece = "";
 
     [ObservableProperty]
-    public bool byHeart = false ;
+    public string notes = "";
 
     [ObservableProperty]
-    public int byHeartInt = 0 ;
+    public int numberScoresPublisher1 = 0;
 
     [ObservableProperty]
-    public string lyrics = "" ;
+    public int publisherId = 0;
 
     [ObservableProperty]
-    public string musicPiece = "" ;
+    public string publisherName = "";
 
     [ObservableProperty]
-    public string notes = "" ;
+    public int publisher1Id = 0;
 
     [ObservableProperty]
-    public int numberScoresPublisher1 = 0 ;
+    public string publisher1Name = "";
 
     [ObservableProperty]
-    public int publisherId = 0 ;
+    public int numberScoresPublisher2 = 0;
 
     [ObservableProperty]
-    public string publisherName = "" ;
+    public int publisher2Id = 0;
 
     [ObservableProperty]
-    public int publisher1Id = 0 ;
+    public string publisher2Name = "";
 
     [ObservableProperty]
-    public string publisher1Name = "" ;
+    public int numberScoresPublisher3 = 0;
 
     [ObservableProperty]
-    public int numberScoresPublisher2 = 0 ;
+    public int publisher3Id = 0;
 
     [ObservableProperty]
-    public int publisher2Id = 0 ;
+    public string publisher3Name = "";
 
     [ObservableProperty]
-    public string publisher2Name = "" ;
+    public int numberScoresPublisher4 = 0;
 
     [ObservableProperty]
-    public int numberScoresPublisher3 = 0 ;
+    public int publisher4Id = 0;
 
     [ObservableProperty]
-    public int publisher3Id = 0 ;
+    public string publisher4Name = "";
 
     [ObservableProperty]
-    public string publisher3Name = "" ;
+    public int duration = 0;
 
     [ObservableProperty]
-    public int numberScoresPublisher4 = 0 ;
+    public int durationMinutes = 0;
 
     [ObservableProperty]
-    public int publisher4Id = 0 ;
+    public int durationSeconds = 0;
 
     [ObservableProperty]
-    public string publisher4Name = "" ;
+    public int numberScoresTotal = 0;
 
     [ObservableProperty]
-    public int duration = 0 ;
+    public string searchField = "";
 
     [ObservableProperty]
-    public int durationMinutes = 0 ;
-
-    [ObservableProperty]
-    public int durationSeconds = 0 ;
-
-    [ObservableProperty]
-    public int numberScoresTotal = 0 ;
-
-    [ObservableProperty]
-    public string searchField = "" ;
-
-    [ObservableProperty]
-    public object selectedItem ="";
+    public object selectedItem = "";
 
     [ObservableProperty]
     public ScoreModel? selectedScore;

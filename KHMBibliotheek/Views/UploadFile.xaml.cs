@@ -7,23 +7,23 @@ namespace KHMBibliotheek.Views;
 public partial class UploadFile : Window
 {
     ObservableCollection<FileUploadErrorModel> UploadErrorFiles = new();
-    public UploadFile ( string [ ] files )
+    public UploadFile(string[] files)
     {
-        InitializeComponent ( );
+        InitializeComponent();
 
-        if ( files.Length == 1 )
+        if (files.Length == 1)
         {
             lblHeader.Content = "Bestand Uploaden";
         }
 
-        foreach ( var file in files )
+        foreach (var file in files)
         {
             tbCurrentFile.Text = $"Controleren: {file}";
-            var ExtentionOk = CheckExtention ( file );
+            var ExtentionOk = CheckExtention(file);
 
-            if ( ExtentionOk != "" )
+            if (ExtentionOk != "")
             {
-                UploadErrorFiles.Add ( new FileUploadErrorModel { FileName = file, Reason = $"Ongeldig bestandstype ({ExtentionOk})" } );
+                UploadErrorFiles.Add(new FileUploadErrorModel { FileName = file, Reason = $"Ongeldig bestandstype ({ExtentionOk})" });
                 //UploadedFilesErrorDataGrid.Items.Add ( file );
             }
             tbCurrentFile.Text = $"Uploaden: {file}";
@@ -32,24 +32,24 @@ public partial class UploadFile : Window
         //CheckFiles ( files );
     }
 
-    public string CheckExtention ( string _file )
+    public string CheckExtention(string _file)
     {
         var _result = "";
 
-        if ( _file != null )
+        if (_file != null)
         {
-            var _fileName = Path.GetFileName ( _file );
+            var _fileName = Path.GetFileName(_file);
             string[] _fileNameSplitup = _fileName.ToLower().Split('.');
 
-            if ( _fileNameSplitup [ 1 ] != "pdf" && _fileNameSplitup [ 1 ] != "mscz" && _fileNameSplitup [ 1 ] != "mp3" )
+            if (_fileNameSplitup[1] != "pdf" && _fileNameSplitup[1] != "mscz" && _fileNameSplitup[1] != "mp3")
             {
-                _result = _fileNameSplitup [ 1 ];
+                _result = _fileNameSplitup[1];
             }
         }
         return _result;
     }
 
-    public void CheckFiles ( string [ ] files )
+    public void CheckFiles(string[] files)
     {
         var hasVoiceString = "(Ingezongen)";
         bool Exists, hasVoice;
@@ -60,38 +60,38 @@ public partial class UploadFile : Window
         ObservableCollection<FileUploadOkModel> FilesUploadOk = new();
         ObservableCollection<FileUploadErrorModel> FilesUploadError = new();
 
-        foreach ( var file in files )
+        foreach (var file in files)
         {
-            _fileName = System.IO.Path.GetFileName ( file );
+            _fileName = System.IO.Path.GetFileName(file);
             filePathName = file;
             string[] fileNameSplitup = _fileName.Split('.');
             string[] fileInfo = fileNameSplitup[0].Split('-');
 
-            fileType = fileNameSplitup [ 1 ].Trim ( ).ToLower ( );
-            scoreNumber = fileInfo [ 0 ].Trim ( ).Substring ( 0, 3 );
+            fileType = fileNameSplitup[1].Trim().ToLower();
+            scoreNumber = fileInfo[0].Trim().Substring(0, 3);
 
             // Check if file Contains SubNumber
-            if ( fileNameSplitup [ 0 ].Substring ( 3, 1 ) == "-" )
+            if (fileNameSplitup[0].Substring(3, 1) == "-")
             {
-                scoreNumber += fileNameSplitup [ 0 ].Substring ( 3, 3 );
+                scoreNumber += fileNameSplitup[0].Substring(3, 3);
 
                 //The Documenttype also contains the sub number, trim this
-                fileInfo [ 1 ] = fileInfo [ 1 ].Substring ( 2, fileInfo [ 1 ].Length - 3 );
+                fileInfo[1] = fileInfo[1].Substring(2, fileInfo[1].Length - 3);
             }
 
-            scoreTitle = DBCommands.GetScoreField ( DBNames.ScoresView, "scoretitle", DBNames.ScoresViewFieldNameScore, scoreNumber );
-            scoreId = int.Parse ( DBCommands.GetScoreField ( DBNames.ScoresView, "scoreid", DBNames.ScoresViewFieldNameScore, scoreNumber ) );
-            if ( scoreTitle != "" )
+            scoreTitle = DBCommands.GetScoreField(DBNames.ScoresView, "scoretitle", DBNames.ScoresViewFieldNameScore, scoreNumber);
+            scoreId = int.Parse(DBCommands.GetScoreField(DBNames.ScoresView, "scoreid", DBNames.ScoresViewFieldNameScore, scoreNumber));
+            if (scoreTitle != "")
             { Exists = true; }
             else
             { Exists = false; }
 
             // Check If ScoreNumber is a valid Number And if it is a valid file type And the uploaded Score Exists in the Library
-            if ( scoreId > 0 && ( fileType.ToLower ( ) == "mscz" || fileType.ToLower ( ) == "pdf" || fileType.ToLower ( ) == "mp3" ) && Exists )
+            if (scoreId > 0 && (fileType.ToLower() == "mscz" || fileType.ToLower() == "pdf" || fileType.ToLower() == "mp3") && Exists)
             {
-                scorePart = fileInfo [ 0 ].Trim ( ).Substring ( 3 );
+                scorePart = fileInfo[0].Trim().Substring(3);
 
-                if ( fileInfo [ 1 ].Trim ( ).ToLower ( ).Contains ( hasVoiceString.Trim ( ).ToLower ( ) ) )
+                if (fileInfo[1].Trim().ToLower().Contains(hasVoiceString.Trim().ToLower()))
                 {
                     hasVoice = true;
                     scoreTitleSuffix = " " + hasVoiceString;
@@ -104,23 +104,23 @@ public partial class UploadFile : Window
 
                 scoreTitle += scoreTitleSuffix;
 
-                fileSize = Convert.ToUInt32 ( new System.IO.FileInfo ( file ).Length );
+                fileSize = Convert.ToUInt32(new System.IO.FileInfo(file).Length);
                 copiedFileSize += fileSize;
                 FileInfo fileDetails = new FileInfo(file);
 
                 _newFileName = $"{scoreNumber}{scorePart} - {scoreTitle}.{fileType}";
 
-                Upload ( filePathName, _newFileName, fileType, scoreId, scoreNumber, scorePart, hasVoice );
-                FilesUploadOk.Add ( new FileUploadOkModel { FileName = _fileName } );
+                Upload(filePathName, _newFileName, fileType, scoreId, scoreNumber, scorePart, hasVoice);
+                FilesUploadOk.Add(new FileUploadOkModel { FileName = _fileName });
             }
             else
             {
                 // Incorrect filename
-                FilesUploadError.Add ( new FileUploadErrorModel { FileName = _fileName, Reason = "Ongeldig bestand" } );
+                FilesUploadError.Add(new FileUploadErrorModel { FileName = _fileName, Reason = "Ongeldig bestand" });
             }
         }
     }
-    public static void Upload ( string _filePath, string _fileName, string _fileType, int _scoreId, string _scoreNumber, string _scorePart, bool _hasVoice )
+    public static void Upload(string _filePath, string _fileName, string _fileType, int _scoreId, string _scoreNumber, string _scorePart, bool _hasVoice)
     {
         string _tableName = "", _fieldName, _fieldNamePrefix = "";
         int _fieldId, _filesIndexId, _fileId;
@@ -132,7 +132,7 @@ public partial class UploadFile : Window
         // Get the Id of that newly added record
         // Store fileId in FileIndex Table
 
-        switch ( _fileType.ToLower ( ) )
+        switch (_fileType.ToLower())
         {
             case "mscz":
                 _tableName = DBNames.FilesMSCTable;
@@ -141,7 +141,7 @@ public partial class UploadFile : Window
                 _tableName = DBNames.FilesPDFTable;
                 break;
             case "mp3":
-                switch ( _hasVoice )
+                switch (_hasVoice)
                 {
                     case true:
                         _tableName = DBNames.FilesMP3VoiceTable;
@@ -155,56 +155,56 @@ public partial class UploadFile : Window
                 break;
         }
 
-        if ( _tableName != "" )
+        if (_tableName != "")
         {
             // Check if ScoreId exists in the FIlesIndex, if not a new record can be created
-            _filesIndexId = DBCommands.GetFileIndexIfFromScoreId ( _scoreId );
+            _filesIndexId = DBCommands.GetFileIndexIfFromScoreId(_scoreId);
 
-            if ( _filesIndexId == -1 )
+            if (_filesIndexId == -1)
             {
                 // Record does not exist add it
-                DBCommands.AddNewFileIndex ( _scoreId );
-                _filesIndexId = DBCommands.GetFileIndexIfFromScoreId ( _scoreId );
+                DBCommands.AddNewFileIndex(_scoreId);
+                _filesIndexId = DBCommands.GetFileIndexIfFromScoreId(_scoreId);
             }
 
             // Check if the file to upload is already in the DataBase by checking Files Index 
-            _fieldName = GetFieldName ( _fileType.ToLower ( ) + _scorePart.ToLower ( ) + _fieldNamePrefix, "filesindex" );
-            _fieldId = DBCommands.GetFileIdFromFilesIndex ( _filesIndexId, _fieldName );
+            _fieldName = GetFieldName(_fileType.ToLower() + _scorePart.ToLower() + _fieldNamePrefix, "filesindex");
+            _fieldId = DBCommands.GetFileIdFromFilesIndex(_filesIndexId, _fieldName);
 
-            if ( _fieldId == -1 )
+            if (_fieldId == -1)
             {
                 // New file to upload, not currently in database
-                DBCommands.StoreFile ( _tableName, _scoreId, _filePath, _fileName );
-                _fileId = DBCommands.GetAddedFileId ( _tableName );
+                DBCommands.StoreFile(_tableName, _scoreId, _filePath, _fileName);
+                _fileId = DBCommands.GetAddedFileId(_tableName);
             }
             else
             {
                 // File in database has to be replaced
-                DBCommands.UpdateFile ( _tableName, _filePath, _fileName, _fieldId );
-                _fileId = DBCommands.GetFileId ( _tableName, DBNames.FilesFieldNameId, _fileName, _fieldId );
+                DBCommands.UpdateFile(_tableName, _filePath, _fileName, _fieldId);
+                _fileId = DBCommands.GetFileId(_tableName, DBNames.FilesFieldNameId, _fileName, _fieldId);
             }
 
             // Store the file Id in the FileIndex table
-            DBCommands.UpdateFilesIndex ( _fieldName, _fileId, DBNames.FilesIndexFieldNameId, _filesIndexId );
+            DBCommands.UpdateFilesIndex(_fieldName, _fileId, DBNames.FilesIndexFieldNameId, _filesIndexId);
 
             // Set the correct Checkbox in the Library table, not needed for Voice files
-            if ( !_hasVoice )
+            if (!_hasVoice)
             {
-                var _libraryFieldName = GetFieldName ( _fileType.ToLower ( ) + _scorePart.ToLower ( ) + _fieldNamePrefix, "library" );
+                var _libraryFieldName = GetFieldName(_fileType.ToLower() + _scorePart.ToLower() + _fieldNamePrefix, "library");
 
-                DBCommands.UpdateLibraryForFile ( _libraryFieldName, 1, DBNames.ScoresFieldNameId, _scoreId );
+                DBCommands.UpdateLibraryForFile(_libraryFieldName, 1, DBNames.ScoresFieldNameId, _scoreId);
             }
 
         }
     }
 
     #region Give the FilesIndex FieldName to check based on FileType and ScorePart
-    public static string GetFieldName ( string _check, string CheckType )
+    public static string GetFieldName(string _check, string CheckType)
     {
         // Determine what field to check depending on file type and file part
         string _fieldName = "", _libraryFieldName = "";
 
-        switch ( _check )
+        switch (_check)
         {
             case "msczorp":
                 _fieldName = DBNames.FilesIndexFieldNameMuseScoreORPId;
@@ -238,10 +238,6 @@ public partial class UploadFile : Window
                 _fieldName = DBNames.FilesIndexFieldNamePDFTOKId;
                 _libraryFieldName = DBNames.ScoresFieldNamePDFTOK;
                 break;
-            case "pdfpia":
-                _fieldName = DBNames.FilesIndexFieldNamePDFPIAId;
-                _libraryFieldName = DBNames.ScoresFieldNamePDFPIA;
-                break;
             case "mp3b1":
                 _fieldName = DBNames.FilesIndexFieldNameMP3B1Id;
                 _libraryFieldName = DBNames.ScoresFieldNameMP3B1;
@@ -270,10 +266,6 @@ public partial class UploadFile : Window
                 _fieldName = DBNames.FilesIndexFieldNameMP3PIAId;
                 _libraryFieldName = DBNames.ScoresFieldNameMP3PIA;
                 break;
-            case "mp3uitv":
-                _fieldName = DBNames.FilesIndexFieldNameMP3UITVId;
-                _libraryFieldName = DBNames.ScoresFieldNameMP3UITV;
-                break;
             case "mp3b1voice":
                 _fieldName = DBNames.FilesIndexFieldNameMP3VoiceB1Id;
                 _libraryFieldName = "";
@@ -300,7 +292,7 @@ public partial class UploadFile : Window
                 break;
         }
 
-        switch ( CheckType )
+        switch (CheckType)
         {
             case "filesindex":
                 return _fieldName;
@@ -313,16 +305,16 @@ public partial class UploadFile : Window
     #endregion
 
     #region Drag Widow
-    private void Window_MouseDown ( object sender, MouseButtonEventArgs e )
+    private void Window_MouseDown(object sender, MouseButtonEventArgs e)
     {
-        if ( e.LeftButton == MouseButtonState.Pressed )
+        if (e.LeftButton == MouseButtonState.Pressed)
         {
-            DragMove ( );
+            DragMove();
         }
     }
     #endregion
 
-    private void Close_Click ( object sender, RoutedEventArgs e )
+    private void Close_Click(object sender, RoutedEventArgs e)
     {
 
     }

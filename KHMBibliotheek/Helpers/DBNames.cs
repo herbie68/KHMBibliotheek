@@ -102,7 +102,6 @@ public class DBNames
     public static readonly string ScoresFieldNamePDFORK = "PDFORK";
     public static readonly string ScoresFieldNamePDFTOP = "PDFTOP";
     public static readonly string ScoresFieldNamePDFTOK = "PDFTOK";
-    public static readonly string ScoresFieldNamePDFPIA = "PDFPIA";
     public static readonly string ScoresFieldNameMuseScoreORP = "MSCORP";
     public static readonly string ScoresFieldNameMuseScoreORK = "MSCORK";
     public static readonly string ScoresFieldNameMuseScoreTOP = "MSCTOP";
@@ -114,7 +113,6 @@ public class DBNames
     public static readonly string ScoresFieldNameMP3B2 = "MP3B2";
     public static readonly string ScoresFieldNameMP3SOL = "MP3SOL";
     public static readonly string ScoresFieldNameMP3PIA = "MP3PIA";
-    public static readonly string ScoresFieldNameMP3UITV = "MP3UITV";
     public static readonly string ScoresFieldNameOnline = "Online";
     public static readonly string ScoresFieldNameByHeart = "UHH";
     public static readonly string ScoresFieldNameMusicPiece = "Muziekstuk";
@@ -161,7 +159,7 @@ public class DBNames
     #endregion
 
     #region Table/View FileIndex
-    public static readonly string FilesIndexTable="FilesIndex";
+    public static readonly string FilesIndexTable = "FilesIndex";
     public static readonly string FilesIndexFieldNameId = "Id";
     public static readonly string FilesIndexFieldNameScoreId = "ScoreId";
     public static readonly string FilesIndexFieldNameMuseScoreORPId = "MuseScoreORPId";
@@ -172,7 +170,6 @@ public class DBNames
     public static readonly string FilesIndexFieldNamePDFORKId = "PDFORKId";
     public static readonly string FilesIndexFieldNamePDFTOPId = "PDFTOPId";
     public static readonly string FilesIndexFieldNamePDFTOKId = "PDFTOKId";
-    public static readonly string FilesIndexFieldNamePDFPIAId = "PDFPIAId";
     public static readonly string FilesIndexFieldNameMP3B1Id = "MP3B1Id";
     public static readonly string FilesIndexFieldNameMP3B2Id = "MP3B2Id";
     public static readonly string FilesIndexFieldNameMP3T1Id = "MP3T1Id";
@@ -180,7 +177,6 @@ public class DBNames
     public static readonly string FilesIndexFieldNameMP3SOLId = "MP3SOLId";
     public static readonly string FilesIndexFieldNameMP3TOTId = "MP3TOTId";
     public static readonly string FilesIndexFieldNameMP3PIAId = "MP3PIAId";
-    public static readonly string FilesIndexFieldNameMP3UITVId = "MP3UITVId";
     public static readonly string FilesIndexFieldNameMP3VoiceB1Id = "MP3B1VoiceId";
     public static readonly string FilesIndexFieldNameMP3VoiceB2Id = "MP3B2VoiceId";
     public static readonly string FilesIndexFieldNameMP3VoiceT1Id = "MP3T1VoiceId";
@@ -214,7 +210,7 @@ public class DBNames
     #endregion
 
     #region Table/View Settings
-    public static readonly string SettingsTable= "Settings";
+    public static readonly string SettingsTable = "Settings";
     #endregion
 
     #region Log history

@@ -6,11 +6,11 @@
     public partial class History : Page
     {
         public HistoryViewModel? history;
-        public History ( )
+        public History()
         {
-            InitializeComponent ( );
+            InitializeComponent();
 
-            history = new HistoryViewModel ( );
+            history = new HistoryViewModel();
             DataContext = history;
         }
     }

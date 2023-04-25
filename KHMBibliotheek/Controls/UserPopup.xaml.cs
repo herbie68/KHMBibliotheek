@@ -5,8 +5,8 @@
 /// </summary>
 public partial class UserPopup : UserControl
 {
-    public UserPopup ( )
+    public UserPopup()
     {
-        InitializeComponent ( );
+        InitializeComponent();
     }
 }

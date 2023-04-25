@@ -1,12 +1,13 @@
-﻿<Page x:Class="KHMBibliotheek.Views.Scores"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:KHMBibliotheek.Views"
-          xmlns:viewmodel="clr-namespace:KHMBibliotheek.ViewModels"
-    DataContext="viewmodel:ScoreViewModel"
-      Title="Scores">
+﻿<Page
+    x:Class="KHMBibliotheek.Views.Scores"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:KHMBibliotheek.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodel="clr-namespace:KHMBibliotheek.ViewModels"
+    Title="Scores"
+    DataContext="viewmodel:ScoreViewModel">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -518,67 +519,240 @@
                             <!--#endregion-->
 
                             <!--#region MuseScore ORP-->
+                            <!--#region Label/Checkbox-->
                             <TextBlock
                                 Grid.Row="0"
                                 Grid.Column="1"
+                                VerticalAlignment="Center"
                                 Style="{DynamicResource TabItem.Page.Label.Style}"
                                 Text="ORP (Totaal)" />
-                            
-                            <!--#region Checked/Unchecked-->
-                            <Path x:Name="MSCORPCheck" Grid.Row="0" Grid.Column="2" Data="{DynamicResource MusicFiles.UnCheck}" Fill="Black" Margin="1" Height="13" Width="13" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" Visibility="Visible"/>
-                            <Path x:Name="MSCORPUnCheck" Grid.Row="0" Grid.Column="2" Data="{DynamicResource MusicFiles.Check}" Fill="Black" Margin="1" Height="15" Width="15" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" Visibility="Collapsed"/>
-                            <!--#endregion-->
-                            
-                            <!--#region View/Play-->
-                            <Path x:Name="MSCORPView" Grid.Row="0" Grid.Column="3" Data="{DynamicResource MusicFiles.View}" Fill="Black" Margin="1" Height="13" Width="13" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" Visibility="Collapsed"/>
-                            <Path x:Name="MSCORPPlay" Grid.Row="0" Grid.Column="3" Data="{DynamicResource MusicFiles.Play}" Fill="Black" Margin="1" Height="13" Width="13" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" Visibility="Collapsed"/>
+
+                            <CheckBox
+                                x:Name="chkMSCORP"
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Checked="chkMusicFiles_Changed"
+                                Unchecked="chkMusicFiles_Changed" />
                             <!--#endregion-->
 
                             <!--#region Download-->
-                            <Path x:Name="MSCORPSave" Grid.Row="0" Grid.Column="4" Data="{DynamicResource MusicFiles.Download}" Fill="Black" Margin="1" Height="13" Width="13" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" Visibility="Collapsed"/>
+                            <Button
+                                x:Name="btnMSCORPDownload"
+                                Grid.Column="3"
+                                Click="btnDownloadClick"
+                                IsEnabled="False"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}"
+                                Visibility="Visible">
+                                <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+
+                            <!--#region View-->
+                            <Button
+                                x:Name="btnMSCORPView"
+                                Grid.Column="4"
+                                Click="btnViewClick"
+                                IsEnabled="False"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}"
+                                Visibility="Collapsed">
+                                <Path Data="{DynamicResource MusicFiles.View}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+
+                            <!--#region Play-->
+                            <Button
+                                x:Name="btnMSCORPPlay"
+                                Grid.Row="0"
+                                Grid.Column="4"
+                                Click="btnPlayClick"
+                                IsEnabled="False"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}"
+                                Visibility="Collapsed">
+                                <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
                             <!--#endregion-->
                             <!--#endregion-->
 
                             <!--#region MuseScore ORK-->
+                            <!--#region Label/Checkbox-->
                             <TextBlock
                                 Grid.Row="1"
                                 Grid.Column="1"
+                                VerticalAlignment="Center"
                                 Style="{DynamicResource TabItem.Page.Label.Style}"
                                 Text="ORK (Koor)" />
+
                             <CheckBox
                                 x:Name="chkMSCORK"
                                 Grid.Row="1"
                                 Grid.Column="2"
-                                IsEnabled="False" />
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Checked="chkMusicFiles_Changed"
+                                Unchecked="chkMusicFiles_Changed" />
+                            <!--#endregion-->
+
+                            <!--#region Download-->
+                            <Button
+                                x:Name="btnMSCORKDownload"
+                                Grid.Row="1"
+                                Grid.Column="3"
+                                Click="btnDownloadClick"
+                                IsEnabled="False"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}"
+                                Visibility="Visible">
+                                <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+
+                            <!--#region View-->
+                            <Button
+                                x:Name="btnMSCORKView"
+                                Grid.Row="1"
+                                Grid.Column="4"
+                                Click="btnViewClick"
+                                IsEnabled="False"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}"
+                                Visibility="Collapsed">
+                                <Path Data="{DynamicResource MusicFiles.View}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+
+                            <!--#region Play-->
+                            <Button
+                                x:Name="btnMSCORKPlay"
+                                Grid.Row="1"
+                                Grid.Column="4"
+                                Click="btnPlayClick"
+                                IsEnabled="False"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}"
+                                Visibility="Collapsed">
+                                <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
                             <!--#endregion-->
 
                             <!--#region MuseScore TOP-->
+                            <!--#region Label/Checkbox-->
                             <TextBlock
                                 Grid.Row="2"
                                 Grid.Column="1"
+                                VerticalAlignment="Center"
                                 Style="{DynamicResource TabItem.Page.Label.Style}"
                                 Text="TOP (Totaal)" />
+
                             <CheckBox
                                 x:Name="chkMSCTOP"
                                 Grid.Row="2"
                                 Grid.Column="2"
-                                IsEnabled="False" />
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Checked="chkMusicFiles_Changed"
+                                Unchecked="chkMusicFiles_Changed" />
+                            <!--#endregion-->
+
+                            <!--#region Download-->
+                            <Button
+                                x:Name="btnMSCTOPDownload"
+                                Grid.Row="2"
+                                Grid.Column="3"
+                                Click="btnDownloadClick"
+                                IsEnabled="False"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}"
+                                Visibility="Visible">
+                                <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+
+                            <!--#region View-->
+                            <Button
+                                x:Name="btnMSCTOPView"
+                                Grid.Row="2"
+                                Grid.Column="4"
+                                Click="btnViewClick"
+                                IsEnabled="False"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}"
+                                Visibility="Collapsed">
+                                <Path Data="{DynamicResource MusicFiles.View}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+
+                            <!--#region Play-->
+                            <Button
+                                x:Name="btnMSCTOPPlay"
+                                Grid.Row="2"
+                                Grid.Column="4"
+                                Click="btnPlayClick"
+                                IsEnabled="False"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}"
+                                Visibility="Collapsed">
+                                <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
                             <!--#endregion-->
 
                             <!--#region MuseScore TOK-->
+                            <!--#region Label/Checkbox-->
                             <TextBlock
                                 Grid.Row="3"
                                 Grid.Column="1"
+                                VerticalAlignment="Center"
                                 Style="{DynamicResource TabItem.Page.Label.Style}"
                                 Text="TOK (Koor)" />
+
                             <CheckBox
                                 x:Name="chkMSCTOK"
                                 Grid.Row="3"
                                 Grid.Column="2"
-                                IsEnabled="False" />
-                            <!--#endregion-->
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Checked="chkMusicFiles_Changed"
+                                Unchecked="chkMusicFiles_Changed" />
                             <!--#endregion-->
 
+                            <!--#region Download-->
+                            <Button
+                                x:Name="btnMSCTOKDownload"
+                                Grid.Row="3"
+                                Grid.Column="3"
+                                Click="btnDownloadClick"
+                                IsEnabled="False"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}"
+                                Visibility="Visible">
+                                <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+
+                            <!--#region View-->
+                            <Button
+                                x:Name="btnMSCTOKView"
+                                Grid.Row="3"
+                                Grid.Column="4"
+                                Click="btnViewClick"
+                                IsEnabled="False"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}"
+                                Visibility="Collapsed">
+                                <Path Data="{DynamicResource MusicFiles.View}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+
+                            <!--#region Play-->
+                            <Button
+                                x:Name="btnMSCTOKPlay"
+                                Grid.Row="3"
+                                Grid.Column="4"
+                                Click="btnPlayClick"
+                                IsEnabled="False"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}"
+                                Visibility="Collapsed">
+                                <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+                            <!--#endregion-->
+                            <!--#endregion-->
+                            
                             <!--#region PDF Files Section-->
                             <!--#region Filetype Logo-->
                             <Image
@@ -590,55 +764,296 @@
                             <!--#endregion-->
 
                             <!--#region PDF ORP-->
+                            <!--#region Label/Checkbox-->
                             <TextBlock
                                 Grid.Row="0"
-                                Grid.Column="4"
+                                Grid.Column="6"
+                                VerticalAlignment="Center"
                                 Style="{DynamicResource TabItem.Page.Label.Style}"
                                 Text="ORP (Totaal)" />
+
                             <CheckBox
                                 x:Name="chkPDFORP"
                                 Grid.Row="0"
-                                Grid.Column="5"
-                                IsEnabled="False" />
+                                Grid.Column="7"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Checked="chkMusicFiles_Changed"
+                                Unchecked="chkMusicFiles_Changed" />
+                            <!--#endregion-->
+
+                            <!--#region Download-->
+                            <Button
+                                x:Name="btnPDFORPDownload"
+                                Grid.Column="8"
+                                Click="btnDownloadClick"
+                                IsEnabled="False"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}"
+                                Visibility="Visible">
+                                <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+
+                            <!--#region View-->
+                            <Button
+                                x:Name="btnPDFORPView"
+                                Grid.Column="9"
+                                Click="btnViewClick"
+                                IsEnabled="False"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}"
+                                Visibility="Visible">
+                                <Path Data="{DynamicResource MusicFiles.View}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+
+                            <!--#region Play-->
+                            <Button
+                                x:Name="btnPDFORPPlay"
+                                Grid.Row="0"
+                                Grid.Column="8"
+                                Click="btnPlayClick"
+                                IsEnabled="False"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}"
+                                Visibility="Collapsed">
+                                <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
                             <!--#endregion-->
 
                             <!--#region PDF ORK-->
+                            <!--#region Label/Checkbox-->
                             <TextBlock
                                 Grid.Row="1"
-                                Grid.Column="4"
+                                Grid.Column="6"
+                                VerticalAlignment="Center"
                                 Style="{DynamicResource TabItem.Page.Label.Style}"
                                 Text="ORK (Koor)" />
+
                             <CheckBox
                                 x:Name="chkPDFORK"
                                 Grid.Row="1"
-                                Grid.Column="5"
-                                IsEnabled="False" />
+                                Grid.Column="7"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Checked="chkMusicFiles_Changed"
+                                Unchecked="chkMusicFiles_Changed" />
+                            <!--#endregion-->
+
+                            <!--#region Download-->
+                            <Button
+                                x:Name="btnPDFORKDownload"
+                                Grid.Row="1"
+                                Grid.Column="8"
+                                Click="btnDownloadClick"
+                                IsEnabled="False"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}"
+                                Visibility="Visible">
+                                <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+
+                            <!--#region View-->
+                            <Button
+                                x:Name="btnPDFORKView"
+                                Grid.Row="1"
+                                Grid.Column="9"
+                                Click="btnViewClick"
+                                IsEnabled="False"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}"
+                                Visibility="Visible">
+                                <Path Data="{DynamicResource MusicFiles.View}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+
+                            <!--#region Play-->
+                            <Button
+                                x:Name="btnPDFORKPlay"
+                                Grid.Row="1"
+                                Grid.Column="9"
+                                Click="btnPlayClick"
+                                IsEnabled="False"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}"
+                                Visibility="Collapsed">
+                                <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
                             <!--#endregion-->
 
                             <!--#region PDF TOP-->
+                            <!--#region Label/Checkbox-->
                             <TextBlock
                                 Grid.Row="2"
-                                Grid.Column="4"
+                                Grid.Column="6"
+                                VerticalAlignment="Center"
                                 Style="{DynamicResource TabItem.Page.Label.Style}"
                                 Text="TOP (Totaal)" />
+
                             <CheckBox
                                 x:Name="chkPDFTOP"
                                 Grid.Row="2"
-                                Grid.Column="5"
-                                IsEnabled="False" />
+                                Grid.Column="7"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Checked="chkMusicFiles_Changed"
+                                Unchecked="chkMusicFiles_Changed" />
+                            <!--#endregion-->
+
+                            <!--#region Download-->
+                            <Button
+                                x:Name="btnPDFTOPDownload"
+                                Grid.Row="2"
+                                Grid.Column="8"
+                                Click="btnDownloadClick"
+                                IsEnabled="False"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}"
+                                Visibility="Visible">
+                                <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+
+                            <!--#region View-->
+                            <Button
+                                x:Name="btnPDFTOPView"
+                                Grid.Row="2"
+                                Grid.Column="9"
+                                Click="btnViewClick"
+                                IsEnabled="False"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}"
+                                Visibility="Visible">
+                                <Path Data="{DynamicResource MusicFiles.View}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+
+                            <!--#region Play-->
+                            <Button
+                                x:Name="btnPDFTOPPlay"
+                                Grid.Row="2"
+                                Grid.Column="9"
+                                Click="btnPlayClick"
+                                IsEnabled="False"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}"
+                                Visibility="Collapsed">
+                                <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
                             <!--#endregion-->
 
                             <!--#region PDF TOK-->
+                            <!--#region Label/Checkbox-->
                             <TextBlock
                                 Grid.Row="3"
-                                Grid.Column="4"
+                                Grid.Column="6"
+                                VerticalAlignment="Center"
                                 Style="{DynamicResource TabItem.Page.Label.Style}"
                                 Text="TOK (Koor)" />
+
                             <CheckBox
                                 x:Name="chkPDFTOK"
                                 Grid.Row="3"
-                                Grid.Column="5"
-                                IsEnabled="False" />
+                                Grid.Column="7"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Checked="chkMusicFiles_Changed"
+                                Unchecked="chkMusicFiles_Changed" />
+                            <!--#endregion-->
+
+                            <!--#region Download-->
+                            <Button
+                                x:Name="btnPDFTOKDownload"
+                                Grid.Row="3"
+                                Grid.Column="8"
+                                Click="btnDownloadClick"
+                                IsEnabled="False"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}"
+                                Visibility="Visible">
+                                <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+
+                            <!--#region View-->
+                            <Button
+                                x:Name="btnPDFTOKView"
+                                Grid.Row="3"
+                                Grid.Column="9"
+                                Click="btnViewClick"
+                                IsEnabled="False"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}"
+                                Visibility="Visible">
+                                <Path Data="{DynamicResource MusicFiles.View}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+
+                            <!--#region Play-->
+                            <Button
+                                x:Name="btnPDFTOKPlay"
+                                Grid.Row="3"
+                                Grid.Column="9"
+                                Click="btnPlayClick"
+                                IsEnabled="False"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}"
+                                Visibility="Collapsed">
+                                <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+                            <!--#endregion-->
+
+                            <!--#region PDF PIA-->
+                            <!--#region Label/Checkbox-->
+                            <TextBlock
+                                Grid.Row="4"
+                                Grid.Column="6"
+                                VerticalAlignment="Center"
+                                Style="{DynamicResource TabItem.Page.Label.Style}"
+                                Text="PIA (Piano)" />
+
+                            <CheckBox
+                                x:Name="chkPDFPIA"
+                                Grid.Row="4"
+                                Grid.Column="7"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Checked="chkMusicFiles_Changed"
+                                Unchecked="chkMusicFiles_Changed" />
+                            <!--#endregion-->
+
+                            <!--#region Download-->
+                            <Button
+                                x:Name="btnPDFPIADownload"
+                                Grid.Row="4"
+                                Grid.Column="8"
+                                Click="btnDownloadClick"
+                                IsEnabled="False"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}"
+                                Visibility="Visible">
+                                <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+
+                            <!--#region View-->
+                            <Button
+                                x:Name="btnPDFPIAView"
+                                Grid.Row="4"
+                                Grid.Column="9"
+                                Click="btnViewClick"
+                                IsEnabled="False"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}"
+                                Visibility="Visible">
+                                <Path Data="{DynamicResource MusicFiles.View}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
+
+                            <!--#region Play-->
+                            <Button
+                                x:Name="btnPDFPIAPlay"
+                                Grid.Row="4"
+                                Grid.Column="9"
+                                Click="btnPlayClick"
+                                IsEnabled="False"
+                                Style="{DynamicResource MusicFiles.Buttons.Style}"
+                                Visibility="Collapsed">
+                                <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                            </Button>
+                            <!--#endregion-->
                             <!--#endregion-->
                             <!--#endregion-->
 

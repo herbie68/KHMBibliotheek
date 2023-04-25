@@ -11,14 +11,14 @@ public partial class UserManagement : Page
     public UserViewModel? users;
     public UserModel? SelectedUser;
 
-    public UserManagement ( )
+    public UserManagement()
     {
-        InitializeComponent ( );
+        InitializeComponent();
 
         tbLogedInUserName.Text = LibraryUsers.SelectedUserName;
         tbLogedInFullName.Text = LibraryUsers.SelectedUserFullName;
 
-        if ( cbDisableSave.IsChecked == false && ( LibraryUsers.SelectedUserRoleId == 4 || LibraryUsers.SelectedUserRoleId == 6 || LibraryUsers.SelectedUserRoleId == 8 || LibraryUsers.SelectedUserRoleId == 10 || LibraryUsers.SelectedUserRoleId == 11 || LibraryUsers.SelectedUserRoleId == 13 || LibraryUsers.SelectedUserRoleId == 14 || LibraryUsers.SelectedUserRoleId == 15 ) )
+        if (cbDisableSave.IsChecked == false && (LibraryUsers.SelectedUserRoleId == 4 || LibraryUsers.SelectedUserRoleId == 6 || LibraryUsers.SelectedUserRoleId == 8 || LibraryUsers.SelectedUserRoleId == 10 || LibraryUsers.SelectedUserRoleId == 11 || LibraryUsers.SelectedUserRoleId == 13 || LibraryUsers.SelectedUserRoleId == 14 || LibraryUsers.SelectedUserRoleId == 15))
         {
             tbAdminMode.Text = "Visible";
         }
@@ -27,12 +27,12 @@ public partial class UserManagement : Page
             tbAdminMode.Text = "Collapsed";
         }
 
-        users = new UserViewModel ( );
+        users = new UserViewModel();
         DataContext = users;
-        comUserRole.ItemsSource = DBCommands.GetUserRoles ( );
+        comUserRole.ItemsSource = DBCommands.GetUserRoles();
     }
 
-    private void SelectedUserChanged ( object sender, SelectionChangedEventArgs e )
+    private void SelectedUserChanged(object sender, SelectionChangedEventArgs e)
     {
         // Clear all the fields
         tbUserName.Text = string.Empty;
@@ -45,18 +45,18 @@ public partial class UserManagement : Page
 
         UserModel selectedRow = (UserModel)dg.SelectedItem;
 
-        if ( selectedRow == null )
+        if (selectedRow == null)
         {
             object item = dg.Items[0];
             dg.SelectedItem = item;
-            selectedRow = ( UserModel ) dg.SelectedItem;
+            selectedRow = (UserModel)dg.SelectedItem;
 
             // Scroll to the item in the DataGrid
-            dg.ScrollIntoView ( dg.Items [ 0 ] );
+            dg.ScrollIntoView(dg.Items[0]);
             UsersDataGrid.SelectedIndex = 0;
 
             // Scroll to the item in the GridView
-            UsersDataGrid.ScrollIntoView ( UsersDataGrid.Items [ UsersDataGrid.SelectedIndex ] );
+            UsersDataGrid.ScrollIntoView(UsersDataGrid.Items[UsersDataGrid.SelectedIndex]);
         }
 
         SelectedUser = selectedRow;
@@ -69,10 +69,10 @@ public partial class UserManagement : Page
         #region UserRoles Combobox
         comUserRole.Text = selectedRow.RoleDescription;
 
-        foreach ( UserRoleModel userrole in comUserRole.Items )
+        foreach (UserRoleModel userrole in comUserRole.Items)
         {
             comUserRole.Text ??= "";
-            if ( userrole.RoleDescription == comUserRole.Text.ToString ( ) )
+            if (userrole.RoleDescription == comUserRole.Text.ToString())
             {
                 comUserRole.SelectedItem = userrole;
                 break;
@@ -80,37 +80,37 @@ public partial class UserManagement : Page
         }
         #endregion
 
-        ResetChanged ( );
+        ResetChanged();
     }
 
-    private void TextBoxChanged ( object sender, TextChangedEventArgs e )
+    private void TextBoxChanged(object sender, TextChangedEventArgs e)
     {
         var propertyName = ((TextBox)sender).Name;
 
 
-        if ( SelectedUser != null )
+        if (SelectedUser != null)
         {
-            switch ( propertyName )
+            switch (propertyName)
             {
                 case "tbFullName":
-                    if ( tbFullName.Text == SelectedUser.UserFullName )
+                    if (tbFullName.Text == SelectedUser.UserFullName)
                     { cbFullNameChanged.IsChecked = false; }
                     else
                     { cbFullNameChanged.IsChecked = true; }
 
-                    CheckChanged ( );
+                    CheckChanged();
                     break;
                 case "tbEMail":
                     // First check if the email address has a correct format
                     // Start checking when there is a @ and a . in the e-mail address
-                    if ( tbEMail.Text.Contains ( '@' ) )
+                    if (tbEMail.Text.Contains('@'))
                     {
-                        bool validMailAddress = DBCommands.IsValidEmail ( tbEMail.Text );
-                        if ( validMailAddress )
+                        bool validMailAddress = DBCommands.IsValidEmail(tbEMail.Text);
+                        if (validMailAddress)
                         {
                             //Check if the e-mail address is unique
-                            bool EMailExists = DBCommands.CheckEMail ( tbEMail.Text, SelectedUser.UserId );
-                            if ( EMailExists )
+                            bool EMailExists = DBCommands.CheckEMail(tbEMail.Text, SelectedUser.UserId);
+                            if (EMailExists)
                             {
                                 tbValidEMail.Text = "Visible";
                                 warningValidEMail.Text = "Dit e-mail adres wordt al gebruikt";
@@ -130,24 +130,24 @@ public partial class UserManagement : Page
                         }
                     }
                     // Check if the e-mail address actualy changed
-                    if ( tbEMail.Text == SelectedUser.UserEmail )
+                    if (tbEMail.Text == SelectedUser.UserEmail)
                     { cbEMailChanged.IsChecked = false; }
                     else
                     { cbEMailChanged.IsChecked = true; }
 
-                    CheckChanged ( );
+                    CheckChanged();
                     break;
                 case "tbUserName":
                     //Checķif the UserName textbox is editable, if not, not change can be made
-                    if ( tbUserName.IsEnabled == true )
+                    if (tbUserName.IsEnabled == true)
                     {
                         // Check if username already exists, if yes (or empty) show message else Enable Save
-                        if ( tbUserName.Text.Length > 2 )
+                        if (tbUserName.Text.Length > 2)
                         {
                             // By Default Warning disappears
                             tbValidUserName.Text = "Collapsed";
-                            bool UserExists = DBCommands.CheckUserName( tbUserName.Text, SelectedUser.UserId );
-                            if ( UserExists )
+                            bool UserExists = DBCommands.CheckUserName(tbUserName.Text, SelectedUser.UserId);
+                            if (UserExists)
                             {
                                 tbValidUserName.Text = "Visible";
                                 warningValidUserName.Text = "Deze gebruikersnaam bestaat al";
@@ -169,25 +169,25 @@ public partial class UserManagement : Page
                         cbUserNameChanged.IsChecked = true;
                     }
 
-                    CheckChanged ( );
+                    CheckChanged();
                     break;
             }
         }
-        CheckChanged ( );
+        CheckChanged();
     }
 
-    private void ComboBoxChanged ( object sender, SelectionChangedEventArgs e )
+    private void ComboBoxChanged(object sender, SelectionChangedEventArgs e)
     {
         var propertyName = ((ComboBox)sender).Name;
 
-        if ( SelectedUser != null )
+        if (SelectedUser != null)
         {
-            switch ( propertyName )
+            switch (propertyName)
             {
                 case "comUserRole":
-                    if ( comUserRole.SelectedItem != null )
+                    if (comUserRole.SelectedItem != null)
                     {
-                        if ( ( ( UserRoleModel ) comUserRole.SelectedItem ).RoleId == SelectedUser.UserRoleId )
+                        if (((UserRoleModel)comUserRole.SelectedItem).RoleId == SelectedUser.UserRoleId)
                         { cbUserRoleChanged.IsChecked = false; }
                         else
                         { cbUserRoleChanged.IsChecked = true; }
@@ -198,22 +198,22 @@ public partial class UserManagement : Page
                     break;
             }
         }
-        CheckChanged ( );
+        CheckChanged();
     }
 
-    private void PasswordChanged ( object sender, RoutedEventArgs e )
+    private void PasswordChanged(object sender, RoutedEventArgs e)
     {
-        var _newPassword = Helper.HashPepperPassword ( pbPassword.Password, tbUserName.Text );
+        var _newPassword = Helper.HashPepperPassword(pbPassword.Password, tbUserName.Text);
 
-        if ( _newPassword == SelectedUser.UserPassword )
+        if (_newPassword == SelectedUser.UserPassword)
         { cbPasswordChanged.IsChecked = false; }
         else
         { cbPasswordChanged.IsChecked = true; }
 
         //Only Give password warning for new user, existing user already hass a valid password
-        if ( tbUserName.IsEnabled == true )
+        if (tbUserName.IsEnabled == true)
         {
-            if ( pbPassword.Password.Length < 3 )
+            if (pbPassword.Password.Length < 3)
             {
                 // No valid password is entered
                 tbValidPassword.Text = "Visible";
@@ -230,17 +230,17 @@ public partial class UserManagement : Page
             }
         }
 
-        CheckChanged ( );
+        CheckChanged();
     }
 
-    private void SaveUserProfileClicked ( object sender, RoutedEventArgs e )
+    private void SaveUserProfileClicked(object sender, RoutedEventArgs e)
     {
-        ObservableCollection<UserModel> modifiedUser = new ();
+        ObservableCollection<UserModel> modifiedUser = new();
 
         var SaveStatus = tbAdminMode.IsEnabled;
         var UserName = "";
 
-        switch ( SaveStatus )
+        switch (SaveStatus)
         {
             case true:
                 // User to save is a new user also save UserName
@@ -252,76 +252,76 @@ public partial class UserManagement : Page
         }
 
         // Fill the modifiedUser collection
-        modifiedUser.Add ( new UserModel
+        modifiedUser.Add(new UserModel
         {
             UserId = SelectedUser.UserId,
             UserName = UserName,
             UserEmail = tbEMail.Text,
             UserFullName = tbFullName.Text,
-            UserRoleId = ( ( UserRoleModel ) comUserRole.SelectedValue ).RoleId,
-            UserPassword = Helper.HashPepperPassword ( pbPassword.Password, tbUserName.Text )
-        } );
+            UserRoleId = ((UserRoleModel)comUserRole.SelectedValue).RoleId,
+            UserPassword = Helper.HashPepperPassword(pbPassword.Password, tbUserName.Text)
+        });
 
         // No action if UserName is Empty
-        if ( tbUserName.Text != "" )
+        if (tbUserName.Text != "")
         {
             // Action for logging depends if it is a new user added or an existing user modified
             string _action;
 
-            if ( tbUserName.IsEnabled )
+            if (tbUserName.IsEnabled)
             { _action = DBNames.LogUserAdded; }
             else
             { _action = DBNames.LogUserChanged; }
 
-            DBCommands.UpdateUser ( modifiedUser );
+            DBCommands.UpdateUser(modifiedUser);
 
             // Write log info
-            DBCommands.WriteLog ( LibraryUsers.SelectedUserId, _action, $"Gebruiker: {tbUserName.Text}" );
+            DBCommands.WriteLog(LibraryUsers.SelectedUserId, _action, $"Gebruiker: {tbUserName.Text}");
 
             // Get Added History Id
             int _historyId = DBCommands.GetAddedHistoryId();
 
-            if ( cbEMailChanged.IsChecked == true )
-            { DBCommands.WriteDetailLog ( _historyId, DBNames.LogUserEMail, SelectedUser.UserEmail, tbEMail.Text ); }
-            if ( cbFullNameChanged.IsChecked == true )
-            { DBCommands.WriteDetailLog ( _historyId, DBNames.LogUserFullName, SelectedUser.UserFullName, tbFullName.Text ); }
+            if (cbEMailChanged.IsChecked == true)
+            { DBCommands.WriteDetailLog(_historyId, DBNames.LogUserEMail, SelectedUser.UserEmail, tbEMail.Text); }
+            if (cbFullNameChanged.IsChecked == true)
+            { DBCommands.WriteDetailLog(_historyId, DBNames.LogUserFullName, SelectedUser.UserFullName, tbFullName.Text); }
 
-            if ( cbPasswordChanged.IsChecked == true )
-            { DBCommands.WriteDetailLog ( _historyId, DBNames.LogUserPassword, "...", "..." ); }
+            if (cbPasswordChanged.IsChecked == true)
+            { DBCommands.WriteDetailLog(_historyId, DBNames.LogUserPassword, "...", "..."); }
 
             // When the saved user is a newly added user disable the UserName box again
             tbUserName.IsEnabled = false;
 
             // Reload the DataGrid
-            users = new UserViewModel ( );
+            users = new UserViewModel();
             DataContext = users;
         }
     }
 
-    private void PageLoaded ( object sender, RoutedEventArgs e )
+    private void PageLoaded(object sender, RoutedEventArgs e)
     {
-        comUserRole.ItemsSource = DBCommands.GetUserRoles ( );
+        comUserRole.ItemsSource = DBCommands.GetUserRoles();
     }
 
-    private void BtnFirstClick ( object sender, RoutedEventArgs e )
+    private void BtnFirstClick(object sender, RoutedEventArgs e)
     {
         UsersDataGrid.SelectedIndex = 0;
 
         // Scroll to the item in the GridView
-        UsersDataGrid.ScrollIntoView ( UsersDataGrid.Items [ UsersDataGrid.SelectedIndex ] );
+        UsersDataGrid.ScrollIntoView(UsersDataGrid.Items[UsersDataGrid.SelectedIndex]);
     }
 
-    private void BtnLastClick ( object sender, RoutedEventArgs e )
+    private void BtnLastClick(object sender, RoutedEventArgs e)
     {
         UsersDataGrid.SelectedIndex = UsersDataGrid.Items.Count - 1;
 
         // Scroll to the item in the GridView
-        UsersDataGrid.ScrollIntoView ( UsersDataGrid.Items [ UsersDataGrid.SelectedIndex ] );
+        UsersDataGrid.ScrollIntoView(UsersDataGrid.Items[UsersDataGrid.SelectedIndex]);
     }
 
-    private void BtnPreviousClick ( object sender, RoutedEventArgs e )
+    private void BtnPreviousClick(object sender, RoutedEventArgs e)
     {
-        if ( UsersDataGrid.SelectedIndex > 0 )
+        if (UsersDataGrid.SelectedIndex > 0)
         {
             UsersDataGrid.SelectedIndex -= 1;
         }
@@ -331,12 +331,12 @@ public partial class UserManagement : Page
         }
 
         // Scroll to the item in the GridView
-        UsersDataGrid.ScrollIntoView ( UsersDataGrid.Items [ UsersDataGrid.SelectedIndex ] );
+        UsersDataGrid.ScrollIntoView(UsersDataGrid.Items[UsersDataGrid.SelectedIndex]);
     }
 
-    private void BtnNextClick ( object sender, RoutedEventArgs e )
+    private void BtnNextClick(object sender, RoutedEventArgs e)
     {
-        if ( UsersDataGrid.SelectedIndex + 1 < UsersDataGrid.Items.Count )
+        if (UsersDataGrid.SelectedIndex + 1 < UsersDataGrid.Items.Count)
         {
             UsersDataGrid.SelectedIndex += 1;
         }
@@ -346,15 +346,15 @@ public partial class UserManagement : Page
         }
 
         // Scroll to the item in the GridView
-        UsersDataGrid.ScrollIntoView ( UsersDataGrid.Items [ UsersDataGrid.SelectedIndex ] );
+        UsersDataGrid.ScrollIntoView(UsersDataGrid.Items[UsersDataGrid.SelectedIndex]);
     }
 
-    private void NewUserClicked ( object sender, RoutedEventArgs e )
+    private void NewUserClicked(object sender, RoutedEventArgs e)
     {
-        DBCommands.AddNewUser ( );
+        DBCommands.AddNewUser();
 
         // Reload the DataGrid
-        users = new UserViewModel ( );
+        users = new UserViewModel();
         DataContext = users;
 
         // Jump to newly added user
@@ -362,7 +362,7 @@ public partial class UserManagement : Page
         UsersDataGrid.SelectedIndex = LatestUserId;
 
         // Scroll to the item in the GridView
-        UsersDataGrid.ScrollIntoView ( UsersDataGrid.Items [ UsersDataGrid.SelectedIndex ] );
+        UsersDataGrid.ScrollIntoView(UsersDataGrid.Items[UsersDataGrid.SelectedIndex]);
 
         // Enable Editmode of the UserName
         tbUserName.IsEnabled = true;
@@ -373,24 +373,24 @@ public partial class UserManagement : Page
 
     }
 
-    private void DeleteUser ( object sender, RoutedEventArgs e )
+    private void DeleteUser(object sender, RoutedEventArgs e)
     {
-        if ( SelectedUser != null )
+        if (SelectedUser != null)
         {
             MessageBoxResult messageBoxResult = MessageBox.Show($"Weet je zeker dat je {SelectedUser.UserFullName} wilt verwijderen?", $"Verwijder gebruiker {SelectedUser.UserId}", MessageBoxButton.YesNoCancel);
             string SelectedUserName = SelectedUser.UserName;
 
-            switch ( messageBoxResult )
+            switch (messageBoxResult)
             {
                 case MessageBoxResult.Yes:
                     // Continue Deleting User
-                    DBCommands.DeleteUser ( SelectedUser.UserId.ToString ( ) );
+                    DBCommands.DeleteUser(SelectedUser.UserId.ToString());
 
                     // Write action to History Log
-                    DBCommands.WriteLog ( LibraryUsers.SelectedUserId, DBNames.LogUserDeleted, SelectedUserName );
+                    DBCommands.WriteLog(LibraryUsers.SelectedUserId, DBNames.LogUserDeleted, SelectedUserName);
 
                     // Refresh DataGrid
-                    users = new UserViewModel ( );
+                    users = new UserViewModel();
                     DataContext = users;
                     break;
                 case MessageBoxResult.No:
@@ -403,14 +403,14 @@ public partial class UserManagement : Page
         }
     }
 
-    private void CheckChanged ( )
+    private void CheckChanged()
     {
         // First check if it is a new user (UserName is editable) or an existing user
-        if ( tbUserName.IsEnabled == true )
+        if (tbUserName.IsEnabled == true)
         {
             // New User
             // Check valid fields
-            if ( cbValidUserName.IsChecked == true && cbValidEMail.IsChecked == true && cbValidPassword.IsChecked == true && cbValidUserRole.IsChecked == true )
+            if (cbValidUserName.IsChecked == true && cbValidEMail.IsChecked == true && cbValidPassword.IsChecked == true && cbValidUserRole.IsChecked == true)
             {
                 // All fields are Valid
                 tbEnableSave.Text = "Visible";
@@ -428,15 +428,15 @@ public partial class UserManagement : Page
         else
         {
             // Existing user
-            if ( cbEMailChanged.IsChecked == true ||
+            if (cbEMailChanged.IsChecked == true ||
                 cbFullNameChanged.IsChecked == true ||
                 cbPasswordChanged.IsChecked == true ||
-                cbUserRoleChanged.IsChecked == true )
+                cbUserRoleChanged.IsChecked == true)
             {
-                if ( LibraryUsers.SelectedUserRoleId == 4 || LibraryUsers.SelectedUserRoleId == 6 || LibraryUsers.SelectedUserRoleId == 8 || LibraryUsers.SelectedUserRoleId == 10 || LibraryUsers.SelectedUserRoleId == 11 || LibraryUsers.SelectedUserRoleId == 13 || LibraryUsers.SelectedUserRoleId == 14 || LibraryUsers.SelectedUserRoleId == 15 )
+                if (LibraryUsers.SelectedUserRoleId == 4 || LibraryUsers.SelectedUserRoleId == 6 || LibraryUsers.SelectedUserRoleId == 8 || LibraryUsers.SelectedUserRoleId == 10 || LibraryUsers.SelectedUserRoleId == 11 || LibraryUsers.SelectedUserRoleId == 13 || LibraryUsers.SelectedUserRoleId == 14 || LibraryUsers.SelectedUserRoleId == 15)
                 {
                     tbEnableSave.Text = "Visible";
-                    if ( cbDisableSave.IsChecked == false )
+                    if (cbDisableSave.IsChecked == false)
                     {
                         btnSave.IsEnabled = true;
                         btnSave.ToolTip = "Sla de gewijzigde gegevens op";
@@ -462,7 +462,7 @@ public partial class UserManagement : Page
         }
     }
 
-    public void ResetChanged ( )
+    public void ResetChanged()
     {
         cbEMailChanged.IsChecked = false;
         cbFullNameChanged.IsChecked = false;
@@ -470,7 +470,7 @@ public partial class UserManagement : Page
         cbUserRoleChanged.IsChecked = false;
 
         #region Check if E-mail is entered
-        if ( tbEMail.Text == "" )
+        if (tbEMail.Text == "")
         {
             cbValidEMail.IsChecked = false;
         }
@@ -481,7 +481,7 @@ public partial class UserManagement : Page
         #endregion
 
         #region Check if UserName is entered
-        if ( tbUserName.Text == "" )
+        if (tbUserName.Text == "")
         {
             cbValidUserName.IsChecked = false;
         }
@@ -492,7 +492,7 @@ public partial class UserManagement : Page
         #endregion
 
         #region Check if Password is entered
-        if ( SelectedUser.UserPassword == "" )
+        if (SelectedUser.UserPassword == "")
         {
             cbValidPassword.IsChecked = false;
         }
@@ -503,7 +503,7 @@ public partial class UserManagement : Page
         #endregion
 
         #region Check if RoleId is entered
-        if ( SelectedUser.UserRoleId > 0 )
+        if (SelectedUser.UserRoleId > 0)
         {
             cbValidUserRole.IsChecked = true;
         }
@@ -514,7 +514,7 @@ public partial class UserManagement : Page
         #endregion
 
         #region If no UserName is entered the TextBox should be enabled
-        if ( SelectedUser.UserName == "" )
+        if (SelectedUser.UserName == "")
         { tbUserName.IsEnabled = true; }
         else
         { tbUserName.IsEnabled = false; }

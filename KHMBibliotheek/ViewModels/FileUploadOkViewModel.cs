@@ -2,7 +2,7 @@
 public partial class FileUploadOkViewModel : ObservableObject
 {
     [ObservableProperty]
-    public string ? fileName;
+    public string? fileName;
 
     public ObservableCollection<FileUploadOkModel>? FilesUploadOk { get; set; }
 
