@@ -6,92 +6,44 @@ namespace KHMBibliotheek.Views;
 /// </summary>
 public partial class Scores : Page
 {
-    public ScoreViewModel? scores;
-    public ScoreModel? SelectedScore;
+    public MusicFilesViewModel? scores;
+    public MusicFilesModel? SelectedScore;
+    public bool orgMSCORP, orgMSCORK, orgMSCTOP, orgMSCTOK, orgPDFORP, orgPDFORK, orgPDFTOP, orgPDFTOK, orgPDFPIA;
+    public bool orgMP3B1, orgMP3B2, orgMP3T1, orgMP3T2, orgMP3SOL, orgMP3TOT, orgMP3UITV, orgMP3PIA;
+    public bool Changed;
+    public bool changedPDFORP, changedPDFORK, changedPDFTOP, changedPDFTOK, changedPDFPIA;
+    public bool changedMSCORP, changedMSCORK, changedMSCTOP, changedMSCTOK, changedOnline;
+    public bool changedMP3B1, changedMP3B2, changedMP3T1, changedMP3T2, changedMP3SOL, changedMP3TOT, changedMP3PIA, changedMP3UITV;
+    public int MSCORPFileId, MSSCORKFileId, MSCTOPFileId, MSCTOKFileId, PDFORPFileId, PDFORKFileId, PDFTOPFileId, PDFTOKFileId, PDFPIAFileId;
+    public int MP3B1FileId, MP3B2FileId, MP3T1FileId, MP3T2FileId, MP3SOLFileId, MP3TOTFileId, MP3UITVFileId, MP3PIAFileId;
 
-    public Scores()
+    public Scores ( )
     {
-        InitializeComponent();
-        scores = new ScoreViewModel();
+        InitializeComponent ( );
+        scores = new MusicFilesViewModel ( );
         ScoresDataGrid.ItemsSource = scores.Scores;
         var _screenHeight = Application.Current.MainWindow.ActualHeight - 70 - 30 - 10 - 26 - 80;
         ScoresDataGrid.Height = _screenHeight;
     }
 
     #region Save Changes
-    private void BtnSaveClick(object sender, RoutedEventArgs e)
+    private void BtnSaveClick ( object sender, RoutedEventArgs e )
     {
 
     }
     #endregion
 
     #region Changed status of a checkbox
-    private void CheckBoxChanged(object sender, RoutedEventArgs e)
+    private void CheckBoxChanged ( object sender, RoutedEventArgs e )
     {
 
-    }
-    #endregion
-
-    #region DatePicker field changed
-    private void DatePickerChanged(object sender, SelectionChangedEventArgs e)
-    {
-        var propertyName = ((DatePicker)sender).Name;
-
-        if (SelectedScore != null)
-        {
-            switch (propertyName)
-            {
-                case "dpDigitized":
-                    DateTime _CreatedDateTime = new();
-
-                    // If the change event is triggered a data has been entered, this always differs if no date is in the database
-                    if (SelectedScore.DateCreatedString != "")
-                    {
-                        var _selectedDateTime = SelectedScore.DateCreatedString.ToString() + " 00:00:00 AM";
-                        _CreatedDateTime = DateTime.Parse(_selectedDateTime);
-
-                        if (dpDigitized.SelectedDate == _CreatedDateTime)
-                        { cbDigitized.IsChecked = false; }
-                        else
-                        { cbDigitized.IsChecked = true; }
-                    }
-                    else
-                    {
-                        // If the change event is triggered a data has been entered, this always differs if no date is in the database
-                        cbDigitized.IsChecked = true;
-                    }
-                    break;
-
-                case "dpModified":
-                    DateTime _ModifiedDateTime = new();
-
-                    // If the change event is triggered a data has been entered, this always differs if no date is in the database
-                    if (SelectedScore.DateModifiedString != "")
-                    {
-                        var _selectedDateTime = SelectedScore.DateModifiedString.ToString() + " 00:00:00 AM";
-                        _ModifiedDateTime = DateTime.Parse(_selectedDateTime);
-
-                        if (dpModified.SelectedDate == _ModifiedDateTime)
-                        { cbModified.IsChecked = false; }
-                        else
-                        { cbModified.IsChecked = true; }
-                    }
-                    else
-                    {
-                        // If the change event is triggered a data has been entered, this always differs if no date is in the database
-                        cbModified.IsChecked = true;
-                    }
-                    break;
-            }
-        }
-        //CheckChanged ( );
     }
     #endregion
 
     #region Clicked: GoTo Next Record
-    private void BtnNextClick(object sender, RoutedEventArgs e)
+    private void BtnNextClick ( object sender, RoutedEventArgs e )
     {
-        if (ScoresDataGrid.SelectedIndex + 1 < ScoresDataGrid.Items.Count)
+        if ( ScoresDataGrid.SelectedIndex + 1 < ScoresDataGrid.Items.Count )
         {
             ScoresDataGrid.SelectedIndex += 1;
         }
@@ -101,14 +53,14 @@ public partial class Scores : Page
         }
 
         // Scroll to the item in the GridView
-        ScoresDataGrid.ScrollIntoView(ScoresDataGrid.Items[ScoresDataGrid.SelectedIndex]);
+        ScoresDataGrid.ScrollIntoView ( ScoresDataGrid.Items [ ScoresDataGrid.SelectedIndex ] );
     }
     #endregion
 
     #region Clicked: Goto Previous Record
-    private void BtnPreviousClick(object sender, RoutedEventArgs e)
+    private void BtnPreviousClick ( object sender, RoutedEventArgs e )
     {
-        if (ScoresDataGrid.SelectedIndex > 0)
+        if ( ScoresDataGrid.SelectedIndex > 0 )
         {
             ScoresDataGrid.SelectedIndex -= 1;
         }
@@ -118,39 +70,39 @@ public partial class Scores : Page
         }
 
         // Scroll to the item in the GridView
-        ScoresDataGrid.ScrollIntoView(ScoresDataGrid.Items[ScoresDataGrid.SelectedIndex]);
+        ScoresDataGrid.ScrollIntoView ( ScoresDataGrid.Items [ ScoresDataGrid.SelectedIndex ] );
     }
     #endregion
 
     #region Clicked: GoTo Last Record
-    private void BtnLastClick(object sender, RoutedEventArgs e)
+    private void BtnLastClick ( object sender, RoutedEventArgs e )
     {
         ScoresDataGrid.SelectedIndex = ScoresDataGrid.Items.Count - 1;
 
         // Scroll to the item in the GridView
-        ScoresDataGrid.ScrollIntoView(ScoresDataGrid.Items[ScoresDataGrid.SelectedIndex]);
+        ScoresDataGrid.ScrollIntoView ( ScoresDataGrid.Items [ ScoresDataGrid.SelectedIndex ] );
     }
     #endregion
 
     #region Clicked: GoTo First Record
-    private void BtnFirstClick(object sender, RoutedEventArgs e)
+    private void BtnFirstClick ( object sender, RoutedEventArgs e )
     {
         ScoresDataGrid.SelectedIndex = 0;
 
         // Scroll to the item in the GridView
-        ScoresDataGrid.ScrollIntoView(ScoresDataGrid.Items[ScoresDataGrid.SelectedIndex]);
+        ScoresDataGrid.ScrollIntoView ( ScoresDataGrid.Items [ ScoresDataGrid.SelectedIndex ] );
     }
     #endregion
 
     #region Create a cover sheet document
-    private void CreateCoverSheet(object sender, RoutedEventArgs e)
+    private void CreateCoverSheet ( object sender, RoutedEventArgs e )
     {
 
     }
     #endregion
 
     #region Clear content of the Search box
-    private void btnClearSearch_Click(object sender, RoutedEventArgs e)
+    private void btnClearSearch_Click ( object sender, RoutedEventArgs e )
     {
         tbSearch.Text = "";
         ScoresDataGrid.ItemsSource = scores.Scores;
@@ -158,13 +110,13 @@ public partial class Scores : Page
     #endregion
 
     #region Filter DataGrid on content of Search box
-    private void tbSearch_TextChanged(object sender, TextChangedEventArgs e)
+    private void tbSearch_TextChanged ( object sender, TextChangedEventArgs e )
     {
         var search = sender as TextBox;
 
-        if (search.Text.Length > 1)
+        if ( search.Text.Length > 1 )
         {
-            if (!string.IsNullOrEmpty(search.Text))
+            if ( !string.IsNullOrEmpty ( search.Text ) )
             {
                 var filteredList = scores.Scores.Where(x => x.SearchField.ToLower().Contains(tbSearch.Text.ToLower()));
                 ScoresDataGrid.ItemsSource = filteredList;
@@ -178,64 +130,52 @@ public partial class Scores : Page
     #endregion
 
     #region Selected row in DataGrid changed
-    private void SelectedScoreChanged(object sender, SelectionChangedEventArgs e)
+    private void SelectedScoreChanged ( object sender, SelectionChangedEventArgs e )
     {
         DataGrid dg = (DataGrid)sender;
 
-        ScoreModel selectedRow = (ScoreModel)dg.SelectedItem;
+        MusicFilesModel selectedRow = (MusicFilesModel)dg.SelectedItem;
 
-        if (selectedRow == null)
+        if ( selectedRow == null )
         {
             object item = dg.Items[0];
             dg.SelectedItem = item;
-            selectedRow = (ScoreModel)dg.SelectedItem;
+            selectedRow = ( MusicFilesModel ) dg.SelectedItem;
 
             // Scroll to the item in the DataGrid
-            dg.ScrollIntoView(dg.Items[0]);
+            dg.ScrollIntoView ( dg.Items [ 0 ] );
         }
 
         #region Score Number and Title
-        tbScoreNumber.Text = selectedRow.Score;
+        tbScoreNumber.Text = selectedRow.ScoreNumber;
         tbTitle.Text = selectedRow.ScoreTitle;
         #endregion
 
-        #region Digitized Section
-        dpDigitized.Text = selectedRow.DateCreatedString;
-        dpModified.Text = selectedRow.DateModifiedString;
-
-        if (selectedRow.Checked)
-        { chkChecked.IsChecked = true; }
-        else
-        { chkChecked.IsChecked = false; }
-        #endregion
-
         #region MuseScore check boxes
-        chkMSCORP.IsChecked = selectedRow.MuseScoreORP;
-        chkMSCORK.IsChecked = selectedRow.MuseScoreORK;
-        chkMSCTOP.IsChecked = selectedRow.MuseScoreTOP;
-        chkMSCTOK.IsChecked = selectedRow.MuseScoreTOK;
+        chkMSCORP.IsChecked = selectedRow.MSCORP == 1 ? true : false;
+        chkMSCORK.IsChecked = selectedRow.MSCORK == 1 ? true : false;
+        chkMSCTOP.IsChecked = selectedRow.MSCTOP == 1 ? true : false;
+        chkMSCTOK.IsChecked = selectedRow.MSCTOK == 1 ? true : false;
         #endregion
 
         #region PDF check boxes
-        chkPDFORP.IsChecked = selectedRow.PDFORP;
-        chkPDFORK.IsChecked = selectedRow.PDFORK;
-        chkPDFTOP.IsChecked = selectedRow.PDFTOP;
-        chkPDFTOK.IsChecked = selectedRow.PDFTOK;
+        chkPDFORP.IsChecked = selectedRow.PDFORP == 1 ? true : false;
+        chkPDFORK.IsChecked = selectedRow.PDFORK == 1 ? true : false;
+        chkPDFTOP.IsChecked = selectedRow.PDFTOP == 1 ? true : false;
+        chkPDFTOK.IsChecked = selectedRow.PDFTOK == 1 ? true : false;
+        chkPDFPIA.IsChecked = selectedRow.PDFPIA == 1 ? true : false;
         #endregion
 
         #region MP3 check boxes
-        chkMP3B1.IsChecked = selectedRow.MP3B1;
-        chkMP3B2.IsChecked = selectedRow.MP3B2;
-        chkMP3T1.IsChecked = selectedRow.MP3T1;
-        chkMP3T2.IsChecked = selectedRow.MP3T2;
+        chkMP3B1.IsChecked = selectedRow.MP3B1 == 1 ? true : false;
+        chkMP3B2.IsChecked = selectedRow.MP3B2 == 1 ? true : false;
+        chkMP3T1.IsChecked = selectedRow.MP3T1 == 1 ? true : false;
+        chkMP3T2.IsChecked = selectedRow.MP3T2 == 1 ? true : false;
 
-        chkMP3SOL.IsChecked = selectedRow.MP3SOL;
-        chkMP3TOT.IsChecked = selectedRow.MP3TOT;
-        chkMP3PIA.IsChecked = selectedRow.MP3PIA;
-        #endregion
-
-        #region MuseScore Online checkbox
-        chkMSCOnline.IsChecked = selectedRow.MuseScoreOnline;
+        chkMP3SOL.IsChecked = selectedRow.MP3SOL == 1 ? true : false;
+        chkMP3TOT.IsChecked = selectedRow.MP3TOT == 1 ? true : false;
+        chkMP3UITV.IsChecked = selectedRow.MP3UITV == 1 ? true : false;
+        chkMP3PIA.IsChecked = selectedRow.MP3PIA == 1 ? true : false;
         #endregion
 
         SelectedScore = selectedRow;
@@ -243,23 +183,23 @@ public partial class Scores : Page
     }
     #endregion
 
-    private void chkMusicFiles_Changed(object sender, RoutedEventArgs e)
+    private void chkMusicFiles_Changed ( object sender, RoutedEventArgs e )
     {
         // Check the change of the Checkboxes, to enable/disable the save button
 
     }
 
-    private void btnDownloadClick(object sender, RoutedEventArgs e)
+    private void btnDownloadClick ( object sender, RoutedEventArgs e )
     {
         // Download the file of the selected row/column
     }
 
-    private void btnViewClick(object sender, RoutedEventArgs e)
+    private void btnViewClick ( object sender, RoutedEventArgs e )
     {
         // View the PDF file in the selected row/column
     }
 
-    private void btnPlayClick(object sender, RoutedEventArgs e)
+    private void btnPlayClick ( object sender, RoutedEventArgs e )
     {
         // Play the MP3 file in the selected row/column
     }

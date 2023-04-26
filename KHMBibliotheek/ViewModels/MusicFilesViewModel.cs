@@ -2,13 +2,13 @@
 public partial class MusicFilesViewModel : ObservableObject
 {
     [ObservableProperty]
-    public int id = 0;
+    public int scoreId = 0;
 
     [ObservableProperty]
-    public string partituurNummer = "";
+    public string scoreNumber = "";
 
     [ObservableProperty]
-    public string titel = "";
+    public string scoreTitle = "";
 
     [ObservableProperty]
     public int pDFORP = 0;
@@ -111,4 +111,35 @@ public partial class MusicFilesViewModel : ObservableObject
 
     [ObservableProperty]
     public int mP3UITVId = 0;
+
+    [ObservableProperty]
+    public int mP3TOTVoiceId = 0;
+
+    [ObservableProperty]
+    public int mP3T1VoiceId = 0;
+
+    [ObservableProperty]
+    public int mP3T2VoiceId = 0;
+
+    [ObservableProperty]
+    public int mP3B1VoiceId = 0;
+
+    [ObservableProperty]
+    public int mP3B2VoiceId = 0;
+
+    [ObservableProperty]
+    public int mP3SOLVoiceId = 0;
+
+    [ObservableProperty]
+    public string searchField = "";
+
+    [ObservableProperty]
+    public object selectedItem = "";
+
+    public ObservableCollection<MusicFilesModel> Scores { get; set; }
+
+    public MusicFilesViewModel ( )
+    {
+        Scores = DBCommands.GetMusicFileInfo ( DBNames.MusicFilesView );
+    }
 }

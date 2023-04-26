@@ -175,60 +175,78 @@
         <Setter Property="Control.Template">
             <Setter.Value>
                 <ControlTemplate>
-                    <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                    <Rectangle
+                        Margin="2"
+                        SnapsToDevicePixels="true"
+                        Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"
+                        StrokeDashArray="1 2"
+                        StrokeThickness="1" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <!--#region Upload to Cloud Button-->
-    <SolidColorBrush x:Key="Button.UploadCloud.Static.Background" Color="#FFDDDDDD"/>
-    <SolidColorBrush x:Key="Button.UploadCloud.Static.Border" Color="White"/>
-    <SolidColorBrush x:Key="Button.UploadCloud.Static.TextColor" Color="LightSlateGray"/>
-    <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
-    <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
-    <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
-    <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
-    <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
-    <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
-    <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+    <SolidColorBrush x:Key="Button.UploadCloud.Static.Background" Color="#FFDDDDDD" />
+    <SolidColorBrush x:Key="Button.UploadCloud.Static.Border" Color="White" />
+    <SolidColorBrush x:Key="Button.UploadCloud.Static.TextColor" Color="LightSlateGray" />
+    <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD" />
+    <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1" />
+    <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6" />
+    <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B" />
+    <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4" />
+    <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5" />
+    <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383" />
     <Style x:Key="UploadButtonStyle" TargetType="{x:Type Button}">
-        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
-        <Setter Property="Background" Value="{DynamicResource Button.UploadCloud.Static.Background}"/>
-        <Setter Property="BorderBrush" Value="{DynamicResource Button.UploadCloud.Static.Border}"/>
-        <Setter Property="Foreground" Value="{DynamicResource Button.UploadCloud.Static.TextColor}"/>
-        <Setter Property="FontSize" Value="7"/>
-        <Setter Property="BorderThickness" Value=".75"/>
-        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="Padding" Value="0, 0, 0, 0"/>
-        <Setter Property="Margin" Value="3"/>
-        <Setter Property="Height" Value="18"/>
-        <Setter Property="Cursor" Value="Hand"/>
-        <Setter Property="Content" Value="Selecteer bestanden"/>
-        <Setter Property="VerticalAlignment" Value="Bottom"/>
+        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
+        <Setter Property="Background" Value="{DynamicResource Button.UploadCloud.Static.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Button.UploadCloud.Static.Border}" />
+        <Setter Property="Foreground" Value="{DynamicResource Button.UploadCloud.Static.TextColor}" />
+        <Setter Property="FontSize" Value="7" />
+        <Setter Property="BorderThickness" Value=".75" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Padding" Value="0,0,0,0" />
+        <Setter Property="Margin" Value="3" />
+        <Setter Property="Height" Value="18" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Content" Value="Selecteer bestanden" />
+        <Setter Property="VerticalAlignment" Value="Bottom" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true" CornerRadius="3">
-                        <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    <Border
+                        x:Name="border"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="3"
+                        SnapsToDevicePixels="true">
+                        <ContentPresenter
+                            x:Name="contentPresenter"
+                            Margin="{TemplateBinding Padding}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Focusable="False"
+                            RecognizesAccessKey="True"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsDefaulted" Value="true">
-                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource Button.UploadCloud.Static.Border}"/>
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Button.UploadCloud.Static.Border}" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource Button.MouseOver.Background}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Button.MouseOver.Border}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource Button.Pressed.Background}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Button.Pressed.Border}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
-                            <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
-                            <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            <Setter TargetName="border" Property="Background" Value="{StaticResource Button.Disabled.Background}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Button.Disabled.Border}" />
+                            <Setter TargetName="contentPresenter" Property="TextElement.Foreground" Value="{StaticResource Button.Disabled.Foreground}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -248,7 +266,7 @@
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Padding" Value="-1" />
         <Setter Property="Margin" Value="2,0,2,0" />
-        <Setter Property="Width" Value="Auto" />
+        <Setter Property="Width" Value="17" />
         <Setter Property="Height" Value="17" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Foreground" Value="{StaticResource Settings.Button.Text.Foreground}" />

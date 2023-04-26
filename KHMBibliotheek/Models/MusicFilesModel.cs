@@ -1,9 +1,9 @@
 ﻿namespace KHMBibliotheek.Models;
 public class MusicFilesModel
 {
-    public int? Id { get; set; }
-    public string? PartituurNummer { get; set; }
-    public string? Titel { get; set; }
+    public int? ScoreId { get; set; }
+    public string? ScoreNumber { get; set; }
+    public string? ScoreTitle { get; set; }
     public int? PDFORP { get; set; }
     public int? PDFORPId { get; set; }
     public int? PDFORK { get; set; }
@@ -38,4 +38,11 @@ public class MusicFilesModel
     public int? MP3PIAId { get; set; }
     public int? MP3UITV { get; set; }
     public int? MP3UITVId { get; set; }
+    public int? MP3TOTVoiceId { get; set; }
+    public int? MP3T1VoiceId { get; set; }
+    public int? MP3T2VoiceId { get; set; }
+    public int? MP3B1VoiceId { get; set; }
+    public int? MP3B2VoiceId { get; set; }
+    public int? MP3SOLVoiceId { get; set; }
+    public string? SearchField { get; set; }
 }
