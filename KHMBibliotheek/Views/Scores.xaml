@@ -136,7 +136,7 @@
 
             <!--#region Datagrid Section-->
             <StackPanel Orientation="Vertical">
-                <!--#region Datagrid Search Section-->
+                <!--#region Data grid Search Section-->
                 <Border
                     Margin="5"
                     Padding="3"

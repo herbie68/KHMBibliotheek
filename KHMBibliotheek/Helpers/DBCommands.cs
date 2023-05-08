@@ -313,7 +313,6 @@ public class DBCommands
 
         _ = new DataTable ( );
 
-
         DataTable dataTable;
         if ( _whereFieldName != null )
         {
@@ -326,7 +325,96 @@ public class DBCommands
 
         if ( dataTable.Rows.Count > 0 )
         {
+            for ( int i = 0 ; i < dataTable.Rows.Count ; i++ )
+            {
+#pragma warning disable IDE0059 // Unnecessary assignment of a value                
+                bool pdfORP = int.Parse ( dataTable.Rows [ i ].ItemArray [ 4 ].ToString ( ) ) == 0 ? false : true;
+                bool pdfORK = int.Parse ( dataTable.Rows [ i ].ItemArray [ 6 ].ToString ( ) ) == 0 ? false : true;
+                bool pdfTOP = int.Parse ( dataTable.Rows [ i ].ItemArray [ 8 ].ToString ( ) ) == 0 ? false : true;
+                bool pdfTOK = int.Parse ( dataTable.Rows [ i ].ItemArray [ 10 ].ToString ( ) ) == 0 ? false : true;
+                bool pdfPIA = int.Parse ( dataTable.Rows [ i ].ItemArray [ 12 ].ToString ( ) ) == 0 ? false : true;
 
+                bool mscORP = int.Parse ( dataTable.Rows [ i ].ItemArray [ 14 ].ToString ( ) ) == 0 ? false : true;
+                bool mscORK = int.Parse ( dataTable.Rows [ i ].ItemArray [ 16 ].ToString ( ) ) == 0 ? false : true;
+                bool mscTOP = int.Parse ( dataTable.Rows [ i ].ItemArray [ 18 ].ToString ( ) ) == 0 ? false : true;
+                bool mscTOK = int.Parse ( dataTable.Rows [ i ].ItemArray [ 20 ].ToString ( ) ) == 0 ? false : true;
+
+                bool mp3TOT = int.Parse ( dataTable.Rows [ i ].ItemArray [ 22 ].ToString ( ) ) == 0 ? false : true;
+                bool mp3T1 = int.Parse ( dataTable.Rows [ i ].ItemArray [ 24 ].ToString ( ) ) == 0 ? false : true;
+                bool mp3T2 = int.Parse ( dataTable.Rows [ i ].ItemArray [ 26 ].ToString ( ) ) == 0 ? false : true;
+                bool mp3B1 = int.Parse ( dataTable.Rows [ i ].ItemArray [ 28 ].ToString ( ) ) == 0 ? false : true;
+                bool mp3B2 = int.Parse ( dataTable.Rows [ i ].ItemArray [ 30 ].ToString ( ) ) == 0 ? false : true;
+                bool mp3SOL = int.Parse ( dataTable.Rows [ i ].ItemArray [ 32 ].ToString ( ) ) == 0 ? false : true;
+                bool mp3PIA = int.Parse ( dataTable.Rows [ i ].ItemArray [ 34 ].ToString ( ) ) == 0 ? false : true;
+                bool mp3UITV = int.Parse ( dataTable.Rows [ i ].ItemArray [ 36 ].ToString ( ) ) == 0 ? false : true;
+
+                bool mp3TOTVoice = int.Parse ( dataTable.Rows [ i ].ItemArray [ 38 ].ToString ( ) ) == 0  ? false : true;
+                bool mp3T1Voice = int.Parse ( dataTable.Rows [ i ].ItemArray [ 40 ].ToString ( ) ) == 0 ? false : true;
+                bool mp3T2Voice = int.Parse ( dataTable.Rows [ i ].ItemArray [ 42 ].ToString ( ) ) == 0 ? false : true;
+                bool mp3B1Voice = int.Parse ( dataTable.Rows [ i ].ItemArray [ 44 ].ToString ( ) ) == 0 ? false : true;
+                bool mp3B2Voice = int.Parse ( dataTable.Rows [ i ].ItemArray [ 46 ].ToString ( ) ) == 0 ? false : true;
+                bool mp3SOLVoice = int.Parse ( dataTable.Rows [ i ].ItemArray [ 48 ].ToString ( ) ) == 0 ? false : true;
+
+                // When Title is empty don't add that row to the list
+                if ( dataTable.Rows [ i ].ItemArray [ 4 ].ToString ( ) != string.Empty )
+                {
+                    Scores.Add ( new MusicFilesModel
+                    {
+                        ScoreId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 0 ].ToString ( ) ),
+                        ScoreNumber = dataTable.Rows [ i ].ItemArray [ 1 ].ToString ( ),
+                        ScoreTitle = dataTable.Rows [ i ].ItemArray [ 2 ].ToString ( ),
+                        FilesIndexId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 3 ].ToString ( ) ),
+                        PDFORP = pdfORP,
+                        PDFORPId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 5 ].ToString ( ) ),
+                        PDFORK = pdfORK,
+                        PDFORKId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 7 ].ToString ( ) ),
+                        PDFTOP = pdfTOP,
+                        PDFTOPId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 9 ].ToString ( ) ),
+                        PDFTOK = pdfTOK,
+                        PDFTOKId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 11 ].ToString ( ) ),
+                        PDFPIA = pdfPIA,
+                        PDFPIAId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 13 ].ToString ( ) ),
+                        MSCORP = mscORP,
+                        MSCORPId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 15 ].ToString ( ) ),
+                        MSCORK = mscORK,
+                        MSCORKId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 17 ].ToString ( ) ),
+                        MSCTOP = mscTOP,
+                        MSCTOPId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 19 ].ToString ( ) ),
+                        MSCTOK = mscTOK,
+                        MSCTOKId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 21 ].ToString ( ) ),
+                        MP3TOT = mp3TOT,
+                        MP3TOTId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 23 ].ToString ( ) ),
+                        MP3T1 = mp3T1,
+                        MP3T1Id = int.Parse ( dataTable.Rows [ i ].ItemArray [ 25 ].ToString ( ) ),
+                        MP3T2 = mp3T2,
+                        MP3T2Id = int.Parse ( dataTable.Rows [ i ].ItemArray [ 27 ].ToString ( ) ),
+                        MP3B1 = mp3B1,
+                        MP3B1Id = int.Parse ( dataTable.Rows [ i ].ItemArray [ 29 ].ToString ( ) ),
+                        MP3B2 = mp3B2,
+                        MP3B2Id = int.Parse ( dataTable.Rows [ i ].ItemArray [ 31 ].ToString ( ) ),
+                        MP3SOL = mp3SOL,
+                        MP3SOLId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 33 ].ToString ( ) ),
+                        MP3PIA = mp3PIA,
+                        MP3PIAId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 358 ].ToString ( ) ),
+                        MP3UITV = mp3UITV,
+                        MP3UITVId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 37 ].ToString ( ) ),
+                        MP3TOTVoice = mp3TOTVoice,
+                        MP3TOTVoiceId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 39 ].ToString ( ) ),
+                        MP3T1Voice = mp3T1Voice,
+                        MP3T1VoiceId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 41 ].ToString ( ) ),
+                        MP3T2Voice = mp3T2Voice,
+                        MP3T2VoiceId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 43 ].ToString ( ) ),
+                        MP3B1Voice = mp3B1Voice,
+                        MP3B1VoiceId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 45 ].ToString ( ) ),
+                        MP3B2Voice = mp3B2Voice,
+                        MP3B2VoiceId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 47 ].ToString ( ) ),
+                        MP3SOLVoice = mp3SOLVoice,
+                        MP3SOLVoiceId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 49 ].ToString ( ) ),
+                        SearchField = $"{dataTable.Rows [ i ].ItemArray [ 1 ]} {dataTable.Rows [ i ].ItemArray [ 2 ]}"
+                    } );
+                    ;
+                }
+            }
         }
         return Scores;
     }
@@ -529,6 +617,7 @@ public class DBCommands
             }
         }
         return Scores;
+#pragma warning restore IDE0059 // Unnecessary assignment of a value
     }
     #endregion
 
