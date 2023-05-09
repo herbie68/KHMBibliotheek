@@ -269,6 +269,7 @@
         <Setter Property="Width" Value="17" />
         <Setter Property="Height" Value="17" />
         <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="ToolTip" Value="Hello World" />
         <Setter Property="Foreground" Value="{StaticResource Settings.Button.Text.Foreground}" />
         <Setter Property="Template">
             <Setter.Value>

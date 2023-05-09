@@ -136,14 +136,14 @@ public partial class Scores : Page
 
         MusicFilesModel selectedRow = (MusicFilesModel)dg.SelectedItem;
 
-        if ( selectedRow == null )
+        if (selectedRow == null)
         {
             object item = dg.Items[0];
             dg.SelectedItem = item;
-            selectedRow = ( MusicFilesModel ) dg.SelectedItem;
+            selectedRow = (MusicFilesModel)dg.SelectedItem;
 
             // Scroll to the item in the DataGrid
-            dg.ScrollIntoView ( dg.Items [ 0 ] );
+            dg.ScrollIntoView(dg.Items[0]);
         }
 
         #region Score Number and Title
@@ -152,30 +152,315 @@ public partial class Scores : Page
         #endregion
 
         #region MuseScore check boxes
-        chkMSCORP.IsChecked = selectedRow.MSCORP == 1 ? true : false;
-        chkMSCORK.IsChecked = selectedRow.MSCORK == 1 ? true : false;
-        chkMSCTOP.IsChecked = selectedRow.MSCTOP == 1 ? true : false;
-        chkMSCTOK.IsChecked = selectedRow.MSCTOK == 1 ? true : false;
+        chkMSCORP.IsChecked = selectedRow.MSCORP;
+        chkMSCORK.IsChecked = selectedRow.MSCORK;
+        chkMSCTOP.IsChecked = selectedRow.MSCTOP;
+        chkMSCTOK.IsChecked = selectedRow.MSCTOK;
         #endregion
 
         #region PDF check boxes
-        chkPDFORP.IsChecked = selectedRow.PDFORP == 1 ? true : false;
-        chkPDFORK.IsChecked = selectedRow.PDFORK == 1 ? true : false;
-        chkPDFTOP.IsChecked = selectedRow.PDFTOP == 1 ? true : false;
-        chkPDFTOK.IsChecked = selectedRow.PDFTOK == 1 ? true : false;
-        chkPDFPIA.IsChecked = selectedRow.PDFPIA == 1 ? true : false;
+        chkPDFORP.IsChecked = selectedRow.PDFORP;
+        chkPDFORK.IsChecked = selectedRow.PDFORK;
+        chkPDFTOP.IsChecked = selectedRow.PDFTOP;
+        chkPDFTOK.IsChecked = selectedRow.PDFTOK;
+        chkPDFPIA.IsChecked = selectedRow.PDFPIA;
         #endregion
 
         #region MP3 check boxes
-        chkMP3B1.IsChecked = selectedRow.MP3B1 == 1 ? true : false;
-        chkMP3B2.IsChecked = selectedRow.MP3B2 == 1 ? true : false;
-        chkMP3T1.IsChecked = selectedRow.MP3T1 == 1 ? true : false;
-        chkMP3T2.IsChecked = selectedRow.MP3T2 == 1 ? true : false;
+        chkMP3B1.IsChecked = selectedRow.MP3B1;
+        chkMP3B2.IsChecked = selectedRow.MP3B2;
+        chkMP3T1.IsChecked = selectedRow.MP3T1;
+        chkMP3T2.IsChecked = selectedRow.MP3T2;
 
-        chkMP3SOL.IsChecked = selectedRow.MP3SOL == 1 ? true : false;
-        chkMP3TOT.IsChecked = selectedRow.MP3TOT == 1 ? true : false;
-        chkMP3UITV.IsChecked = selectedRow.MP3UITV == 1 ? true : false;
-        chkMP3PIA.IsChecked = selectedRow.MP3PIA == 1 ? true : false;
+        chkMP3SOL.IsChecked = selectedRow.MP3SOL;
+        chkMP3TOT.IsChecked = selectedRow.MP3TOT;
+        chkMP3UITV.IsChecked = selectedRow.MP3UITV;
+        chkMP3PIA.IsChecked = selectedRow.MP3PIA;
+        #endregion
+
+        #region MuseScore action buttons visibility
+        if (selectedRow.MSCORPId > 0)
+        { 
+            btnMSCORPDownload.Visibility = Visibility.Visible;
+            btnMSCORPDownload.ToolTip = $"'{selectedRow.ScoreNumber}ORP - {selectedRow.ScoreTitle}.mscx' downloaden";
+        }
+        else
+        { btnMSCORPDownload.Visibility = Visibility.Collapsed; }
+
+        if (selectedRow.MSCORKId > 0)
+        { 
+            btnMSCORKDownload.Visibility = Visibility.Visible;
+            btnMSCORKDownload.ToolTip = $"'{selectedRow.ScoreNumber}ORK - {selectedRow.ScoreTitle}.mscx' downloaden";
+        }
+        else
+        { btnMSCORKDownload.Visibility = Visibility.Collapsed;}
+
+        if (selectedRow.MSCTOPId > 0)
+        { btnMSCTOPDownload.Visibility = Visibility.Visible;
+            btnMSCTOPDownload.ToolTip = $"'{selectedRow.ScoreNumber}TOP - {selectedRow.ScoreTitle}.mscx' downloaden";
+        }
+        else
+        { btnMSCTOPDownload.Visibility = Visibility.Collapsed; }
+
+        if (selectedRow.MSCTOKId > 0)
+        { btnMSCTOKDownload.Visibility = Visibility.Visible;
+            btnMSCTOKDownload.ToolTip = $"'{selectedRow.ScoreNumber}TOK - {selectedRow.ScoreTitle}.mscx' downloaden";
+        }
+        else
+        { btnMSCTOKDownload.Visibility = Visibility.Collapsed; }
+        #endregion
+
+        #region PDF action buttons visibility
+        if (selectedRow.PDFORPId > 0)
+        {
+            btnPDFORPDownload.Visibility = Visibility.Visible;
+            btnPDFORPView.Visibility = Visibility.Visible;
+            btnPDFORPDownload.ToolTip = $"'{selectedRow.ScoreNumber}ORP - {selectedRow.ScoreTitle}.pdf' downloaden";
+            btnPDFORPView.ToolTip = $"'{selectedRow.ScoreNumber}ORP - {selectedRow.ScoreTitle}.pdf' tonen";
+        }
+        else
+        {
+            btnPDFORPDownload.Visibility = Visibility.Collapsed;
+            btnPDFORPView.Visibility = Visibility.Collapsed;
+        }
+
+        if (selectedRow.PDFORKId > 0)
+        {
+            btnPDFORKDownload.Visibility = Visibility.Visible;
+            btnPDFORKView.Visibility = Visibility.Visible;
+            btnPDFORKDownload.ToolTip = $"'{selectedRow.ScoreNumber}ORK - {selectedRow.ScoreTitle}.pdf' downloaden";
+            btnPDFORKView.ToolTip = $"'{selectedRow.ScoreNumber}ORK - {selectedRow.ScoreTitle}.pdf' tonen";
+        }
+        else
+        {
+            btnPDFORKDownload.Visibility = Visibility.Collapsed;
+            btnPDFORKView.Visibility = Visibility.Collapsed;
+        }
+
+        if (selectedRow.PDFTOPId > 0)
+        {
+            btnPDFTOPDownload.Visibility = Visibility.Visible;
+            btnPDFTOPView.Visibility = Visibility.Visible;
+            btnPDFTOPDownload.ToolTip = $"'{selectedRow.ScoreNumber}TOP - {selectedRow.ScoreTitle}.pdf' downloaden";
+            btnPDFTOPView.ToolTip = $"'{selectedRow.ScoreNumber}TOP - {selectedRow.ScoreTitle}.pdf' tonen";
+        }
+        else
+        {
+            btnPDFTOPDownload.Visibility = Visibility.Collapsed;
+            btnPDFTOPView.Visibility = Visibility.Collapsed;
+        }
+
+        if (selectedRow.PDFTOKId > 0)
+        {
+            btnPDFTOKDownload.Visibility = Visibility.Visible;
+            btnPDFTOKView.Visibility = Visibility.Visible;
+            btnPDFTOKDownload.ToolTip = $"'{selectedRow.ScoreNumber}TOK - {selectedRow.ScoreTitle}.pdf' downloaden";
+            btnPDFTOKView.ToolTip = $"'{selectedRow.ScoreNumber}TOK - {selectedRow.ScoreTitle}.pdf' tonen";
+        }
+        else
+        {
+            btnPDFTOKDownload.Visibility = Visibility.Collapsed;
+            btnPDFTOKView.Visibility = Visibility.Collapsed;
+        }
+
+        if (selectedRow.PDFPIAId > 0)
+        {
+            btnPDFPIADownload.Visibility = Visibility.Visible;
+            btnPDFPIAView.Visibility = Visibility.Visible;
+            btnPDFPIADownload.ToolTip = $"'{selectedRow.ScoreNumber}PIA - {selectedRow.ScoreTitle}.pdf' downloaden";
+            btnPDFPIAView.ToolTip = $"'{selectedRow.ScoreNumber}PIA - {selectedRow.ScoreTitle}.pdf' tonen";
+        }
+        else
+        {
+            btnPDFPIADownload.Visibility = Visibility.Collapsed;
+            btnPDFPIAView.Visibility = Visibility.Collapsed;
+        }
+        #endregion
+
+        #region MP3 action buttons visibility
+        if (selectedRow.MP3B1Id > 0)
+        {
+            btnMP3B1Download.Visibility = Visibility.Visible;
+            btnMP3B1Play.Visibility = Visibility.Visible;
+            btnMP3B1Download.ToolTip = $"'{selectedRow.ScoreNumber}B1 - {selectedRow.ScoreTitle}.mp3' downloaden";
+            btnMP3B1Play.ToolTip = $"'{selectedRow.ScoreNumber}B1 - {selectedRow.ScoreTitle}.mp3' afspelen";
+        }
+        else
+        {
+            btnMP3B1Download.Visibility = Visibility.Collapsed;
+            btnMP3B1Play.Visibility = Visibility.Collapsed;
+        }
+
+        if (selectedRow.MP3B2Id > 0)
+        {
+            btnMP3B2Download.Visibility = Visibility.Visible;
+            btnMP3B2Play.Visibility = Visibility.Visible;
+            btnMP3B2Download.ToolTip = $"'{selectedRow.ScoreNumber}B2 - {selectedRow.ScoreTitle}.mp3' downloaden";
+            btnMP3B2Play.ToolTip = $"'{selectedRow.ScoreNumber}B2 - {selectedRow.ScoreTitle}.mp3' afspelen";
+        }
+        else
+        {
+            btnMP3B2Download.Visibility = Visibility.Collapsed;
+            btnMP3B2Play.Visibility = Visibility.Collapsed;
+        }
+
+        if (selectedRow.MP3T1Id > 0)
+        {
+            btnMP3T1Download.Visibility = Visibility.Visible;
+            btnMP3T1Play.Visibility = Visibility.Visible;
+            btnMP3T1Download.ToolTip = $"'{selectedRow.ScoreNumber}T1 - {selectedRow.ScoreTitle}.mp3' downloaden";
+            btnMP3T1Play.ToolTip = $"'{selectedRow.ScoreNumber}T1 - {selectedRow.ScoreTitle}.mp3' afspelen";
+        }
+        else
+        {
+            btnMP3T1Download.Visibility = Visibility.Collapsed;
+            btnMP3T1Play.Visibility = Visibility.Collapsed;
+        }
+
+        if (selectedRow.MP3T2Id > 0)
+        {
+            btnMP3T2Download.Visibility = Visibility.Visible;
+            btnMP3T2Play.Visibility = Visibility.Visible;
+            btnMP3T2Download.ToolTip = $"'{selectedRow.ScoreNumber}T2 - {selectedRow.ScoreTitle}.mp3' downloaden";
+            btnMP3T2Play.ToolTip = $"'{selectedRow.ScoreNumber}T2 - {selectedRow.ScoreTitle}.mp3' afspelen";
+        }
+        else
+        {
+            btnMP3T2Download.Visibility = Visibility.Collapsed;
+            btnMP3T2Play.Visibility = Visibility.Collapsed;
+        }
+
+        if (selectedRow.MP3TOTId > 0)
+        {
+            btnMP3TOTDownload.Visibility = Visibility.Visible;
+            btnMP3TOTPlay.Visibility = Visibility.Visible;
+            btnMP3TOTDownload.ToolTip = $"'{selectedRow.ScoreNumber}TOT - {selectedRow.ScoreTitle}.mp3' downloaden";
+            btnMP3TOTPlay.ToolTip = $"'{selectedRow.ScoreNumber}TOT - {selectedRow.ScoreTitle}.mp3' afspelen";
+        }
+        else
+        {
+            btnMP3TOTDownload.Visibility = Visibility.Collapsed;
+            btnMP3TOTPlay.Visibility = Visibility.Collapsed;
+        }
+
+        if (selectedRow.MP3SOLId > 0)
+        {
+            btnMP3SOLDownload.Visibility = Visibility.Visible;
+            btnMP3SOLPlay.Visibility = Visibility.Visible;
+            btnMP3SOLDownload.ToolTip = $"'{selectedRow.ScoreNumber}SOL - {selectedRow.ScoreTitle}.mp3' downloaden";
+            btnMP3SOLPlay.ToolTip = $"'{selectedRow.ScoreNumber}SOL - {selectedRow.ScoreTitle}.mp3' afspelen";
+        }
+        else
+        {
+            btnMP3SOLDownload.Visibility = Visibility.Collapsed;
+            btnMP3SOLPlay.Visibility = Visibility.Collapsed;
+        }
+
+        if (selectedRow.MP3PIAId > 0)
+        {
+            btnMP3PIADownload.Visibility = Visibility.Visible;
+            btnMP3PIAPlay.Visibility = Visibility.Visible;
+            btnMP3PIADownload.ToolTip = $"'{selectedRow.ScoreNumber}PIA - {selectedRow.ScoreTitle}.mp3' downloaden";
+            btnMP3PIAPlay.ToolTip = $"'{selectedRow.ScoreNumber}PIA - {selectedRow.ScoreTitle}.mp3' afspelen";
+        }
+        else
+        {
+            btnMP3PIADownload.Visibility = Visibility.Collapsed;
+            btnMP3PIAPlay.Visibility = Visibility.Collapsed;
+        }
+
+        if (selectedRow.MP3UITVId > 0)
+        {
+            btnMP3UITVDownload.Visibility = Visibility.Visible;
+            btnMP3UITVPlay.Visibility = Visibility.Visible;
+            btnMP3UITVDownload.ToolTip = $"'{selectedRow.ScoreNumber}UITV - {selectedRow.ScoreTitle}.mp3' downloaden";
+            btnMP3UITVPlay.ToolTip = $"'{selectedRow.ScoreNumber}UITV - {selectedRow.ScoreTitle}.mp3' afspelen";
+        }
+        else
+        {
+            btnMP3UITVDownload.Visibility = Visibility.Collapsed;
+            btnMP3UITVPlay.Visibility = Visibility.Collapsed;
+        }
+        #endregion
+
+        #region MP3 Voice action buttons visibility
+        if (selectedRow.MP3B1VoiceId > 0)
+        {
+            btnMP3B1VoiceDownload.Visibility = Visibility.Visible;
+            btnMP3B1VoicePlay.Visibility = Visibility.Visible;
+            btnMP3B1Download.ToolTip = $"'{selectedRow.ScoreNumber}B1 - {selectedRow.ScoreTitle} (Ingezongen).mp3' downloaden";
+            btnMP3B1Play.ToolTip = $"'{selectedRow.ScoreNumber}B1 - {selectedRow.ScoreTitle} (Ingezongen).mp3' afspelen";
+        }
+        else
+        {
+            btnMP3B1VoiceDownload.Visibility = Visibility.Collapsed;
+            btnMP3B1VoicePlay.Visibility = Visibility.Collapsed;
+        }
+
+        if (selectedRow.MP3B2VoiceId > 0)
+        {
+            btnMP3B2VoiceDownload.Visibility = Visibility.Visible;
+            btnMP3B2VoicePlay.Visibility = Visibility.Visible;
+            btnMP3B2Download.ToolTip = $"'{selectedRow.ScoreNumber}B2 - {selectedRow.ScoreTitle} (Ingezongen).mp3' downloaden";
+            btnMP3B2Play.ToolTip = $"'{selectedRow.ScoreNumber}B2 - {selectedRow.ScoreTitle} (Ingezongen).mp3' afspelen";
+        }
+        else
+        {
+            btnMP3B2VoiceDownload.Visibility = Visibility.Collapsed;
+            btnMP3B2VoicePlay.Visibility = Visibility.Collapsed;
+        }
+
+        if (selectedRow.MP3T1VoiceId > 0)
+        {
+            btnMP3T1VoiceDownload.Visibility = Visibility.Visible;
+            btnMP3T1VoicePlay.Visibility = Visibility.Visible;
+            btnMP3T1Download.ToolTip = $"'{selectedRow.ScoreNumber}T1 - {selectedRow.ScoreTitle} (Ingezongen).mp3' downloaden";
+            btnMP3T1Play.ToolTip = $"'{selectedRow.ScoreNumber}T1 - {selectedRow.ScoreTitle} (Ingezongen).mp3' afspelen";
+        }
+        else
+        {
+            btnMP3T1VoiceDownload.Visibility = Visibility.Collapsed;
+            btnMP3T1VoicePlay.Visibility = Visibility.Collapsed;
+        }
+
+        if (selectedRow.MP3T2VoiceId > 0)
+        {
+            btnMP3T2VoiceDownload.Visibility = Visibility.Visible;
+            btnMP3T2VoicePlay.Visibility = Visibility.Visible;
+            btnMP3T2Download.ToolTip = $"'{selectedRow.ScoreNumber}T2 - {selectedRow.ScoreTitle} (Ingezongen).mp3' downloaden";
+            btnMP3T2Play.ToolTip = $"'{selectedRow.ScoreNumber}T2 - {selectedRow.ScoreTitle} (Ingezongen).mp3' afspelen";
+        }
+        else
+        {
+            btnMP3T2VoiceDownload.Visibility = Visibility.Collapsed;
+            btnMP3T2VoicePlay.Visibility = Visibility.Collapsed;
+        }
+
+        if (selectedRow.MP3TOTVoiceId > 0)
+        {
+            btnMP3TOTVoiceDownload.Visibility = Visibility.Visible;
+            btnMP3TOTVoicePlay.Visibility = Visibility.Visible;
+            btnMP3TOTDownload.ToolTip = $"'{selectedRow.ScoreNumber}TOT - {selectedRow.ScoreTitle} (Ingezongen).mp3' downloaden";
+            btnMP3TOTPlay.ToolTip = $"'{selectedRow.ScoreNumber}TOT - {selectedRow.ScoreTitle} (Ingezongen).mp3' afspelen";
+        }
+        else
+        {
+            btnMP3TOTVoiceDownload.Visibility = Visibility.Collapsed;
+            btnMP3TOTVoicePlay.Visibility = Visibility.Collapsed;
+        }
+
+        if (selectedRow.MP3SOLVoiceId > 0)
+        {
+            btnMP3SOLVoiceDownload.Visibility = Visibility.Visible;
+            btnMP3SOLVoicePlay.Visibility = Visibility.Visible;
+            btnMP3SOLDownload.ToolTip = $"'{selectedRow.ScoreNumber}SOL - {selectedRow.ScoreTitle} (Ingezongen).mp3' downloaden";
+            btnMP3SOLPlay.ToolTip = $"'{selectedRow.ScoreNumber}SOL - {selectedRow.ScoreTitle} (Ingezongen).mp3' afspelen";
+        }
+        else
+        {
+            btnMP3SOLVoiceDownload.Visibility = Visibility.Collapsed;
+            btnMP3SOLVoicePlay.Visibility = Visibility.Collapsed;
+        }
         #endregion
 
         SelectedScore = selectedRow;

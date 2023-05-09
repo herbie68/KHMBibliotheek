@@ -229,16 +229,12 @@
                         <!--#endregion-->
 
                         <!--#region MuseScoreORP (Hidden)-->
-                        <DataGridCheckBoxColumn
-                            x:Name="MSCORP"
-                            Width="Auto"
-                            Binding="{Binding MSCORP}"
-                            Visibility="Collapsed" />
-
-                        <DataGridTextColumn x:Name="MSCORPId"
+                        <!-- <DataGridCheckBoxColumn x:Name="MSCORP" Width="Auto" Binding="{Binding MSCORP}" Visibility="Collapsed" /> -->
+                        <DataGridTextColumn
+                            x:Name="MSCORPId"
                             Width="Auto"
                             Binding="{Binding MSCORPId}"
-                            Visibility="Collapsed"/>
+                            Visibility="Collapsed" />
                         <!--#endregion-->
 
                         <!--#region MuseScoreORK (Hidden)-->
@@ -248,10 +244,11 @@
                             Binding="{Binding MSCORK}"
                             Visibility="Collapsed" />
 
-                        <DataGridTextColumn x:Name="MSCORKId"
+                        <DataGridTextColumn
+                            x:Name="MSCORKId"
                             Width="Auto"
                             Binding="{Binding MSCORKId}"
-                            Visibility="Collapsed"/>
+                            Visibility="Collapsed" />
                         <!--#endregion-->
 
                         <!--#region MuseScoreTOP (Hidden)-->
@@ -261,10 +258,11 @@
                             Binding="{Binding MSCTOP}"
                             Visibility="Collapsed" />
 
-                        <DataGridTextColumn x:Name="MSCTOPId"
+                        <DataGridTextColumn
+                            x:Name="MSCTOPId"
                             Width="Auto"
                             Binding="{Binding MSCTOPId}"
-                            Visibility="Collapsed"/>
+                            Visibility="Collapsed" />
                         <!--#endregion-->
 
                         <!--#region MuseScoreTOK (Hidden)-->
@@ -274,10 +272,11 @@
                             Binding="{Binding MSCTOK}"
                             Visibility="Collapsed" />
 
-                        <DataGridTextColumn x:Name="MSCTOKId"
+                        <DataGridTextColumn
+                            x:Name="MSCTOKId"
                             Width="Auto"
                             Binding="{Binding MSCTOKId}"
-                            Visibility="Collapsed"/>
+                            Visibility="Collapsed" />
                         <!--#endregion-->
 
                         <!--#region PDFORP (Hidden)-->
@@ -287,10 +286,11 @@
                             Binding="{Binding PDFORP}"
                             Visibility="Collapsed" />
 
-                        <DataGridTextColumn x:Name="PDFORPId"
+                        <DataGridTextColumn
+                            x:Name="PDFORPId"
                             Width="Auto"
                             Binding="{Binding PDFORPId}"
-                            Visibility="Collapsed"/>
+                            Visibility="Collapsed" />
                         <!--#endregion-->
 
                         <!--#region PDFORK (Hidden)-->
@@ -300,10 +300,11 @@
                             Binding="{Binding PDFORK}"
                             Visibility="Collapsed" />
 
-                        <DataGridTextColumn x:Name="PDFORKId"
+                        <DataGridTextColumn
+                            x:Name="PDFORKId"
                             Width="Auto"
                             Binding="{Binding PDFORKId}"
-                            Visibility="Collapsed"/>
+                            Visibility="Collapsed" />
                         <!--#endregion-->
 
                         <!--#region PDFTOP (Hidden)-->
@@ -313,10 +314,11 @@
                             Binding="{Binding PDFTOP}"
                             Visibility="Collapsed" />
 
-                        <DataGridTextColumn x:Name="PDFTOPId"
+                        <DataGridTextColumn
+                            x:Name="PDFTOPId"
                             Width="Auto"
                             Binding="{Binding PDFTOPId}"
-                            Visibility="Collapsed"/>
+                            Visibility="Collapsed" />
                         <!--#endregion-->
 
                         <!--#region PDFTOK (Hidden)-->
@@ -326,10 +328,11 @@
                             Binding="{Binding PDFTOK}"
                             Visibility="Collapsed" />
 
-                        <DataGridTextColumn x:Name="PDFTOKId"
+                        <DataGridTextColumn
+                            x:Name="PDFTOKId"
                             Width="Auto"
                             Binding="{Binding PDFTOKId}"
-                            Visibility="Collapsed"/>
+                            Visibility="Collapsed" />
                         <!--#endregion-->
 
                         <!--#region PDFTOK (Hidden)-->
@@ -339,10 +342,11 @@
                             Binding="{Binding PDFPIA}"
                             Visibility="Collapsed" />
 
-                        <DataGridTextColumn x:Name="PDFPIAId"
+                        <DataGridTextColumn
+                            x:Name="PDFPIAId"
                             Width="Auto"
                             Binding="{Binding PDFPIAId}"
-                            Visibility="Collapsed"/>
+                            Visibility="Collapsed" />
                         <!--#endregion-->
 
                         <!--#region MP3B1 (Hidden)-->
@@ -352,10 +356,11 @@
                             Binding="{Binding MP3B1}"
                             Visibility="Collapsed" />
 
-                        <DataGridTextColumn x:Name="MP3B1Id"
+                        <DataGridTextColumn
+                            x:Name="MP3B1Id"
                             Width="Auto"
                             Binding="{Binding MP3B1Id}"
-                            Visibility="Collapsed"/>
+                            Visibility="Collapsed" />
                         <!--#endregion-->
 
                         <!--#region MP3B2 (Hidden)-->
@@ -365,10 +370,11 @@
                             Binding="{Binding MP3B2}"
                             Visibility="Collapsed" />
 
-                        <DataGridTextColumn x:Name="MP3B2Id"
+                        <DataGridTextColumn
+                            x:Name="MP3B2Id"
                             Width="Auto"
                             Binding="{Binding MP3B2Id}"
-                            Visibility="Collapsed"/>
+                            Visibility="Collapsed" />
                         <!--#endregion-->
 
                         <!--#region MP3T1 (Hidden)-->
@@ -378,10 +384,11 @@
                             Binding="{Binding MP3T1}"
                             Visibility="Collapsed" />
 
-                        <DataGridTextColumn x:Name="MP3T1Id"
+                        <DataGridTextColumn
+                            x:Name="MP3T1Id"
                             Width="Auto"
                             Binding="{Binding MP3T1Id}"
-                            Visibility="Collapsed"/>
+                            Visibility="Collapsed" />
                         <!--#endregion-->
 
                         <!--#region MP3T2 (Hidden)-->
@@ -391,10 +398,11 @@
                             Binding="{Binding MP3T2}"
                             Visibility="Collapsed" />
 
-                        <DataGridTextColumn x:Name="MP3T2Id"
+                        <DataGridTextColumn
+                            x:Name="MP3T2Id"
                             Width="Auto"
                             Binding="{Binding MP3T2Id}"
-                            Visibility="Collapsed"/>
+                            Visibility="Collapsed" />
                         <!--#endregion-->
 
                         <!--#region MP3SOL (Hidden)-->
@@ -404,10 +412,11 @@
                             Binding="{Binding MP3SOL}"
                             Visibility="Collapsed" />
 
-                        <DataGridTextColumn x:Name="MP3SOLId"
+                        <DataGridTextColumn
+                            x:Name="MP3SOLId"
                             Width="Auto"
                             Binding="{Binding MP3SOLId}"
-                            Visibility="Collapsed"/>
+                            Visibility="Collapsed" />
                         <!--#endregion-->
 
                         <!--#region MP3TOT (Hidden)-->
@@ -417,10 +426,11 @@
                             Binding="{Binding MP3TOT}"
                             Visibility="Collapsed" />
 
-                        <DataGridTextColumn x:Name="MP3TOTId"
+                        <DataGridTextColumn
+                            x:Name="MP3TOTId"
                             Width="Auto"
                             Binding="{Binding MP3TOTId}"
-                            Visibility="Collapsed"/>
+                            Visibility="Collapsed" />
                         <!--#endregion-->
 
                         <!--#region MP3PIA (Hidden)-->
@@ -430,10 +440,11 @@
                             Binding="{Binding MP3PIA}"
                             Visibility="Collapsed" />
 
-                        <DataGridTextColumn x:Name="MP3PIAId"
+                        <DataGridTextColumn
+                            x:Name="MP3PIAId"
                             Width="Auto"
                             Binding="{Binding MP3PIAId}"
-                            Visibility="Collapsed"/>
+                            Visibility="Collapsed" />
                         <!--#endregion-->
 
                         <!--#region PDFUITV (Hidden)-->
@@ -443,10 +454,11 @@
                             Binding="{Binding PDFUITV}"
                             Visibility="Collapsed" />
 
-                        <DataGridTextColumn x:Name="PDFUITVId"
+                        <DataGridTextColumn
+                            x:Name="PDFUITVId"
                             Width="Auto"
                             Binding="{Binding PDFUITVId}"
-                            Visibility="Collapsed"/>
+                            Visibility="Collapsed" />
                         <!--#endregion-->
                     </DataGrid.Columns>
                     <!--#endregion-->
@@ -524,15 +536,15 @@
                         <Grid Margin="5,1,5,1">
                             <!--#region Row and Column definitions-->
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="18" />
+                                <RowDefinition Height="18" />
+                                <RowDefinition Height="18" />
+                                <RowDefinition Height="18" />
+                                <RowDefinition Height="18" />
+                                <RowDefinition Height="18" />
+                                <RowDefinition Height="18" />
+                                <RowDefinition Height="18" />
+                                <RowDefinition Height="18" />
                             </Grid.RowDefinitions>
 
                             <Grid.ColumnDefinitions>
@@ -591,9 +603,7 @@
                                 x:Name="btnMSCORPDownload"
                                 Grid.Column="3"
                                 Click="btnDownloadClick"
-                                IsEnabled="False"
-                                Style="{DynamicResource MusicFiles.Buttons.Style}"
-                                Visibility="Visible">
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
                                 <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
                             </Button>
                             <!--#endregion-->
@@ -624,9 +634,7 @@
                                 Grid.Row="1"
                                 Grid.Column="3"
                                 Click="btnDownloadClick"
-                                IsEnabled="False"
-                                Style="{DynamicResource MusicFiles.Buttons.Style}"
-                                Visibility="Visible">
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
                                 <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
                             </Button>
                             <!--#endregion-->
@@ -657,9 +665,7 @@
                                 Grid.Row="2"
                                 Grid.Column="3"
                                 Click="btnDownloadClick"
-                                IsEnabled="False"
-                                Style="{DynamicResource MusicFiles.Buttons.Style}"
-                                Visibility="Visible">
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
                                 <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
                             </Button>
                             <!--#endregion-->
@@ -690,9 +696,7 @@
                                 Grid.Row="3"
                                 Grid.Column="3"
                                 Click="btnDownloadClick"
-                                IsEnabled="False"
-                                Style="{DynamicResource MusicFiles.Buttons.Style}"
-                                Visibility="Visible">
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
                                 <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
                             </Button>
                             <!--#endregion-->
@@ -733,9 +737,7 @@
                                 x:Name="btnPDFORPDownload"
                                 Grid.Column="8"
                                 Click="btnDownloadClick"
-                                IsEnabled="False"
-                                Style="{DynamicResource MusicFiles.Buttons.Style}"
-                                Visibility="Visible">
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
                                 <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
                             </Button>
                             <!--#endregion-->
@@ -745,9 +747,7 @@
                                 x:Name="btnPDFORPView"
                                 Grid.Column="9"
                                 Click="btnViewClick"
-                                IsEnabled="False"
-                                Style="{DynamicResource MusicFiles.Buttons.Style}"
-                                Visibility="Visible">
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
                                 <Path Data="{DynamicResource MusicFiles.View}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
                             </Button>
                             <!--#endregion-->
@@ -778,9 +778,7 @@
                                 Grid.Row="1"
                                 Grid.Column="8"
                                 Click="btnDownloadClick"
-                                IsEnabled="False"
-                                Style="{DynamicResource MusicFiles.Buttons.Style}"
-                                Visibility="Visible">
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
                                 <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
                             </Button>
                             <!--#endregion-->
@@ -791,9 +789,7 @@
                                 Grid.Row="1"
                                 Grid.Column="9"
                                 Click="btnViewClick"
-                                IsEnabled="False"
-                                Style="{DynamicResource MusicFiles.Buttons.Style}"
-                                Visibility="Visible">
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
                                 <Path Data="{DynamicResource MusicFiles.View}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
                             </Button>
                             <!--#endregion-->
@@ -824,9 +820,7 @@
                                 Grid.Row="2"
                                 Grid.Column="8"
                                 Click="btnDownloadClick"
-                                IsEnabled="False"
-                                Style="{DynamicResource MusicFiles.Buttons.Style}"
-                                Visibility="Visible">
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
                                 <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
                             </Button>
                             <!--#endregion-->
@@ -837,9 +831,7 @@
                                 Grid.Row="2"
                                 Grid.Column="9"
                                 Click="btnViewClick"
-                                IsEnabled="False"
-                                Style="{DynamicResource MusicFiles.Buttons.Style}"
-                                Visibility="Visible">
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
                                 <Path Data="{DynamicResource MusicFiles.View}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
                             </Button>
                             <!--#endregion-->
@@ -870,9 +862,7 @@
                                 Grid.Row="3"
                                 Grid.Column="8"
                                 Click="btnDownloadClick"
-                                IsEnabled="False"
-                                Style="{DynamicResource MusicFiles.Buttons.Style}"
-                                Visibility="Visible">
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
                                 <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
                             </Button>
                             <!--#endregion-->
@@ -883,9 +873,7 @@
                                 Grid.Row="3"
                                 Grid.Column="9"
                                 Click="btnViewClick"
-                                IsEnabled="False"
-                                Style="{DynamicResource MusicFiles.Buttons.Style}"
-                                Visibility="Visible">
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
                                 <Path Data="{DynamicResource MusicFiles.View}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
                             </Button>
                             <!--#endregion-->
@@ -916,9 +904,7 @@
                                 Grid.Row="4"
                                 Grid.Column="8"
                                 Click="btnDownloadClick"
-                                IsEnabled="False"
-                                Style="{DynamicResource MusicFiles.Buttons.Style}"
-                                Visibility="Visible">
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
                                 <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
                             </Button>
                             <!--#endregion-->
@@ -929,9 +915,7 @@
                                 Grid.Row="4"
                                 Grid.Column="9"
                                 Click="btnViewClick"
-                                IsEnabled="False"
-                                Style="{DynamicResource MusicFiles.Buttons.Style}"
-                                Visibility="Visible">
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
                                 <Path Data="{DynamicResource MusicFiles.View}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
                             </Button>
                             <!--#endregion-->
@@ -972,9 +956,7 @@
                                 x:Name="btnMP3B1Download"
                                 Grid.Column="13"
                                 Click="btnDownloadClick"
-                                IsEnabled="False"
-                                Style="{DynamicResource MusicFiles.Buttons.Style}"
-                                Visibility="Visible">
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
                                 <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
                             </Button>
                             <!--#endregion-->
@@ -985,9 +967,7 @@
                                 Grid.Row="0"
                                 Grid.Column="14"
                                 Click="btnPlayClick"
-                                IsEnabled="False"
-                                Style="{DynamicResource MusicFiles.Buttons.Style}"
-                                Visibility="Visible">
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
                                 <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
                             </Button>
                             <!--#endregion-->
@@ -1018,9 +998,7 @@
                                 Grid.Row="1"
                                 Grid.Column="13"
                                 Click="btnDownloadClick"
-                                IsEnabled="False"
-                                Style="{DynamicResource MusicFiles.Buttons.Style}"
-                                Visibility="Visible">
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
                                 <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
                             </Button>
                             <!--#endregion-->
@@ -1031,9 +1009,7 @@
                                 Grid.Row="1"
                                 Grid.Column="14"
                                 Click="btnPlayClick"
-                                IsEnabled="False"
-                                Style="{DynamicResource MusicFiles.Buttons.Style}"
-                                Visibility="Visible">
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
                                 <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
                             </Button>
                             <!--#endregion-->
@@ -1064,9 +1040,7 @@
                                 Grid.Row="2"
                                 Grid.Column="13"
                                 Click="btnDownloadClick"
-                                IsEnabled="False"
-                                Style="{DynamicResource MusicFiles.Buttons.Style}"
-                                Visibility="Visible">
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
                                 <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
                             </Button>
                             <!--#endregion-->
@@ -1077,9 +1051,7 @@
                                 Grid.Row="2"
                                 Grid.Column="14"
                                 Click="btnPlayClick"
-                                IsEnabled="False"
-                                Style="{DynamicResource MusicFiles.Buttons.Style}"
-                                Visibility="Visible">
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
                                 <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
                             </Button>
                             <!--#endregion-->
@@ -1110,9 +1082,7 @@
                                 Grid.Row="3"
                                 Grid.Column="13"
                                 Click="btnDownloadClick"
-                                IsEnabled="False"
-                                Style="{DynamicResource MusicFiles.Buttons.Style}"
-                                Visibility="Visible">
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
                                 <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
                             </Button>
                             <!--#endregion-->
@@ -1123,9 +1093,7 @@
                                 Grid.Row="3"
                                 Grid.Column="14"
                                 Click="btnPlayClick"
-                                IsEnabled="False"
-                                Style="{DynamicResource MusicFiles.Buttons.Style}"
-                                Visibility="Visible">
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
                                 <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
                             </Button>
                             <!--#endregion-->
@@ -1156,9 +1124,7 @@
                                 Grid.Row="4"
                                 Grid.Column="13"
                                 Click="btnDownloadClick"
-                                IsEnabled="False"
-                                Style="{DynamicResource MusicFiles.Buttons.Style}"
-                                Visibility="Visible">
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
                                 <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
                             </Button>
                             <!--#endregion-->
@@ -1169,9 +1135,7 @@
                                 Grid.Row="4"
                                 Grid.Column="14"
                                 Click="btnPlayClick"
-                                IsEnabled="False"
-                                Style="{DynamicResource MusicFiles.Buttons.Style}"
-                                Visibility="Visible">
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
                                 <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
                             </Button>
                             <!--#endregion-->
@@ -1202,9 +1166,7 @@
                                 Grid.Row="5"
                                 Grid.Column="13"
                                 Click="btnDownloadClick"
-                                IsEnabled="False"
-                                Style="{DynamicResource MusicFiles.Buttons.Style}"
-                                Visibility="Visible">
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
                                 <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
                             </Button>
                             <!--#endregion-->
@@ -1215,9 +1177,7 @@
                                 Grid.Row="5"
                                 Grid.Column="14"
                                 Click="btnPlayClick"
-                                IsEnabled="False"
-                                Style="{DynamicResource MusicFiles.Buttons.Style}"
-                                Visibility="Visible">
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
                                 <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
                             </Button>
                             <!--#endregion-->
@@ -1248,9 +1208,7 @@
                                 Grid.Row="6"
                                 Grid.Column="13"
                                 Click="btnDownloadClick"
-                                IsEnabled="False"
-                                Style="{DynamicResource MusicFiles.Buttons.Style}"
-                                Visibility="Visible">
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
                                 <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
                             </Button>
                             <!--#endregion-->
@@ -1261,9 +1219,7 @@
                                 Grid.Row="6"
                                 Grid.Column="14"
                                 Click="btnPlayClick"
-                                IsEnabled="False"
-                                Style="{DynamicResource MusicFiles.Buttons.Style}"
-                                Visibility="Visible">
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
                                 <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
                             </Button>
                             <!--#endregion-->
@@ -1294,9 +1250,7 @@
                                 Grid.Row="7"
                                 Grid.Column="13"
                                 Click="btnDownloadClick"
-                                IsEnabled="False"
-                                Style="{DynamicResource MusicFiles.Buttons.Style}"
-                                Visibility="Visible">
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
                                 <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
                             </Button>
                             <!--#endregion-->
@@ -1307,9 +1261,7 @@
                                 Grid.Row="7"
                                 Grid.Column="14"
                                 Click="btnPlayClick"
-                                IsEnabled="False"
-                                Style="{DynamicResource MusicFiles.Buttons.Style}"
-                                Visibility="Visible">
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
                                 <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
                             </Button>
                             <!--#endregion-->
@@ -1341,9 +1293,7 @@
                                 x:Name="btnMP3B1VoiceDownload"
                                 Grid.Column="17"
                                 Click="btnDownloadClick"
-                                IsEnabled="False"
-                                Style="{DynamicResource MusicFiles.Buttons.Style}"
-                                Visibility="Visible">
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
                                 <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
                             </Button>
                             <!--#endregion-->
@@ -1354,9 +1304,7 @@
                                 Grid.Row="0"
                                 Grid.Column="18"
                                 Click="btnPlayClick"
-                                IsEnabled="False"
-                                Style="{DynamicResource MusicFiles.Buttons.Style}"
-                                Visibility="Visible">
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
                                 <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
                             </Button>
                             <!--#endregion-->
@@ -1378,9 +1326,7 @@
                                 Grid.Row="1"
                                 Grid.Column="17"
                                 Click="btnDownloadClick"
-                                IsEnabled="False"
-                                Style="{DynamicResource MusicFiles.Buttons.Style}"
-                                Visibility="Visible">
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
                                 <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
                             </Button>
                             <!--#endregion-->
@@ -1391,9 +1337,7 @@
                                 Grid.Row="1"
                                 Grid.Column="19"
                                 Click="btnPlayClick"
-                                IsEnabled="False"
-                                Style="{DynamicResource MusicFiles.Buttons.Style}"
-                                Visibility="Visible">
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
                                 <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
                             </Button>
                             <!--#endregion-->
@@ -1415,9 +1359,7 @@
                                 Grid.Row="2"
                                 Grid.Column="17"
                                 Click="btnDownloadClick"
-                                IsEnabled="False"
-                                Style="{DynamicResource MusicFiles.Buttons.Style}"
-                                Visibility="Visible">
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
                                 <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
                             </Button>
                             <!--#endregion-->
@@ -1428,9 +1370,7 @@
                                 Grid.Row="2"
                                 Grid.Column="18"
                                 Click="btnPlayClick"
-                                IsEnabled="False"
-                                Style="{DynamicResource MusicFiles.Buttons.Style}"
-                                Visibility="Visible">
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
                                 <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
                             </Button>
                             <!--#endregion-->
@@ -1452,9 +1392,7 @@
                                 Grid.Row="3"
                                 Grid.Column="17"
                                 Click="btnDownloadClick"
-                                IsEnabled="False"
-                                Style="{DynamicResource MusicFiles.Buttons.Style}"
-                                Visibility="Visible">
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
                                 <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
                             </Button>
                             <!--#endregion-->
@@ -1465,9 +1403,7 @@
                                 Grid.Row="3"
                                 Grid.Column="18"
                                 Click="btnPlayClick"
-                                IsEnabled="False"
-                                Style="{DynamicResource MusicFiles.Buttons.Style}"
-                                Visibility="Visible">
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
                                 <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
                             </Button>
                             <!--#endregion-->
@@ -1489,9 +1425,7 @@
                                 Grid.Row="4"
                                 Grid.Column="17"
                                 Click="btnDownloadClick"
-                                IsEnabled="False"
-                                Style="{DynamicResource MusicFiles.Buttons.Style}"
-                                Visibility="Visible">
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
                                 <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
                             </Button>
                             <!--#endregion-->
@@ -1502,9 +1436,7 @@
                                 Grid.Row="4"
                                 Grid.Column="18"
                                 Click="btnPlayClick"
-                                IsEnabled="False"
-                                Style="{DynamicResource MusicFiles.Buttons.Style}"
-                                Visibility="Visible">
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
                                 <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
                             </Button>
                             <!--#endregion-->
@@ -1526,9 +1458,7 @@
                                 Grid.Row="5"
                                 Grid.Column="17"
                                 Click="btnDownloadClick"
-                                IsEnabled="False"
-                                Style="{DynamicResource MusicFiles.Buttons.Style}"
-                                Visibility="Visible">
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
                                 <Path Data="{DynamicResource MusicFiles.Download}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
                             </Button>
                             <!--#endregion-->
@@ -1539,9 +1469,7 @@
                                 Grid.Row="5"
                                 Grid.Column="18"
                                 Click="btnPlayClick"
-                                IsEnabled="False"
-                                Style="{DynamicResource MusicFiles.Buttons.Style}"
-                                Visibility="Visible">
+                                Style="{DynamicResource MusicFiles.Buttons.Style}">
                                 <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
                             </Button>
                             <!--#endregion-->
