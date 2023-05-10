@@ -155,6 +155,7 @@ public class DBNames
     public static readonly string FilesFieldNameScoreId = "ScoreId";
     public static readonly string FilesFieldNameFileName = "FileName";
     public static readonly string FilesFieldNameFileSize = "FileSize";
+    public static readonly string FilesFieldNameContentType = "ContentType";
     public static readonly string FilesFieldNameFile = "File";
     #endregion
 

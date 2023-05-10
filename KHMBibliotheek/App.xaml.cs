@@ -1,13 +1,4 @@
-﻿global using CommunityToolkit.Mvvm.ComponentModel;
-
-global using KHMBibliotheek.Converters;
-global using KHMBibliotheek.Helpers;
-global using KHMBibliotheek.Models;
-global using KHMBibliotheek.ViewModels;
-
-global using MySql.Data.MySqlClient;
-
-global using System;
+﻿global using System;
 global using System.Collections.ObjectModel;
 global using System.Data;
 global using System.Diagnostics;
@@ -20,6 +11,12 @@ global using System.Windows.Controls;
 global using System.Windows.Controls.Primitives;
 global using System.Windows.Input;
 global using System.Windows.Media;
+global using CommunityToolkit.Mvvm.ComponentModel;
+global using KHMBibliotheek.Converters;
+global using KHMBibliotheek.Helpers;
+global using KHMBibliotheek.Models;
+global using KHMBibliotheek.ViewModels;
+global using MySql.Data.MySqlClient;
 
 namespace KHMBibliotheek;
 /// <summary>
@@ -38,4 +35,9 @@ public class LibraryUsers
     public static string? SelectedUserEmail { get; set; }
     public static string? SelectedUserPassword { get; set; }
     public static int SelectedUserRoleId { get; set; }
+}
+
+public class FilePaths
+{
+    public static string? DownloadPath { get; set; }
 }
