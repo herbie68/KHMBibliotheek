@@ -17,6 +17,7 @@ public partial class Scores : Page
     public int MSCORPFileId, MSSCORKFileId, MSCTOPFileId, MSCTOKFileId, PDFORPFileId, PDFORKFileId, PDFTOPFileId, PDFTOKFileId, PDFPIAFileId;
     public int MP3B1FileId, MP3B2FileId, MP3T1FileId, MP3T2FileId, MP3SOLFileId, MP3TOTFileId, MP3UITVFileId, MP3PIAFileId;
     public string FileName;
+    public bool playerClosed = false;
 
     public Scores ( )
     {
@@ -828,6 +829,17 @@ public partial class Scores : Page
         var fileName = $"{SelectedScore.ScoreNumber}{fileNamePrefix} - {SelectedScore.ScoreTitle}{fileNameSuffix}.{fileNameExtension}";
 
         // First Download the File
-        DBCommands.PlayMP3File ( fileId, fileTable, filePathSuffix, fileName );
+        DBCommands.DownloadFile ( fileId, fileTable, filePathSuffix, fileName );
+
+        string uri = $"{FilePaths.DownloadPath}\\{filePathSuffix}\\{fileName}";
+
+        MediaPlayerView player = new(uri, fileName);
+        player.Show ( );
+
+
+        //MediaPlayer mediaPlayer = new();
+        //mediaPlayer.Open ( new Uri ( uri ) );
+        //mediaPlayer.Play ( );
     }
+
 }

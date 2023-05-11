@@ -991,7 +991,7 @@ public class DBCommands
     {
         string? _downloadPath, selectQuery;
 
-        _downloadPath = @$"{FilePaths.DownloadPath}\{_filePathSuffix}";
+        _downloadPath = $"{FilePaths.DownloadPath}\\{_filePathSuffix}";
         CheckFolder ( _downloadPath );
 
         selectQuery = $"{DBNames.SqlSelect}{DBNames.FilesFieldNameFile}{DBNames.SqlFrom}{_fileTable}{DBNames.SqlWhere}{DBNames.FilesFieldNameId} = @{DBNames.FilesFieldNameId};";
@@ -1046,7 +1046,8 @@ public class DBCommands
     {
         string? _downloadPath, selectQuery;
 
-        _downloadPath = @$"{FilePaths.DownloadPath}\{_filePathSuffix}";
+        _downloadPath = $"{FilePaths.DownloadPath}\\{_filePathSuffix}";
+
 
         selectQuery = $"{DBNames.SqlSelect}{DBNames.FilesFieldNameFile}{DBNames.SqlFrom}{_fileTable}{DBNames.SqlWhere}{DBNames.FilesFieldNameId} = @{DBNames.FilesFieldNameId};";
 

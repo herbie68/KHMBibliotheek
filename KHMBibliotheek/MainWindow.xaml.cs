@@ -10,7 +10,7 @@ public partial class MainWindow : Window
         tbUserName.Text = LibraryUsers.SelectedUserFullName;
         tbLogedInUserName.Text = LibraryUsers.SelectedUserName;
         tbLogedInFullName.Text = LibraryUsers.SelectedUserFullName;
-        FilePaths.DownloadPath = @"C:\Users\herbert.nijkamp\OneDrive - Wolters Kluwer\Downloads\KHM";
+        FilePaths.DownloadPath = "C:\\Users\\herbert.nijkamp\\OneDrive - Wolters Kluwer\\Downloads\\KHM";
 
         // Set the value to control weather or not an administrator has logged in
         if ( LibraryUsers.SelectedUserRoleId == 4 || LibraryUsers.SelectedUserRoleId == 6 || LibraryUsers.SelectedUserRoleId == 8 || LibraryUsers.SelectedUserRoleId == 15 )

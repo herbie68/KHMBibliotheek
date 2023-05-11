@@ -1,0 +1,108 @@
+﻿<Window
+    x:Class="KHMBibliotheek.Views.MediaPlayerView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:KHMBibliotheek.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="KHM's MP3 Speler"
+    Width="450"
+    Height="450"
+    Closing="Window_Closing"
+    mc:Ignorable="d">
+    <Grid>
+        <StackPanel
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Orientation="Vertical">
+            <MediaElement
+                x:Name="MP3MediaElement"
+                LoadedBehavior="Manual"
+                MediaEnded="Element_MediaEnded"
+                MediaOpened="Element_MediaOpened"
+                Stretch="Fill"
+                UnloadedBehavior="Stop" />
+            <!--#region File information-->
+            <TextBox
+                x:Name="tbFileName"
+                HorizontalAlignment="Center"
+                FontFamily="Forte"
+                FontSize="14"
+                Text="[filename]"
+                TextAlignment="Center" />
+            <TextBox
+                x:Name="tbDuration"
+                HorizontalAlignment="Center"
+                FontFamily="Comic Sans"
+                FontSize="18"
+                Text="[filename]"
+                TextAlignment="Center" />
+            <!--#endregion-->
+
+            <!--#region Media buttons-->
+            <StackPanel
+                Margin="0,40,0,0"
+                HorizontalAlignment="Center"
+                Orientation="Horizontal">
+                <Button
+                    x:Name="btnPlay"
+                    Click="btnPlayClick"
+                    Style="{DynamicResource MusicFiles.Buttons.Style}"
+                    ToolTip="Afspelen">
+                    <Path Data="{DynamicResource MusicFiles.Play}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                </Button>
+
+                <Button
+                    x:Name="btnPause"
+                    Margin="20,0,20,0"
+                    Click="btnPauseClick"
+                    Style="{DynamicResource MusicFiles.Buttons.Style}"
+                    ToolTip="Pauze">
+                    <Path Data="{DynamicResource MusicFiles.Pause}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                </Button>
+
+                <Button
+                    x:Name="btnStop"
+                    Click="btnStopClick"
+                    Style="{DynamicResource MusicFiles.Buttons.Style}"
+                    ToolTip="Stop">
+                    <Path Data="{DynamicResource MusicFiles.Stop}" Style="{DynamicResource MusicFiles.Button.Path.Style}" />
+                </Button>
+            </StackPanel>
+            <!--#endregion-->
+
+            <!--#region Sliders-->
+            <!--  Volume slider. This slider allows a Volume range between 0 and 1.  -->
+            <TextBlock
+                Margin="5"
+                VerticalAlignment="Center"
+                Foreground="White">
+                Volume
+            </TextBlock>
+            <Slider
+                Name="volumeSlider"
+                Width="70"
+                VerticalAlignment="Center"
+                Maximum="1"
+                Minimum="0"
+                ValueChanged="ChangeMediaVolume"
+                Value="0.5" />
+            <!--#endregion-->
+
+            <!--  Seek to slider. This slider allows you to jump to different parts of the media playback.  -->
+            <TextBlock
+                Margin="5"
+                VerticalAlignment="Center"
+                Foreground="White">
+                Seek To
+            </TextBlock>
+            <Slider
+                Name="timelineSlider"
+                Width="70"
+                Margin="5"
+                ValueChanged="SeekToMediaPosition" />
+            <!--#endregion-->
+            <!--#endregion-->
+        </StackPanel>
+    </Grid>
+</Window>
