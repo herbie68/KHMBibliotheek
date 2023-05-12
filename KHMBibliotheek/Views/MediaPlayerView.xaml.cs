@@ -1,14 +1,25 @@
-﻿namespace KHMBibliotheek.Views;
+﻿using System.Windows.Data;
+using System.Windows.Threading;
+
+namespace KHMBibliotheek.Views;
 /// <summary>
 /// Interaction logic for MediaPlayer.xaml
 /// </summary>
 public partial class MediaPlayerView : Window
 {
+    private DispatcherTimer timer;
+    private Double duration;
+    private TimeSpan remaining;
+    private string volume = "5";
     public MediaPlayerView ( string _path, string _file )
     {
         InitializeComponent ( );
 
-        //var duration = MP3MediaElement.NaturalDuration.TimeSpan.TotalMilliseconds;
+        timer = new ( )
+        {
+            Interval = TimeSpan.FromSeconds ( 1 )
+        };
+        timer.Tick += Timer_Tick;
 
         tbFileName.Text = _file;
         MP3MediaElement.Source = new Uri ( _path );
@@ -37,32 +48,72 @@ public partial class MediaPlayerView : Window
     }
 
     // When the media opens, initialize the "Seek To" slider maximum value
-    // to the total number of miliseconds in the length of the media clip.
+    // to the total number of seconds in the length of the media clip.
     private void Element_MediaOpened ( object sender, EventArgs e )
     {
-        timelineSlider.Maximum = MP3MediaElement.NaturalDuration.TimeSpan.TotalMilliseconds;
-        //tbDuration.Text = MP3MediaElement.NaturalDuration.TimeSpan.TotalMilliseconds.ToString ( );
+        if ( MP3MediaElement.NaturalDuration.HasTimeSpan )
+        {
+            timelineSlider.Visibility = Visibility.Visible;
+            tbDuration.Visibility = Visibility.Visible;
+            tbTotalTime.Visibility = Visibility.Visible;
+
+            duration = MP3MediaElement.NaturalDuration.TimeSpan.TotalSeconds;
+            TimeSpan timeSpan = TimeSpan.FromSeconds(duration);
+
+            timelineSlider.Maximum = duration;
+            tbTotalTime.Text = string.Format ( "Tijdsduur: {0:mm\\:ss}", timeSpan );
+            timer.Start ( );
+        }
+        else
+        {
+            timelineSlider.Visibility = Visibility.Collapsed;
+            tbDuration.Visibility = Visibility.Collapsed;
+            tbTotalTime.Visibility = Visibility.Collapsed;
+        }
     }
 
     // When the media playback is finished. Stop() the media to seek to media start.
     private void Element_MediaEnded ( object sender, EventArgs e )
     {
         MP3MediaElement.Stop ( );
+        timelineSlider.Value = 0;
     }
 
     // Jump to different parts of the media (seek to).
     private void SeekToMediaPosition ( object sender, RoutedPropertyChangedEventArgs<double> args )
     {
-        int SliderValue = (int)timelineSlider.Value;
-
-        // Overloaded constructor takes the arguments days, hours, minutes, seconds, milliseconds.
-        // Create a TimeSpan with miliseconds equal to the slider value.
-        TimeSpan ts = new TimeSpan(0, 0, 0, 0, SliderValue);
-        MP3MediaElement.Position = ts;
+        MP3MediaElement.Position = TimeSpan.FromSeconds ( timelineSlider.Value );
     }
 
     private void Window_Closing ( object sender, System.ComponentModel.CancelEventArgs e )
     {
+        MP3MediaElement.Source = null;
+        timer.Stop ( );
         MP3MediaElement.Close ( );
+    }
+
+    private void Timer_Tick ( object sender, EventArgs e )
+    {
+        if ( MP3MediaElement.NaturalDuration.HasTimeSpan )
+        {
+            timelineSlider.Value = MP3MediaElement.Position.TotalSeconds;
+            remaining = TimeSpan.FromSeconds ( duration - MP3MediaElement.Position.TotalSeconds );
+            tbDuration.Text = string.Format ( "({0:mm\\:ss})", remaining );
+        }
+    }
+
+    public class VolumeConverter : IValueConverter
+    {
+        public object Convert ( object value, Type targetType, object parameter, CultureInfo culture )
+        {
+            double volume = (double)value;
+            int multipliedVolume = (int)(volume * 10);
+            return multipliedVolume.ToString ( );
+        }
+
+        public object ConvertBack ( object value, Type targetType, object parameter, CultureInfo culture )
+        {
+            throw new NotImplementedException ( );
+        }
     }
 }
