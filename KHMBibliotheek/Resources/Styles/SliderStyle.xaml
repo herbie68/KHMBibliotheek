@@ -130,7 +130,7 @@
     
     <ControlTemplate x:Key="SliderThumbVerticalDefault" TargetType="{x:Type Thumb}">
         <Grid HorizontalAlignment="Center" UseLayoutRounding="True" VerticalAlignment="Center">
-            <Path x:Name="grip" Data="M16,0C24.837036,0 32,7.1629944 32,16 32,24.836975 24.837036,32 16,32 7.1630249,32 0,24.836975 0,16 0,7.1629944 7.1630249,0 16,0z" Fill="{StaticResource SliderThumb.Static.Background}" Stroke="{StaticResource SliderThumb.Static.Border}" Stretch="Fill"/>
+            <Rectangle x:Name="grip" Margin="-10" Width="20" Height="10" Stroke="{StaticResource SliderThumb.Track.Background}" Fill="White" RadiusX="5" RadiusY="5"/>
         </Grid>
         <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
@@ -147,6 +147,7 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
+    
     <ControlTemplate x:Key="SliderThumbVerticalLeft" TargetType="{x:Type Thumb}">
         <Grid HorizontalAlignment="Center" UseLayoutRounding="True" VerticalAlignment="Center">
             <Path x:Name="grip" Data="M16,0C24.837036,0 32,7.1629944 32,16 32,24.836975 24.837036,32 16,32 7.1630249,32 0,24.836975 0,16 0,7.1629944 7.1630249,0 16,0z" Fill="{StaticResource SliderThumb.Static.Background}" Stroke="{StaticResource SliderThumb.Static.Border}" Stretch="Fill"/>
@@ -215,6 +216,7 @@
                 </Track>
             </Grid>
         </Border>
+        
         <ControlTemplate.Triggers>
             <Trigger Property="TickPlacement" Value="TopLeft">
                 <Setter Property="Visibility" TargetName="TopTick" Value="Visible"/>
@@ -238,7 +240,8 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-    <Style x:Key="SliderStyle" TargetType="{x:Type Slider}">
+    
+    <Style TargetType="{x:Type Slider}">
         <Setter Property="Stylus.IsPressAndHoldEnabled" Value="false"/>
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderBrush" Value="Transparent"/>
