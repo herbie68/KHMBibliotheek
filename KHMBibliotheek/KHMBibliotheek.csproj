@@ -35,10 +35,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Azure.Core" Version="1.31.0" />
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0-preview2" />
-    <PackageReference Include="MySql.Data" Version="8.0.32.1" />
+    <PackageReference Include="Azure.Core" Version="1.32.0" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
+    <PackageReference Include="MySql.Data" Version="8.0.33" />
     <PackageReference Include="NAudio" Version="2.1.0" />
+    <PackageReference Include="Syncfusion.Licensing" Version="21.2.5" />
+    <PackageReference Include="Syncfusion.PdfViewer.WPF" Version="21.2.5" />
+    <PackageReference Include="Syncfusion.Shared.WPF" Version="21.2.5" />
   </ItemGroup>
 
   <ItemGroup>

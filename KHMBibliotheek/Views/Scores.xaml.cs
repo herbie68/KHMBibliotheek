@@ -683,22 +683,39 @@ public partial class Scores : Page
 
     private void btnViewClick ( object sender, RoutedEventArgs e )
     {
+        int fileId=0;
+        string fileTable = DBNames.FilesPDFTable, filePathSuffix = "Pdf", fileNameExtension = "pdf", fileNamePrefix = "";
+
         // View the PDF file in the selected row/column
         if ( sender is Button button )
         {
             switch ( button.Name )
             {
                 case "btnPDFORPView":
+                    fileNamePrefix = "ORP";
                     break;
                 case "btnPDFORKView":
+                    fileNamePrefix = "ORK";
                     break;
                 case "btnPDFTOPView":
+                    fileNamePrefix = "TOP";
                     break;
                 case "btnPDFTOKView":
+                    fileNamePrefix = "TOK";
                     break;
                 case "btnPDFPIAView":
+                    fileNamePrefix = "PIA";
                     break;
             }
+            var fileName = $"{SelectedScore.ScoreNumber}{fileNamePrefix} - {SelectedScore.ScoreTitle}.{fileNameExtension}";
+
+            // First Download the File
+            DBCommands.DownloadFile ( fileId, fileTable, filePathSuffix, fileName );
+
+            string uri = $"{FilePaths.DownloadPath}\\{filePathSuffix}\\{fileName}";
+
+            PDFView viewer = new(uri, fileName);
+            viewer.Show ( );
         }
     }
 
@@ -836,10 +853,6 @@ public partial class Scores : Page
         MediaPlayerView player = new(uri, fileName);
         player.Show ( );
 
-
-        //MediaPlayer mediaPlayer = new();
-        //mediaPlayer.Open ( new Uri ( uri ) );
-        //mediaPlayer.Play ( );
     }
 
 }
