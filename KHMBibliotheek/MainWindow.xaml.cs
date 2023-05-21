@@ -1,4 +1,6 @@
-﻿namespace KHMBibliotheek;
+﻿using Microsoft.Win32;
+
+namespace KHMBibliotheek;
 /// <summary>
 /// Interaction logic for MainWindow.xaml
 /// </summary>
@@ -10,7 +12,8 @@ public partial class MainWindow : Window
         tbUserName.Text = LibraryUsers.SelectedUserFullName;
         tbLogedInUserName.Text = LibraryUsers.SelectedUserName;
         tbLogedInFullName.Text = LibraryUsers.SelectedUserFullName;
-        FilePaths.DownloadPath = "C:\\Users\\herbert.nijkamp\\OneDrive - Wolters Kluwer\\Downloads\\KHM";
+        FilePaths.DownloadPath = @$"{Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders", "{374DE290-123F-4565-9164-39C4925E467B}", String.Empty).ToString()}\\KHM"; 
+        //FilePaths.DownloadPath = "C:\\Users\\herbert.nijkamp\\OneDrive - Wolters Kluwer\\Downloads\\KHM";
 
         // Set the value to control weather or not an administrator has logged in
         if ( LibraryUsers.SelectedUserRoleId == 4 || LibraryUsers.SelectedUserRoleId == 6 || LibraryUsers.SelectedUserRoleId == 8 || LibraryUsers.SelectedUserRoleId == 15 )

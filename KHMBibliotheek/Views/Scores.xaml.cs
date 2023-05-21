@@ -684,7 +684,7 @@ public partial class Scores : Page
     private void btnViewClick ( object sender, RoutedEventArgs e )
     {
         int fileId=0;
-        string fileTable = DBNames.FilesPDFTable, filePathSuffix = "Pdf", fileNameExtension = "pdf", fileNamePrefix = "";
+        string fileTable = DBNames.FilesPDFTable, filePathSuffix = "Partituur", fileNameExtension = "pdf", fileNamePrefix = "";
 
         // View the PDF file in the selected row/column
         if ( sender is Button button )
@@ -692,21 +692,27 @@ public partial class Scores : Page
             switch ( button.Name )
             {
                 case "btnPDFORPView":
+                    fileId = (int)SelectedScore.PDFORPId;
                     fileNamePrefix = "ORP";
                     break;
                 case "btnPDFORKView":
+                    fileId = (int)SelectedScore.PDFORKId;
                     fileNamePrefix = "ORK";
                     break;
                 case "btnPDFTOPView":
+                    fileId = (int)SelectedScore.PDFTOPId;
                     fileNamePrefix = "TOP";
                     break;
                 case "btnPDFTOKView":
+                    fileId = (int)SelectedScore.PDFTOKId;
                     fileNamePrefix = "TOK";
                     break;
                 case "btnPDFPIAView":
+                    fileId = (int)SelectedScore.PDFPIAId;
                     fileNamePrefix = "PIA";
                     break;
             }
+
             var fileName = $"{SelectedScore.ScoreNumber}{fileNamePrefix} - {SelectedScore.ScoreTitle}.{fileNameExtension}";
 
             // First Download the File
@@ -722,7 +728,9 @@ public partial class Scores : Page
     private void btnPlayClick ( object sender, RoutedEventArgs e )
     {
         int fileId=0;
-        string fileTable = "", filePathSuffix = "", fileNameExtension = "", fileNamePrefix = "", fileNameSuffix = "" ;
+        string fileTable = DBNames.FilesMP3Table, 
+            filePathSuffix = "Audio", fileNameExtension = "mp3", 
+            fileNamePrefix = "", fileNameSuffix = "" ;
 
         // Play the MP3 file in the selected row/column
         if ( sender is Button button )
@@ -731,113 +739,69 @@ public partial class Scores : Page
             {
                 case "btnMP3B1Play":
                     fileId = ( int ) SelectedScore.MP3B1Id;
-                    fileTable = DBNames.FilesMP3Table;
-                    filePathSuffix = "Audio";
-                    fileNameExtension = "mp3";
                     fileNamePrefix = "B1";
-                    fileNameSuffix = "";
                     break;
                 case "btnMP3B2Play":
                     fileId = ( int ) SelectedScore.MP3B2Id;
-                    fileTable = DBNames.FilesMP3Table;
-                    filePathSuffix = "Audio";
-                    fileNameExtension = "mp3";
                     fileNamePrefix = "B2";
-                    fileNameSuffix = "";
                     break;
                 case "btnMP3T1Play":
                     fileId = ( int ) SelectedScore.MP3T1Id;
-                    fileTable = DBNames.FilesMP3Table;
-                    filePathSuffix = "Audio";
-                    fileNameExtension = "mp3";
                     fileNamePrefix = "T1";
-                    fileNameSuffix = "";
                     break;
                 case "btnMP3T2Play":
                     fileId = ( int ) SelectedScore.MP3T2Id;
-                    fileTable = DBNames.FilesMP3Table;
-                    filePathSuffix = "Audio";
-                    fileNameExtension = "mp3";
                     fileNamePrefix = "T2";
-                    fileNameSuffix = "";
                     break;
                 case "btnMP3TOTPlay":
                     fileId = ( int ) SelectedScore.MP3TOTId;
-                    fileTable = DBNames.FilesMP3Table;
-                    filePathSuffix = "Audio";
-                    fileNameExtension = "mp3";
                     fileNamePrefix = "TOT";
-                    fileNameSuffix = "";
                     break;
                 case "btnMP3SOLPlay":
                     fileId = ( int ) SelectedScore.MP3SOLId;
-                    fileTable = DBNames.FilesMP3Table;
-                    filePathSuffix = "Audio";
-                    fileNameExtension = "mp3";
                     fileNamePrefix = "SOL";
-                    fileNameSuffix = "";
                     break;
                 case "btnMP3PIAPlay":
                     fileId = ( int ) SelectedScore.MP3PIAId;
-                    fileTable = DBNames.FilesMP3Table;
-                    filePathSuffix = "Audio";
-                    fileNameExtension = "mp3";
                     fileNamePrefix = "PIA";
-                    fileNameSuffix = "";
                     break;
                 case "btnMP3UITVPlay":
                     fileId = ( int ) SelectedScore.MP3UITVId;
-                    fileTable = DBNames.FilesMP3Table;
-                    filePathSuffix = "Audio";
-                    fileNameExtension = "mp3";
                     fileNamePrefix = "UITV";
-                    fileNameSuffix = "";
                     break;
                 case "btnMP3B1VoicePlay":
                     fileId = ( int ) SelectedScore.MP3B1VoiceId;
                     fileTable = DBNames.FilesMP3VoiceTable;
-                    filePathSuffix = "Audio";
-                    fileNameExtension = "mp3";
                     fileNamePrefix = "B1";
                     fileNameSuffix = " (Ingezongen)";
                     break;
                 case "btnMP3B2VoicePlay":
                     fileId = ( int ) SelectedScore.MP3B2VoiceId;
                     fileTable = DBNames.FilesMP3VoiceTable;
-                    filePathSuffix = "Audio";
-                    fileNameExtension = "mp3";
                     fileNamePrefix = "B2";
                     fileNameSuffix = " (Ingezongen)";
                     break;
                 case "btnMP3T1VoicePlay":
                     fileId = ( int ) SelectedScore.MP3T1VoiceId;
                     fileTable = DBNames.FilesMP3VoiceTable;
-                    filePathSuffix = "Audio";
-                    fileNameExtension = "mp3";
                     fileNamePrefix = "T1";
                     fileNameSuffix = " (Ingezongen)";
                     break;
                 case "btnMP3T2VoicePlay":
                     fileId = ( int ) SelectedScore.MP3T2VoiceId;
                     fileTable = DBNames.FilesMP3VoiceTable;
-                    filePathSuffix = "Audio";
-                    fileNameExtension = "mp3";
                     fileNamePrefix = "T2";
                     fileNameSuffix = " (Ingezongen)";
                     break;
                 case "btnMP3TOTVoicePlay":
                     fileId = ( int ) SelectedScore.MP3TOTVoiceId;
                     fileTable = DBNames.FilesMP3VoiceTable;
-                    filePathSuffix = "Audio";
-                    fileNameExtension = "mp3";
                     fileNamePrefix = "TOT";
                     fileNameSuffix = " (Ingezongen)";
                     break;
                 case "btnMP3SOLVoicePlay":
                     fileId = ( int ) SelectedScore.MP3SOLVoiceId;
                     fileTable = DBNames.FilesMP3VoiceTable;
-                    filePathSuffix = "Audio";
-                    fileNameExtension = "mp3";
                     fileNamePrefix = "SOL";
                     fileNameSuffix = " (Ingezongen)";
                     break;
