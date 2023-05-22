@@ -1,6 +1,9 @@
-﻿namespace KHMBibliotheek.Views;
+﻿using System.Windows.Forms;
+
+namespace KHMBibliotheek.Views;
 
 #pragma warning disable CS8629 // Nullable value type may be null.
+#pragma warning disable CS8602
 #pragma warning disable CS8604
 
 /// <summary>
@@ -8,57 +11,65 @@
 /// </summary>
 public partial class UserProfile : Page
 {
-    public UserProfile()
+    public UserProfile ( )
     {
-        InitializeComponent();
+        InitializeComponent ( );
 
         // Fill the text changed TextBoxes
         tbCheckFullName.Text = LibraryUsers.SelectedUserFullName;
         tbCheckEMail.Text = LibraryUsers.SelectedUserEmail;
         tbCheckPassword.Text = LibraryUsers.SelectedUserPassword;
+        tbCheckDownloadFolder.Text = LibraryUsers.SelectedDownloadFolder;
 
         // Fill The Form fields
         tbUserName.Text = LibraryUsers.SelectedUserName;
         tbFullName.Text = LibraryUsers.SelectedUserFullName;
         tbEMail.Text = LibraryUsers.SelectedUserEmail;
+        tbDownLoadFolder.Text = LibraryUsers.SelectedDownloadFolder;
 
-        ResetChanged();
+        ResetChanged ( );
     }
-    private void TextBoxChanged(object sender, TextChangedEventArgs e)
+    private void TextBoxChanged ( object sender, TextChangedEventArgs e )
     {
         var propertyName = ((System.Windows.Controls.TextBox)sender).Name;
 
-        switch (propertyName)
+        switch ( propertyName )
         {
             case "tbFullName":
-                if (tbFullName.Text == tbCheckFullName.Text)
+                if ( tbFullName.Text == tbCheckFullName.Text )
                 { cbFullNameChanged.IsChecked = false; }
                 else
                 { cbFullNameChanged.IsChecked = true; }
                 break;
             case "tbEMail":
-                if (tbEMail.Text == tbCheckEMail.Text)
+                if ( tbEMail.Text == tbCheckEMail.Text )
                 { cbEMailChanged.IsChecked = false; }
                 else
                 { cbEMailChanged.IsChecked = true; }
                 break;
+            case "tbDownloadFolder":
+                if ( tbDownLoadFolder.Text == tbCheckDownloadFolder.Text )
+                { cbDownloadFolderChanged.IsChecked = false; }
+                else
+                { cbDownloadFolderChanged.IsChecked = true; }
+                break;
         }
-        CheckChanged();
+        CheckChanged ( );
     }
-    private void PasswordChanged(object sender, RoutedEventArgs e)
+    private void PasswordChanged ( object sender, RoutedEventArgs e )
     {
         var checkPassword = Helper.HashPepperPassword(pbPassword.Password, tbUserName.Text);
-        if (checkPassword == tbCheckPassword.Text)
+        if ( checkPassword == tbCheckPassword.Text )
         { cbPasswordChanged.IsChecked = false; }
         else
         { cbPasswordChanged.IsChecked = true; }
-        CheckChanged();
+        CheckChanged ( );
     }
-    private void CheckChanged()
+    private void CheckChanged ( )
     {
-        if (cbFullNameChanged.IsChecked == true ||
+        if ( cbFullNameChanged.IsChecked == true ||
             cbEMailChanged.IsChecked == true ||
-            cbPasswordChanged.IsChecked == true || cbCoverSheetsFolderChanged.IsChecked == true)
+            cbPasswordChanged.IsChecked == true || cbCoverSheetsFolderChanged.IsChecked == true )
         {
             btnSaveUserProfile.IsEnabled = true;
             btnSaveUserProfile.ToolTip = "Sla de gewijzigde gegevens op";
@@ -70,98 +81,126 @@ public partial class UserProfile : Page
         }
 
     }
-    public void ResetChanged()
+    public void ResetChanged ( )
     {
         cbFullNameChanged.IsChecked = false;
         cbEMailChanged.IsChecked = false;
         cbPasswordChanged.IsChecked = false;
         cbCoverSheetsFolderChanged.IsChecked = false;
+        cbDownloadFolderChanged.IsChecked = false;
         btnSaveUserProfile.IsEnabled = false;
         btnSaveUserProfile.ToolTip = "Er zijn geen gegevens aangepast, opslaan niet mogelijk";
     }
-    private void SaveUserProfileClicked(object sender, RoutedEventArgs e)
+    private void SaveUserProfileClicked ( object sender, RoutedEventArgs e )
     {
         ObservableCollection<UserModel> ModifiedUser = new();
 
         string _FullName = "", _EMail = "", _Password = "";
 
-        if ((bool)cbFullNameChanged.IsChecked)
+        if ( ( bool ) cbFullNameChanged.IsChecked )
         {
             _FullName = tbFullName.Text;
             LibraryUsers.SelectedUserFullName = _FullName;
         }
 
-        if ((bool)cbEMailChanged.IsChecked)
+        if ( ( bool ) cbEMailChanged.IsChecked )
         {
             _EMail = tbEMail.Text;
             LibraryUsers.SelectedUserEmail = _EMail;
         }
 
-        if ((bool)cbPasswordChanged.IsChecked)
+        if ( ( bool ) cbPasswordChanged.IsChecked )
         {
             var checkPassword = Helper.HashPepperPassword(pbPassword.Password, tbUserName.Text);
             _Password = checkPassword;
             LibraryUsers.SelectedUserPassword = _Password;
         }
 
-        ModifiedUser.Add(new UserModel
+        ModifiedUser.Add ( new UserModel
         {
             UserId = LibraryUsers.SelectedUserId,
             UserName = LibraryUsers.SelectedUserName,
             UserFullName = _FullName,
             UserEmail = _EMail,
-            UserPassword = _Password
-        });
+            UserPassword = _Password,
+            DownloadFolder = LibraryUsers.SelectedDownloadFolder
+        } );
 
-        DBCommands.UpdateUser(ModifiedUser);
+        DBCommands.UpdateUser ( ModifiedUser );
 
-        WriteHistory(ModifiedUser);
+        WriteHistory ( ModifiedUser );
 
-        ModifyScoreUserData(ModifiedUser);
+        ModifyScoreUserData ( ModifiedUser );
 
-        ResetChanged();
+        ResetChanged ( );
 
-        MainWindow.ReloadMainWindow();
+        MainWindow.ReloadMainWindow ( );
     }
 
-    private void WriteHistory(ObservableCollection<UserModel> modifiedUser)
+    private void WriteHistory ( ObservableCollection<UserModel> modifiedUser )
     {
-        DBCommands.WriteLog(LibraryUsers.SelectedUserId, DBNames.LogUserChanged, LibraryUsers.SelectedUserFullName);
+        DBCommands.WriteLog ( LibraryUsers.SelectedUserId, DBNames.LogUserChanged, LibraryUsers.SelectedUserFullName );
 
         int historyId = DBCommands.GetAddedHistoryId();
 
-        if (modifiedUser[0].UserFullName != "")
+        if ( modifiedUser [ 0 ].UserFullName != "" )
         {
-            DBCommands.WriteDetailLog(historyId, DBNames.LogUserFullName, tbCheckFullName.Text, modifiedUser[0].UserFullName);
+            DBCommands.WriteDetailLog ( historyId, DBNames.LogUserFullName, tbCheckFullName.Text, modifiedUser [ 0 ].UserFullName );
         }
 
-        if (modifiedUser[0].UserEmail != "")
+        if ( modifiedUser [ 0 ].UserEmail != "" )
         {
-            DBCommands.WriteDetailLog(historyId, DBNames.LogUserEMail, tbCheckEMail.Text, modifiedUser[0].UserEmail);
+            DBCommands.WriteDetailLog ( historyId, DBNames.LogUserEMail, tbCheckEMail.Text, modifiedUser [ 0 ].UserEmail );
         }
 
-        if (modifiedUser[0].UserPassword != "")
+        if ( modifiedUser [ 0 ].UserPassword != "" )
         {
-            DBCommands.WriteDetailLog(historyId, DBNames.LogUserPassword, "", "");
+            DBCommands.WriteDetailLog ( historyId, DBNames.LogUserPassword, "", "" );
         }
     }
 
-    private static void ModifyScoreUserData(ObservableCollection<UserModel> modifiedUser)
+    private static void ModifyScoreUserData ( ObservableCollection<UserModel> modifiedUser )
     {
-        if (modifiedUser[0].UserFullName != "")
+        if ( modifiedUser [ 0 ].UserFullName != "" )
         {
-            LibraryUsers.SelectedUserFullName = modifiedUser[0].UserFullName;
+            LibraryUsers.SelectedUserFullName = modifiedUser [ 0 ].UserFullName;
         }
 
-        if (modifiedUser[0].UserEmail != "")
+        if ( modifiedUser [ 0 ].UserEmail != "" )
         {
-            LibraryUsers.SelectedUserEmail = modifiedUser[0].UserEmail;
+            LibraryUsers.SelectedUserEmail = modifiedUser [ 0 ].UserEmail;
         }
 
-        if (modifiedUser[0].UserPassword != "")
+        if ( modifiedUser [ 0 ].UserPassword != "" )
         {
-            LibraryUsers.SelectedUserPassword = modifiedUser[0].UserPassword;
+            LibraryUsers.SelectedUserPassword = modifiedUser [ 0 ].UserPassword;
+        }
+    }
+
+    private void BrowseToFolder_Click ( object sender, RoutedEventArgs e )
+    {
+        var senderButton = sender as System.Windows.Controls.Button;
+
+        var dialogDescription = "Selecteer de map om bestanden op te slaan";
+        var dialogSelectedPath = '"' + LibraryUsers.SelectedDownloadFolder.Replace(@"\", @"\\") +'"';
+
+        using ( var dialog = new FolderBrowserDialog ( ) )
+        {
+            dialog.SelectedPath = @dialogSelectedPath;
+            dialog.Description = dialogDescription;
+            dialog.ShowNewFolderButton = true;
+            dialog.UseDescriptionForTitle = true;
+
+            if ( dialog.ShowDialog ( ) == DialogResult.OK )
+            {
+                if ( senderButton != null )
+                {
+                    tbDownLoadFolder.Text = dialogSelectedPath;
+                }
+            }
         }
     }
 }
 #pragma warning restore CS8629 // Nullable value type may be null.
+#pragma warning restore CS8602
+#pragma warning restore CS8604

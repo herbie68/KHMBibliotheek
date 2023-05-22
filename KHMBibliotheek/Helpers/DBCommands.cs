@@ -807,6 +807,9 @@ public class DBCommands
             if ( modifiedUser [ 0 ].UserRoleId != 0 )
             { sqlQuery += ", " + DBNames.UsersFieldNameRoleId + " = @" + DBNames.UsersFieldNameRoleId; }
 
+            if ( modifiedUser [ 0 ].DownloadFolder != "" )
+            { sqlQuery += ", " + DBNames.UsersFieldNameDownloadFolder + " = @" + DBNames.UsersFieldNameDownloadFolder; }
+
             if ( modifiedUser [ 0 ].UserPassword != "" )
             { sqlQuery += ", `" + DBNames.UsersFieldNamePW + "` = @" + DBNames.UsersFieldNamePW; }
 
@@ -1088,7 +1091,6 @@ public class DBCommands
     }
     #endregion
 
-
     #region Execute Non Query ScoresTable
     static void ExecuteNonQueryScoresTable ( string sqlQuery, ObservableCollection<SaveScoreModel> scoreList )
     {
@@ -1191,6 +1193,9 @@ public class DBCommands
 
             if ( modifiedUser [ 0 ].UserRoleId != 0 )
             { cmd.Parameters.Add ( "@" + DBNames.UsersFieldNameRoleId, MySqlDbType.Int32 ).Value = modifiedUser [ 0 ].UserRoleId; }
+
+            if ( modifiedUser [ 0 ].DownloadFolder != "" )
+            { cmd.Parameters.Add ( "@" + DBNames.UsersFieldNameDownloadFolder, MySqlDbType.VarChar ).Value = modifiedUser [ 0 ].DownloadFolder; }
 
             if ( modifiedUser [ 0 ].UserPassword != "" )
             { cmd.Parameters.Add ( "@" + DBNames.UsersFieldNamePW, MySqlDbType.VarChar ).Value = modifiedUser [ 0 ].UserPassword; }
@@ -1363,7 +1368,8 @@ public class DBCommands
                     UserEmail = dataTable.Rows [ i ].ItemArray [ 1 ].ToString ( ),
                     UserPassword = dataTable.Rows [ i ].ItemArray [ 3 ].ToString ( ),
                     UserFullName = dataTable.Rows [ i ].ItemArray [ 5 ].ToString ( ),
-                    UserRoleId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 4 ].ToString ( ) )
+                    UserRoleId = int.Parse ( dataTable.Rows [ i ].ItemArray [ 4 ].ToString ( ) ),
+                    DownloadFolder = dataTable.Rows [ i ].ItemArray [ 10 ].ToString ( )
                 } );
             }
         }

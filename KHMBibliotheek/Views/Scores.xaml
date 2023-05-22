@@ -332,7 +332,7 @@
                             x:Name="PDFTOKId"
                             Width="Auto"
                             Binding="{Binding PDFTOKId}"
-                            Visibility="Visible" />
+                            Visibility="Collapsed" />
                         <!--#endregion-->
 
                         <!--#region PDFTOK (Hidden)-->

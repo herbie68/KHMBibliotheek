@@ -236,6 +236,7 @@ public class DBNames
     public static readonly string UsersFieldNamePW = "Password";
     public static readonly string UsersFieldNameRoleId = "RoleId";
     public static readonly string UsersFieldNameCoverSheetFolder = "CoverSheetFolder";
+    public static readonly string UsersFieldNameDownloadFolder = "DownloadFolder";
 
     public static readonly string UsersView = "view_Users";
     public static readonly string UsersViewFieldNameRoleOrder = "RoleOrder";

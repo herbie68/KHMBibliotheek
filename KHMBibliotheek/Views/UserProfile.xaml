@@ -5,6 +5,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:KHMBibliotheek.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:KHMBibliotheek.Models"
+    xmlns:viewmodels="clr-namespace:KHMBibliotheek.ViewModels"
     Title="UserProfile"
     d:DesignHeight="450"
     d:DesignWidth="800"
@@ -52,11 +54,13 @@
             <TextBlock x:Name="tbCheckEMail" Text="False" />
             <TextBlock x:Name="tbCheckPassword" Text="False" />
             <TextBlock x:Name="tbCheckCoverSheets" Text="False" />
+            <TextBlock x:Name="tbCheckDownloadFolder" Text="False" />
 
             <CheckBox x:Name="cbFullNameChanged" />
             <CheckBox x:Name="cbEMailChanged" />
             <CheckBox x:Name="cbPasswordChanged" />
             <CheckBox x:Name="cbCoverSheetsFolderChanged" />
+            <CheckBox x:Name="cbDownloadFolderChanged" />
         </StackPanel>
 
         <!--#endregion-->
@@ -72,6 +76,7 @@
             CornerRadius="7">
             <Grid Margin="7,7,7,7">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="45" />
                     <RowDefinition Height="45" />
                     <RowDefinition Height="45" />
                     <RowDefinition Height="45" />
@@ -106,9 +111,16 @@
                     VerticalAlignment="Center"
                     FontWeight="Bold"
                     Text="E-Mail adres" />
-
                 <TextBlock
                     Grid.Row="3"
+                    Grid.Column="0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    FontWeight="Bold"
+                    Text="Bestanden" />
+
+                <TextBlock
+                    Grid.Row="4"
                     Grid.Column="0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Bottom"
@@ -145,10 +157,30 @@
                     IsEnabled="True"
                     Style="{DynamicResource UserNameTextBox}"
                     TextChanged="TextBoxChanged" />
-
+                <StackPanel
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+                    <TextBox
+                        x:Name="tbDownLoadFolder"
+                        Width="500"
+                        Margin="5,0,0,0"
+                        VerticalAlignment="Center"
+                        IsEnabled="True"
+                        Style="{DynamicResource UserNameTextBox}"
+                        TextChanged="TextBoxChanged"
+                        ToolTip="Waar moeten de gedownloade worden opgeslagen" />
+                    <Button
+                        x:Name="BrowsToFolder"
+                        Margin="25,0,0,0"
+                        Click="BrowseToFolder_Click"
+                        Content="{DynamicResource browsefolder}"
+                        Style="{DynamicResource BrowseFolderButton}" />
+                </StackPanel>
                 <PasswordBox
                     x:Name="pbPassword"
-                    Grid.Row="3"
+                    Grid.Row="4"
                     Grid.Column="1"
                     Width="350"
                     Margin="5,0,0,0"
@@ -159,7 +191,7 @@
 
                 <Button
                     x:Name="btnSaveUserProfile"
-                    Grid.Row="4"
+                    Grid.Row="5"
                     Grid.Column="0"
                     Grid.ColumnSpan="2"
                     Width="130"

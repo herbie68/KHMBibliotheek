@@ -15,8 +15,8 @@ public partial class PDFView : Window
     }
 
     #region Helper Methods
-    #region FileOpen Tool
-    private void HideOpenTool()
+    #region FileMenuOption Tool
+    private void HideFileMenuOptionTool ( string _part )
     {
         // Get the instance of the toolbar using its template name 
         DocumentToolbar toolbar = pdfViewer.Template.FindName("PART_Toolbar", pdfViewer) as DocumentToolbar;
@@ -26,10 +26,10 @@ public partial class PDFView : Window
 
         //Get the instance of the file menu button context menu and the item collection.
         ContextMenu FileContextMenu = _button.ContextMenu;
-        foreach (MenuItem FileMenuItem in FileContextMenu.Items)
+        foreach ( MenuItem FileMenuItem in FileContextMenu.Items )
         {
             //Get the instance of the open menu item using its template name and disable its visibility.
-            if (FileMenuItem.Name == "PART_OpenMenuItem")
+            if ( FileMenuItem.Name == _part )
             {
                 //Set the visibility of the item to collapsed.
                 FileMenuItem.Visibility = Visibility.Collapsed;
@@ -39,60 +39,35 @@ public partial class PDFView : Window
     }
     #endregion
 
-    #region FileOpen Tool
-    private void HideAnnotationTool()
+    #region Hide Option Menu button
+    private void HideOptionTool ( string _part )
     {
         // Get the instance of the toolbar using its template name 
         DocumentToolbar toolbar = pdfViewer.Template.FindName("PART_Toolbar", pdfViewer) as DocumentToolbar;
 
         // Get the instance of the file menu button using its template name.
-        ToggleButton _button = (ToggleButton)toolbar.Template.FindName("PART_FileToggleButton", toolbar);
+        ToggleButton _button = (ToggleButton)toolbar.Template.FindName( _part, toolbar);
 
-        //Get the instance of the file menu button context menu and the item collection.
-        ContextMenu FileContextMenu = _button.ContextMenu;
-        foreach (MenuItem FileMenuItem in FileContextMenu.Items)
-        {
-            //Get the instance of the open menu item using its template name and disable its visibility.
-            if (FileMenuItem.Name == "PART_OpenMenuItem")
-            {
-                //Set the visibility of the item to collapsed.
-                FileMenuItem.Visibility = Visibility.Collapsed;
-            }
-        }
-        //_button.Visibility=Visibility.Collapsed;
+        _button.Visibility = Visibility.Collapsed;
     }
     #endregion
 
-
-    #region ThumbnailTool
-    private void HideThumbnailTool()
+    #region Hide Toggle Button
+    private void HideToggleButton ( string _part )
     {
         //Get the instance of the left pane using its template name 
         OutlinePane outlinePane = pdfViewer.Template.FindName("PART_OutlinePane", pdfViewer) as OutlinePane;
 
         //Get the instance of the thumbnail button using its template name 
-        ToggleButton _button = (ToggleButton)outlinePane.Template.FindName("PART_ThumbnailButton", outlinePane);
+        ToggleButton _button = (ToggleButton)outlinePane.Template.FindName( _part, outlinePane);
 
         //Set the visibility of the button to collapsed.
         _button.Visibility = Visibility.Collapsed;
     }
     #endregion
 
-    #region SearchTool
-    private void HideSearchTool()
-    {
-        //Get the instance of the toolbar using its template name.
-        DocumentToolbar toolbar = pdfViewer.Template.FindName("PART_Toolbar", pdfViewer) as DocumentToolbar;
-
-        //Get the instance of the open file button using its template name.
-        Button _button = (Button)toolbar.Template.FindName("PART_ButtonTextSearch", toolbar);
-
-        //Set the visibility of the button to collapsed.
-        _button.Visibility = System.Windows.Visibility.Collapsed;
-    }
-    #endregion
-
-    private void HideTool(string _part)
+    #region Hide option in toolbar
+    private void HideTool ( string _part )
     {
         //Get the instance of the toolbar using its template name.
         DocumentToolbar toolbar = pdfViewer.Template.FindName("PART_Toolbar", pdfViewer) as DocumentToolbar;
@@ -106,7 +81,7 @@ public partial class PDFView : Window
     #endregion
 
     #region Vertical Toolbar
-    private void HideVerticalToolbar()
+    private void HideVerticalToolbar ( )
     {
         // Hides the thumbnail icon. 
         pdfViewer.ThumbnailSettings.IsVisible = false;
@@ -122,17 +97,22 @@ public partial class PDFView : Window
         pdfViewer.FormSettings.IsIconVisible = false;
     }
     #endregion
+    #endregion
 
     #region Handlers
-    private void Window_Loaded(object sender, RoutedEventArgs e)
+    private void Window_Loaded ( object sender, RoutedEventArgs e )
     {
-        HideOpenTool();
-        HideThumbnailTool();
-        //HideSearchTool();
-        //HideSignatureTool();
-        HideTool("PART_ButtonTextSearch");
-        HideTool("PART_ButtonSignature");
-        HideVerticalToolbar();
+        HideFileMenuOptionTool ( "PART_OpenMenuItem" );
+        HideFileMenuOptionTool ( "PART_SaveMenuItem" );
+        //HideFileMenuOptionTool ( "PART_SaveAsMenuItem" );
+        //HideFileMenuOptionTool ( "PART_PrintMenuItem" );
+        //HideThumbnailTool ( );
+        HideToggleButton ( "PART_ThumbnailButton" );
+        HideOptionTool ( "PART_SelectTool" );
+        HideTool ( "PART_ButtonTextSearch" );
+        HideTool ( "PART_ButtonSignature" );
+        HideOptionTool ( "PART_Stamp" );
+        HideVerticalToolbar ( );
     }
     #endregion
 }

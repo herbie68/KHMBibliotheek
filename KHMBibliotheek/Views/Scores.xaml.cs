@@ -1,11 +1,13 @@
 ﻿using System.Linq;
 
+#pragma warning disable CS8629 // Nullable value type may be null.
+#pragma warning disable CS8602
+#pragma warning disable CS8618
+
 namespace KHMBibliotheek.Views;
-/// <summary>
-/// Interaction logic for Scores.xaml
-/// </summary>
 public partial class Scores : Page
 {
+    #region declaration
     public MusicFilesViewModel? scores;
     public MusicFilesModel? SelectedScore;
     public bool orgMSCORP, orgMSCORK, orgMSCTOP, orgMSCTOK, orgPDFORP, orgPDFORK, orgPDFTOP, orgPDFTOK, orgPDFPIA;
@@ -18,6 +20,7 @@ public partial class Scores : Page
     public int MP3B1FileId, MP3B2FileId, MP3T1FileId, MP3T2FileId, MP3SOLFileId, MP3TOTFileId, MP3UITVFileId, MP3PIAFileId;
     public string FileName;
     public bool playerClosed = false;
+    #endregion
 
     public Scores ( )
     {
@@ -478,6 +481,7 @@ public partial class Scores : Page
 
     }
 
+    #region Download selected File
     private void btnDownloadClick ( object sender, RoutedEventArgs e )
     {
         // Download the file of the selected row/column
@@ -680,7 +684,9 @@ public partial class Scores : Page
             DBCommands.DownloadFile ( fileId, fileTable, filePathSuffix, fileName );
         }
     }
+    #endregion
 
+    #region View selected PDF File
     private void btnViewClick ( object sender, RoutedEventArgs e )
     {
         int fileId=0;
@@ -692,23 +698,23 @@ public partial class Scores : Page
             switch ( button.Name )
             {
                 case "btnPDFORPView":
-                    fileId = (int)SelectedScore.PDFORPId;
+                    fileId = ( int ) SelectedScore.PDFORPId;
                     fileNamePrefix = "ORP";
                     break;
                 case "btnPDFORKView":
-                    fileId = (int)SelectedScore.PDFORKId;
+                    fileId = ( int ) SelectedScore.PDFORKId;
                     fileNamePrefix = "ORK";
                     break;
                 case "btnPDFTOPView":
-                    fileId = (int)SelectedScore.PDFTOPId;
+                    fileId = ( int ) SelectedScore.PDFTOPId;
                     fileNamePrefix = "TOP";
                     break;
                 case "btnPDFTOKView":
-                    fileId = (int)SelectedScore.PDFTOKId;
+                    fileId = ( int ) SelectedScore.PDFTOKId;
                     fileNamePrefix = "TOK";
                     break;
                 case "btnPDFPIAView":
-                    fileId = (int)SelectedScore.PDFPIAId;
+                    fileId = ( int ) SelectedScore.PDFPIAId;
                     fileNamePrefix = "PIA";
                     break;
             }
@@ -724,12 +730,14 @@ public partial class Scores : Page
             viewer.Show ( );
         }
     }
+    #endregion
 
+    #region Play selected MP3 File
     private void btnPlayClick ( object sender, RoutedEventArgs e )
     {
         int fileId=0;
-        string fileTable = DBNames.FilesMP3Table, 
-            filePathSuffix = "Audio", fileNameExtension = "mp3", 
+        string fileTable = DBNames.FilesMP3Table,
+            filePathSuffix = "Audio", fileNameExtension = "mp3",
             fileNamePrefix = "", fileNameSuffix = "" ;
 
         // Play the MP3 file in the selected row/column
@@ -816,7 +824,9 @@ public partial class Scores : Page
 
         MediaPlayerView player = new(uri, fileName);
         player.Show ( );
-
     }
-
+    #endregion
 }
+#pragma warning restore CS8629 // Nullable value type may be null.
+#pragma warning restore CS8602
+#pragma warning restore CS8618

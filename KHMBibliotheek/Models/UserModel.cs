@@ -7,5 +7,6 @@ public class UserModel
     public string? UserPassword { get; set; }
     public string? UserFullName { get; set; }
     public string? RoleDescription { get; set; }
+    public string? DownloadFolder { get; set; }
     public int UserRoleId { get; set; }
 }
