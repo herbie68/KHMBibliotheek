@@ -53,13 +53,11 @@
             <TextBlock x:Name="tbCheckFullName" Text="False" />
             <TextBlock x:Name="tbCheckEMail" Text="False" />
             <TextBlock x:Name="tbCheckPassword" Text="False" />
-            <TextBlock x:Name="tbCheckCoverSheets" Text="False" />
             <TextBlock x:Name="tbCheckDownloadFolder" Text="False" />
 
             <CheckBox x:Name="cbFullNameChanged" />
             <CheckBox x:Name="cbEMailChanged" />
             <CheckBox x:Name="cbPasswordChanged" />
-            <CheckBox x:Name="cbCoverSheetsFolderChanged" />
             <CheckBox x:Name="cbDownloadFolderChanged" />
         </StackPanel>
 

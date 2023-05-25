@@ -19,7 +19,10 @@ public partial class UserProfile : Page
         tbCheckFullName.Text = LibraryUsers.SelectedUserFullName;
         tbCheckEMail.Text = LibraryUsers.SelectedUserEmail;
         tbCheckPassword.Text = LibraryUsers.SelectedUserPassword;
-        tbCheckDownloadFolder.Text = LibraryUsers.SelectedDownloadFolder;
+        if ( LibraryUsers.SelectedDownloadFolderSaved )
+        { tbCheckDownloadFolder.Text = LibraryUsers.SelectedDownloadFolder; }
+        else
+        { tbCheckDownloadFolder.Text = ""; }
 
         // Fill The Form fields
         tbUserName.Text = LibraryUsers.SelectedUserName;
@@ -27,7 +30,21 @@ public partial class UserProfile : Page
         tbEMail.Text = LibraryUsers.SelectedUserEmail;
         tbDownLoadFolder.Text = LibraryUsers.SelectedDownloadFolder;
 
-        ResetChanged ( );
+        cbFullNameChanged.IsChecked = false;
+        cbEMailChanged.IsChecked = false;
+        cbPasswordChanged.IsChecked = false;
+        if ( LibraryUsers.SelectedDownloadFolderSaved )
+        {
+            cbDownloadFolderChanged.IsChecked = false;
+            btnSaveUserProfile.IsEnabled = false;
+        }
+        else
+        {
+            cbDownloadFolderChanged.IsChecked = true;
+            btnSaveUserProfile.IsEnabled = true;
+        }
+
+        //ResetChanged ( );
     }
     private void TextBoxChanged ( object sender, TextChangedEventArgs e )
     {
@@ -47,7 +64,7 @@ public partial class UserProfile : Page
                 else
                 { cbEMailChanged.IsChecked = true; }
                 break;
-            case "tbDownloadFolder":
+            case "tbDownLoadFolder":
                 if ( tbDownLoadFolder.Text == tbCheckDownloadFolder.Text )
                 { cbDownloadFolderChanged.IsChecked = false; }
                 else
@@ -69,7 +86,7 @@ public partial class UserProfile : Page
     {
         if ( cbFullNameChanged.IsChecked == true ||
             cbEMailChanged.IsChecked == true ||
-            cbPasswordChanged.IsChecked == true || cbCoverSheetsFolderChanged.IsChecked == true )
+            cbPasswordChanged.IsChecked == true || cbDownloadFolderChanged.IsChecked == true )
         {
             btnSaveUserProfile.IsEnabled = true;
             btnSaveUserProfile.ToolTip = "Sla de gewijzigde gegevens op";
@@ -86,7 +103,6 @@ public partial class UserProfile : Page
         cbFullNameChanged.IsChecked = false;
         cbEMailChanged.IsChecked = false;
         cbPasswordChanged.IsChecked = false;
-        cbCoverSheetsFolderChanged.IsChecked = false;
         cbDownloadFolderChanged.IsChecked = false;
         btnSaveUserProfile.IsEnabled = false;
         btnSaveUserProfile.ToolTip = "Er zijn geen gegevens aangepast, opslaan niet mogelijk";
@@ -125,6 +141,9 @@ public partial class UserProfile : Page
             UserPassword = _Password,
             DownloadFolder = LibraryUsers.SelectedDownloadFolder
         } );
+
+        // Set the value that the Store Path is save to true,this way it is clear the folder is stored in the database
+        LibraryUsers.SelectedDownloadFolderSaved = true;
 
         DBCommands.UpdateUser ( ModifiedUser );
 
@@ -177,16 +196,16 @@ public partial class UserProfile : Page
         }
     }
 
+    #region Select Folder to store files
     private void BrowseToFolder_Click ( object sender, RoutedEventArgs e )
     {
         var senderButton = sender as System.Windows.Controls.Button;
 
         var dialogDescription = "Selecteer de map om bestanden op te slaan";
-        var dialogSelectedPath = '"' + LibraryUsers.SelectedDownloadFolder.Replace(@"\", @"\\") +'"';
 
         using ( var dialog = new FolderBrowserDialog ( ) )
         {
-            dialog.SelectedPath = @dialogSelectedPath;
+            dialog.InitialDirectory = @tbDownLoadFolder.Text;
             dialog.Description = dialogDescription;
             dialog.ShowNewFolderButton = true;
             dialog.UseDescriptionForTitle = true;
@@ -195,11 +214,12 @@ public partial class UserProfile : Page
             {
                 if ( senderButton != null )
                 {
-                    tbDownLoadFolder.Text = dialogSelectedPath;
+                    tbDownLoadFolder.Text = dialog.SelectedPath;
                 }
             }
         }
     }
+    #endregion
 }
 #pragma warning restore CS8629 // Nullable value type may be null.
 #pragma warning restore CS8602

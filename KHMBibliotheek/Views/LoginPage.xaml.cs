@@ -68,12 +68,14 @@ public partial class LoginPage : Window
                     if ( user.DownloadFolder != "" )
                     {
                         LibraryUsers.SelectedDownloadFolder = user.DownloadFolder;
+                        LibraryUsers.SelectedDownloadFolderSaved = true;
                     }
                     else
                     {
                         LibraryUsers.SelectedDownloadFolder = @$"{Registry.GetValue ( @"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders", "{374DE290-123F-4565-9164-39C4925E467B}", string.Empty )}\KHM";
                     }
                     user.DownloadFolder = LibraryUsers.SelectedDownloadFolder;
+                    LibraryUsers.SelectedDownloadFolderSaved = false;
                 }
             }
 

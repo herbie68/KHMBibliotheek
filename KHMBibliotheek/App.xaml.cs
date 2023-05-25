@@ -39,6 +39,7 @@ public class LibraryUsers
     public static string? SelectedUserEmail { get; set; }
     public static string? SelectedUserPassword { get; set; }
     public static string? SelectedDownloadFolder { get; set; }
+    public static bool SelectedDownloadFolderSaved { get; set; }
     public static int SelectedUserRoleId { get; set; }
 }
 
